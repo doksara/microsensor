@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,22 +25,25 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     public void onClick(View view)
     {
+        // ove stringove treba napuniti sa pravim podacima iz text view-a
+        String email = "dbaricevi@foi.hr";
+        String lozinka = "bratic";
         StudentDataLoader controller = new StudentDataLoader();
-        controller.start(this);
+        controller.start(email,lozinka);
     }
 
     //Funkcija koja prikazuje dobivene podatke tj. može se obrisati kasnije
-    private void setTextView(ArrayList<Student> list)
+    private void setTextView(Student list)
     {
         TextView textView = findViewById(R.id.textView);
-        textView.setText(list.get(counter).getUsername());
+        textView.setText(list.getEmail());
         counter++;
     }
 
     //U ovoj funkciji pozivati druge funkcije koje rade sa dohvaćenim podacima
     @Override
     public void update(Observable o, Object arg) {
-        ArrayList<Student> response = (ArrayList<Student>) arg;
+        Student response = (Student) arg;
         setTextView(response);
     }
 }

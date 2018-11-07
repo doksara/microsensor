@@ -9,7 +9,9 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,24 +21,32 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class StudentDataLoader implements Callback<List<Student>> {
 
     //Promijeniti URL webservisa
-    static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
+    static final String BASE_URL = "http://airmicrosensor.000webhostapp.com/";
 
-    private ArrayList<Student> reponseList;
+    private List<Student> studentList;
 
-    public void start(Activity activity)
+    public void start(String email, String lozinka)
     {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(120, TimeUnit.SECONDS)
+                .writeTimeout(120, TimeUnit.SECONDS)
+                .readTimeout(120, TimeUnit.SECONDS)
+                .build();
+
+
         Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         StudentDataLoaderLIstener studentDataLoaderLIstener = retrofit.create(StudentDataLoaderLIstener.class);
 
-        Call<List<Student>> call = studentDataLoaderLIstener.getUsers();
+        Call<List<Student>> call = studentDataLoaderLIstener.checkLogin("provjeriPrijavu", email, lozinka);
         call.enqueue(this);
     }
 
@@ -46,8 +56,9 @@ public class StudentDataLoader implements Callback<List<Student>> {
     {
         if(response.isSuccessful())
         {
-            reponseList = (ArrayList<Student>) response.body();
-            StudentObservable.getInstance(). notifyObserverWithResponse(reponseList);
+            studentList = (List<Student>) response.body();
+            Student student = studentList.get(0);
+            StudentObservable.getInstance(). notifyObserverWithResponse(student);
         }
         else
         {

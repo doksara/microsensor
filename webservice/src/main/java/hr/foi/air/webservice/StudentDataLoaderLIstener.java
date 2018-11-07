@@ -3,12 +3,17 @@ package hr.foi.air.webservice;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
 
 public interface StudentDataLoaderLIstener {
 
-    //Promijeniti URI za dohvaćanje sa našeg webservisa
-    @GET("users/")
-    Call<List<Student>> getUsers();
+    @FormUrlEncoded
+    @POST("provjeraPrijave.php")
+    Call<List<Student>> checkLogin(
+            @Field("opcija") String opcija,
+            @Field("email") String email,
+            @Field("lozinka") String lozinka
+    );
 }
