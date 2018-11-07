@@ -11,7 +11,7 @@ public interface StudentDataLoaderLIstener {
 
     @FormUrlEncoded
     @POST("provjeraPrijave.php")
-    Call<List<Student>> checkLogin(
+    Call<StudentResponse> checkLogin(
             @Field("opcija") String opcija,
             @Field("email") String email,
             @Field("lozinka") String lozinka

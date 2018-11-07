@@ -18,7 +18,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class StudentDataLoader implements Callback<List<Student>> {
+public class StudentDataLoader implements Callback<StudentResponse> {
 
     //Promijeniti URL webservisa
     static final String BASE_URL = "http://airmicrosensor.000webhostapp.com/";
@@ -46,19 +46,20 @@ public class StudentDataLoader implements Callback<List<Student>> {
 
         StudentDataLoaderLIstener studentDataLoaderLIstener = retrofit.create(StudentDataLoaderLIstener.class);
 
-        Call<List<Student>> call = studentDataLoaderLIstener.checkLogin("provjeriPrijavu", email, lozinka);
+        Call<StudentResponse> call = studentDataLoaderLIstener.checkLogin("provjeriPrijavu", email, lozinka);
         call.enqueue(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onResponse(Call<List<Student>> call, Response<List<Student>> response)
+    public void onResponse(Call<StudentResponse> call, Response<StudentResponse> response)
     {
         if(response.isSuccessful())
         {
-            studentList = (List<Student>) response.body();
-            Student student = studentList.get(0);
-            StudentObservable.getInstance(). notifyObserverWithResponse(student);
+            Student student;
+            StudentResponse studentResponse = (StudentResponse) response.body();
+            studentList = studentResponse.getData();
+            StudentObservable.getInstance(). notifyObserverWithResponse(studentList);
         }
         else
         {
@@ -67,7 +68,7 @@ public class StudentDataLoader implements Callback<List<Student>> {
     }
 
     @Override
-    public void onFailure(Call<List<Student>> call, Throwable t)
+    public void onFailure(Call<StudentResponse> call, Throwable t)
     {
         t.printStackTrace();
     }
