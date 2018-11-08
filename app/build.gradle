@@ -37,8 +37,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     // Other module dependencies
-    implementation project (':core')
-    implementation project (':database')
-    implementation project (':maps')
-    implementation project (':webservice')
+    implementation project(':core')
+    implementation project(':database')
+    implementation project(':maps')
+    implementation project(':webservice')
 }
