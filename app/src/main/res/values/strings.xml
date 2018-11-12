@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">micro:Sensor</string>
+    <string name="hintEmail">Email</string>
+    <string name="hintPassword">Password</string>
+    <string name="btnLogin">Log In</string>
+    <string name="btnRegister">Register</string>
+    <string name="registerInstruction">Don\'t have an account yet?</string>
 </resources>
