@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:background="@color/accent"
+    android:background="@color/icons"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -16,11 +16,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="30dp">
 
         <android.support.v7.widget.AppCompatImageView
-            android:layout_width="318dp"
-            android:layout_height="180dp"
+            android:layout_width="340dp"
+            android:layout_height="170dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:src="@drawable/microsensor_logo" />
@@ -30,21 +30,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:drawableStart="@drawable/outline_email_white_18"
-            android:drawableLeft="@drawable/outline_email_white_18"
+            android:drawableStart="@drawable/baseline_email_black_18"
+            android:drawableLeft="@drawable/baseline_email_black_18"
             android:drawablePadding="12dp"
             android:ems="10"
             android:hint="@string/hintEmail"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"/>
+            android:textColorHint="@color/primary_text"
+            android:textColor="@color/primary_text"/>
 
         <View
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/white" />
+            android:background="@color/primary_text" />
 
         <EditText
             android:id="@+id/mInputPassword"
@@ -52,21 +52,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
-            android:drawableStart="@drawable/outline_lock_white_18"
-            android:drawableLeft="@drawable/outline_lock_white_18"
+            android:drawableStart="@drawable/baseline_lock_black_18"
+            android:drawableLeft="@drawable/baseline_lock_black_18"
             android:drawablePadding="12dp"
             android:ems="10"
             android:hint="@string/hintPassword"
             android:inputType="textPassword"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/primary_text"
             android:maxLines="1" />
 
         <View
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/white" />
+            android:background="@color/primary_text" />
 
         <Button
             android:id="@+id/mLogin"
@@ -79,7 +79,7 @@
             android:padding="10dp"
             android:text="@string/btnLogin"
             android:textAllCaps="true"
-            android:textColor="@android:color/white"
+            android:textColor="@color/icons"
             android:textSize="20sp" />
 
     </LinearLayout>

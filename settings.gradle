@@ -1,1 +1,1 @@
-include ':app', ':webservice', ':core', ':maps', ':database'
+include ':app', ':webservice', ':core', ':database'
