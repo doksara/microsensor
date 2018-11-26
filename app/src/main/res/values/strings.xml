@@ -18,6 +18,13 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="currentHall">Hall 10</string>
+    <string name="currentTemperature">15 °C</string>
+    <string name="currentHumidity">47%</string>
+    <string name="currentBrightness">35.6 cd</string>
+    <string name="textHumidity">Humidity</string>
+    <string name="textBrightness">Brightness</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

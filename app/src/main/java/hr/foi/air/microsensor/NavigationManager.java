@@ -13,6 +13,8 @@ import java.util.List;
 
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.fragments.AttendanceFragment;
+import hr.foi.air.microsensor.fragments.RealtimeViewFragment;
+import hr.foi.air.microsensor.fragments.StatisticsViewFragment;
 
 
 public class NavigationManager {
@@ -27,8 +29,9 @@ public class NavigationManager {
     private NavigationManager()
     {
         navigationItems = new ArrayList<>();
+        navigationItems.add(new RealtimeViewFragment());
+        navigationItems.add(new StatisticsViewFragment());
         navigationItems.add(new AttendanceFragment());
-        // ovdje idu sve opcije u navigaciji (realni, statisticki, prijava prisustva)
     }
 
     public static NavigationManager getInstance()
