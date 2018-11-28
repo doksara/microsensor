@@ -6,6 +6,10 @@
     <string name="btnRegister">Register</string>
     <string name="registerInstruction">Don\'t have an account yet?</string>
     <string name="textPreferences">Preferences</string>
+    <string name="textYourHall">Your hall</string>
+    <string name="textYourSubject">Your subject</string>
+    <string name="textCurrentHall">D10</string>
+    <string name="textCurrentSubject">Your subject</string>
 
     <string name="nav_header_title">microsensor</string>
     <string name="nav_header_info">foi@foi.hr</string>

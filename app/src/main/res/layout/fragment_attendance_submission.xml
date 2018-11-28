@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    tools:context=".fragments.AttendanceSubmissionFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_hall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textYourHall"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/textCurrentHall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textCurrentHall"
+            android:textSize="24sp"
+            android:layout_gravity="right"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/layout_hall"
+        app:layout_constraintRight_toLeftOf="@id/layout_hall">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textYourSubject"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/textCurrentSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textCurrentSubject"
+            android:textSize="24sp"
+            android:layout_gravity="right"/>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

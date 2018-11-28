@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">core</string>
-    <string name="attendance_module_name">Attendance</string>
+    <string name="attendance_submission_module_name">Submit attendance</string>
+    <string name="attendance_monitor_module_name">Attendance monitor</string>
     <string name="realtimeview_module_name">Measurements</string>
     <string name="statisticsview_module_name">Statistics</string>
 </resources>

@@ -1,6 +1,5 @@
 package hr.foi.air.microsensor;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -13,14 +12,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.foi.air.core.CurrentActivity;
 
 public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
-    DrawerLayout drawerLayout;
+    @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.mNavigationView) NavigationView mNavigationView;
+    @BindView(R.id.mToolbar) Toolbar mToolbar;
     ActionBarDrawerToggle drawerToggle;
-    Toolbar toolbar;
-    NavigationView navigationView;
     FragmentManager mFragmentManager;
 
     @Override
@@ -42,17 +43,14 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
 
     private void initializeLayout()
     {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         drawerToggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(drawerToggle);
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
     }
 
     private void setBackStackChangeListener()
@@ -64,8 +62,8 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         NavigationManager nm = NavigationManager.getInstance();
         nm.setDrawerDependencies(
                 this,
-                navigationView,
-                drawerLayout,
+                mNavigationView,
+                mDrawerLayout,
                 R.id.dynamic_group);
     }
 
@@ -89,7 +87,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 break;
         }
 
-        drawerLayout.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

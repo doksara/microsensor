@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.air.core.NavigationItem;
-import hr.foi.air.microsensor.fragments.AttendanceFragment;
+import hr.foi.air.microsensor.fragments.AttendanceMonitorFragment;
+import hr.foi.air.microsensor.fragments.AttendanceSubmissionFragment;
 import hr.foi.air.microsensor.fragments.RealtimeViewFragment;
 import hr.foi.air.microsensor.fragments.StatisticsViewFragment;
 
@@ -31,7 +32,8 @@ public class NavigationManager {
         navigationItems = new ArrayList<>();
         navigationItems.add(new RealtimeViewFragment());
         navigationItems.add(new StatisticsViewFragment());
-        navigationItems.add(new AttendanceFragment());
+        navigationItems.add(new AttendanceMonitorFragment());
+        navigationItems.add(new AttendanceSubmissionFragment());
     }
 
     public static NavigationManager getInstance()
