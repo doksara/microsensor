@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -15,9 +14,9 @@ import java.util.Observer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import hr.foi.air.webservice.Student;
-import hr.foi.air.webservice.StudentDataLoader;
-import hr.foi.air.webservice.StudentObservable;
+import hr.foi.air.webservice.Student.Student;
+import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Student.StudentLoader;
 
 public class MainActivity extends AppCompatActivity implements Observer {
     @BindView(R.id.mInputEmail) EditText inputEmail;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        StudentObservable.getInstance().addObserver(this);
+        DataObservable.getInstance().addObserver(this);
         ButterKnife.bind(this);
     }
 
@@ -36,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
     {
         String email = inputEmail.getText().toString();
         String lozinka = inputPassword.getText().toString();
-        StudentDataLoader controller = new StudentDataLoader();
-        controller.start(email, lozinka);
+        StudentLoader controller = new StudentLoader();
+        controller.loadStudent(controller.create(), email, lozinka);
     }
 
     // U ovoj funkciji pozivati druge funkcije koje rade sa dohvaćenim podacima

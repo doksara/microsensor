@@ -1,4 +1,4 @@
-package hr.foi.air.webservice;
+package hr.foi.air.webservice.Student;
 
 import android.app.Activity;
 import android.os.Build;
@@ -15,7 +15,6 @@ public class Student {
     String ime;
     String prezime;
     String email;
-    String lozinka;
 
     public int getId_korisnik() {
         return id_korisnik;
@@ -27,10 +26,6 @@ public class Student {
 
     public String getIme() {
         return ime;
-    }
-
-    public String getLozinka() {
-        return lozinka;
     }
 
     public String getPrezime() {
@@ -47,10 +42,6 @@ public class Student {
 
     public void setIme(String ime) {
         this.ime = ime;
-    }
-
-    public void setLozinka(String lozinka) {
-        this.lozinka = lozinka;
     }
 
     public void setPrezime(String prezime) {
