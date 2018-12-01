@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_discount_details"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:theme="@style/RealtimeFragment"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -13,106 +12,149 @@
     tools:context=".fragments.RealtimeViewFragment">
 
     <TextView
-        android:id="@+id/mCurrentHall"
+        android:id="@+id/headingMeasurements"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="45sp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/open_sans_bold"
-        android:gravity="center_horizontal"
-        android:text="@string/currentHall" />
+        android:textSize="26sp"
+        android:text="@string/headingMeasurements"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"/>
 
-    <TextView
-        android:id="@+id/mCurrentTemperature"
+    <LinearLayout
+        android:id="@+id/layout_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:layout_marginTop="35dp"
-        android:fontFamily="@font/open_sans_bold"
-        android:gravity="center_horizontal"
-        android:text="@string/currentTemperature" />
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:elevation="6dp"
+        android:background="@drawable/layout_border"
+        app:layout_constraintTop_toBottomOf="@+id/headingMeasurements"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:baselineAligned="false"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mCurrentHall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:fontFamily="@font/open_sans_bold"
+                android:textColor="@color/secondary_text_lighter"
+                android:text="@string/currentHall" />
+
+            <TextView
+                android:id="@+id/mCurrentTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:layout_marginBottom="-5dp"
+                android:layout_marginTop="-10dp"
+                android:textSize="80sp"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/currentTemperature" />
+        </LinearLayout>
 
         <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="-20dp"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:src="@drawable/temperature_icon"
-            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/currentTemperature"
             android:tint="@color/icons"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp">
+        android:weightSum="2"
+        android:gravity="center_horizontal"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_temperature"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_weight="1"
+            android:elevation="6dp"
+            android:padding="8dp"
+            android:background="@drawable/layout_border"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/humidity_icon"
                 android:layout_gravity="center_horizontal"
                 android:tint="@color/icons"/>
 
             <TextView
-                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/currentHumidity"
+                android:fontFamily="@font/open_sans_bold"
+                android:textSize="32sp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textHumidity"
-                android:textSize="14sp"
-                android:gravity="center"/>
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/secondary_text_lighter"/>
+
         </LinearLayout>
 
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:id="@+id/mCurrentHumidity"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="22sp"
-            android:text="@string/currentHumidity"
-            android:fontFamily="@font/open_sans_bold"
-            android:gravity="center"
-            android:paddingBottom="35dp"/>
-
         <LinearLayout
-            android:layout_marginLeft="25dp"
+            android:id="@+id/layout_brightness"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:elevation="6dp"
+            android:padding="8dp"
+            android:background="@drawable/layout_border"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/brightness_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:tint="@color/icons"/>
+                android:src="@drawable/brightness_icon"
+                android:tint="@color/icons" />
 
             <TextView
-                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/currentBrightness"
+                android:fontFamily="@font/open_sans_bold"
+                android:textSize="32sp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textBrightness"
-                android:textSize="14sp"
-                android:gravity="center"/>
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/secondary_text_lighter"/>
         </LinearLayout>
-
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:id="@+id/mCurrentBrightness"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="22sp"
-            android:text="@string/currentBrightness"
-            android:fontFamily="@font/open_sans_bold"
-            android:gravity="center"
-            android:paddingBottom="35dp"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -4,30 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:layout_marginBottom="15dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:theme="@style/SubmitAttendanceFragment"
     tools:context=".fragments.AttendanceSubmissionFragment">
+
+    <TextView
+        android:id="@+id/headingSubmitAttendance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        android:textSize="24sp"
+        android:text="@string/headingSubmitAttendance"/>
 
     <LinearLayout
         android:id="@+id/layout_hall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="18dp"
+        android:padding="8dp"
+        android:elevation="6dp"
+        android:background="@drawable/layout_border"
+        app:layout_constraintTop_toBottomOf="@+id/headingSubmitAttendance"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/secondary_text_lighter"
             android:text="@string/textYourHall"
-            android:textSize="18sp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/textCurrentHall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textCurrentHall"
-            android:textSize="24sp"
-            android:layout_gravity="right"/>
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,23 +52,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="8dp"
+        android:elevation="6dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layout_border"
         app:layout_constraintTop_toBottomOf="@+id/layout_hall"
-        app:layout_constraintRight_toLeftOf="@id/layout_hall">
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/secondary_text_lighter"
             android:text="@string/textYourSubject"
-            android:textSize="18sp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/textCurrentSubject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textCurrentSubject"
-            android:textSize="24sp"
-            android:layout_gravity="right"/>
+            android:textAllCaps="true"
+            android:textSize="24sp" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/mSubmitAttendance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+        android:drawableStart="@drawable/ic_done"
+        android:drawableTint="@color/icons"
+        android:paddingStart="25dp"
+        android:paddingEnd="35dp"
+        android:fontFamily="@font/open_sans_bold"
+        app:layout_constraintTop_toBottomOf="@+id/layout_subject"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        android:background="@drawable/button_border"
+        android:textSize="18sp"
+        android:text="@string/btnSubmitAttendance"/>
 
 </android.support.constraint.ConstraintLayout>
