@@ -45,13 +45,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
     public void update(Observable o, Object arg) {
         List<Student> response = (List<Student>) arg;
 
-        Student currentUser = null;
         if(!response.isEmpty())
         {
-            currentUser = response.get(0);
-
-            Intent i = new Intent(MainActivity.this, HomepageActivity.class);
-            i.putExtra("CURRENT_USER", currentUser.getIme().toString());
+            Intent i = new Intent(this, HomepageActivity.class);
             startActivity(i);
         }
         else {

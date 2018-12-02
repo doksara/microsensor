@@ -3,6 +3,7 @@
     <string name="hintEmail">Email</string>
     <string name="hintPassword">Password</string>
     <string name="btnLogin">Log In</string>
+    <string name="headingLogin">Account login</string>
     <string name="btnRegister">Register</string>
     <string name="btnSubmitAttendance">Submit</string>
     <string name="registerInstruction">Don\'t have an account yet?</string>

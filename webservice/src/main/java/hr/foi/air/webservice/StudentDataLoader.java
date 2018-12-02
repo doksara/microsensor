@@ -59,7 +59,7 @@ public class StudentDataLoader implements Callback<StudentResponse> {
             Student student;
             StudentResponse studentResponse = (StudentResponse) response.body();
             studentList = studentResponse.getData();
-            StudentObservable.getInstance(). notifyObserverWithResponse(studentList);
+            StudentObservable.getInstance().notifyObserverWithResponse(studentList);
         }
         else
         {
