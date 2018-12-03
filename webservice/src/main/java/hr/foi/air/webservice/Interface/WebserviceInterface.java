@@ -18,17 +18,19 @@ public interface WebserviceInterface {
     );
 
     @FormUrlEncoded
-    @POST("provjeraPrijave.php")
+    @POST("zapisiMjerenje.php")
     Call<WeatherResponse> sendData(
-            @Field("opcija") String opcija,
-            @Field("temp") int temp,
-            @Field("dvorana") String dvorana,
-            @Field("email") String email
+            @Field("temperatura") int temperatura,
+            @Field("jacinaSvjetlosti") int jacinaSvjetlosti,
+            @Field("vlaznostZraka") int vlaznostZraka,
+            @Field("zgrada") String zgrada,
+            @Field("dvorana") String dvorana
     );
 
     @FormUrlEncoded
-    @POST("provjeraPrijave.php")
+    @POST("dohvatiStatistickePodatke.php")
     Call<WeatherResponse> getData(
-            @Field("opcija") String opcija
+            @Field("zgrada") String zgrada,
+            @Field("dvorana") String dvorana
     );
 }

@@ -1,16 +1,18 @@
 package hr.foi.air.webservice.Weather;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.air.webservice.Data.DataLoader;
-import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Student.StudentObservable;
 import hr.foi.air.webservice.Interface.WebserviceInterface;
 import retrofit2.Call;
+import retrofit2.Response;
 
 public class WeatherLoader extends DataLoader {
-    public void loadWeather(WebserviceInterface webserviceInterface)
+    public void loadWeather(WebserviceInterface webserviceInterface, String zgrada, String dvorana)
     {
-        Call<WeatherResponse> call = webserviceInterface.getData("preuzmiPodatke");
+        Call<WeatherResponse> call = webserviceInterface.getData(zgrada, dvorana);
         call.enqueue(this);
     }
 
@@ -20,8 +22,10 @@ public class WeatherLoader extends DataLoader {
         if(response.isSuccessful())
         {
             WeatherResponse stanjeDataResponse = (WeatherResponse) response.body();
-            List<Weather> list = stanjeDataResponse.getData();
-            DataObservable.getInstance(). notifyObserverWithResponse(list);
+            List<Object> list = new ArrayList<>();
+            list.add(stanjeDataResponse.getData());
+            list.add(stanjeDataResponse.getMessage());
+            WeatherDataObservable.getInstance(). notifyObserverWithResponse(list);
         }
         else
         {

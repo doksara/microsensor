@@ -3,7 +3,6 @@ package hr.foi.air.webservice.Student;
 import java.util.List;
 
 import hr.foi.air.webservice.Data.DataLoader;
-import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Interface.WebserviceInterface;
 import retrofit2.Call;
 
@@ -22,7 +21,7 @@ public class StudentLoader extends DataLoader {
         {
             StudentResponse studentDataResponse = (StudentResponse) response.body();
             List<Student> list = studentDataResponse.getData();
-            DataObservable.getInstance(). notifyObserverWithResponse(list);
+            StudentObservable.getInstance(). notifyObserverWithResponse(list);
         }
         else
         {

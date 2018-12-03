@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.webservice.Student.Student;
-import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Student.StudentObservable;
 import hr.foi.air.webservice.Student.StudentLoader;
 
 public class MainActivity extends AppCompatActivity implements Observer {
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DataObservable.getInstance().addObserver(this);
+        StudentObservable.getInstance().addObserver(this);
         ButterKnife.bind(this);
     }
 

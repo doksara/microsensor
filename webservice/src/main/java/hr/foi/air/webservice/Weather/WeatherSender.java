@@ -1,14 +1,14 @@
 package hr.foi.air.webservice.Weather;
 
 import hr.foi.air.webservice.Data.DataLoader;
-import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Student.StudentObservable;
 import hr.foi.air.webservice.Interface.WebserviceInterface;
 import retrofit2.Call;
 
 public class WeatherSender extends DataLoader {
-    public void sendWeather(WebserviceInterface webserviceInterface, int temp, String dvorana, String email)
+    public void sendWeather(WebserviceInterface webserviceInterface, int temp, int svjetlo, int vlaznost, String zgrada, String dvorana)
     {
-        Call<WeatherResponse> call = webserviceInterface.sendData("posaljiPodatke", temp, dvorana, email);
+        Call<WeatherResponse> call = webserviceInterface.sendData(temp, svjetlo, vlaznost, zgrada, dvorana);
         call.enqueue(this);
     }
 
@@ -19,7 +19,7 @@ public class WeatherSender extends DataLoader {
         {
             WeatherResponse stanjeDataResponse = (WeatherResponse) response.body();
             String message = stanjeDataResponse.getMessage();
-            DataObservable.getInstance(). notifyObserverWithResponse(message);
+            WeatherSenderObservable.getInstance(). notifyObserverWithResponse(message);
         }
         else
         {

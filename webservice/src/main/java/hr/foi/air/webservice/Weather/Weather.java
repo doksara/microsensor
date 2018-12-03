@@ -1,22 +1,40 @@
 package hr.foi.air.webservice.Weather;
 
 public class Weather {
-    int temp;
-    int dvorana;
+    String dan;
+    int temperatura;
+    int jacina_svjetlosti;
+    float vlaznost_zraka;
 
-    public int getTemp() {
-        return temp;
+    public int getJacina_svjetlosti() {
+        return jacina_svjetlosti;
     }
 
-    public int getDvorana() {
-        return dvorana;
+    public int getTemperatura() {
+        return temperatura;
     }
 
-    public void setTemp(int temp) {
-        this.temp = temp;
+    public float getVlaznost_zraka() {
+        return vlaznost_zraka;
     }
 
-    public void setDvorana(int dvorana) {
-        this.dvorana = dvorana;
+    public String getDan() {
+        return dan;
+    }
+
+    public void setDan(String dan) {
+        this.dan = dan;
+    }
+
+    public void setJacina_svjetlosti(int jacina_svjetlosti) {
+        this.jacina_svjetlosti = jacina_svjetlosti;
+    }
+
+    public void setTemperatura(int temperatura) {
+        this.temperatura = temperatura;
+    }
+
+    public void setVlaznost_zraka(int vlaznost_zraka) {
+        this.vlaznost_zraka = vlaznost_zraka;
     }
 }
