@@ -5,17 +5,15 @@
     $temperatura = "";
     $jacinaSvjetlosti = "";
     $vlaznostZraka = "";
-    $dvorana = "";
-    $zgrada = "";
+    $idDvorana = "";
 	
 	$odgovor = array();
 	
-    if(isset($_POST["temperatura"]) && isset($_POST["jacinaSvjetlosti"]) && isset($_POST["vlaznostZraka"]) && isset($_POST["dvorana"]) && isset($_POST["zgrada"])){
+    if(isset($_POST["temperatura"]) && isset($_POST["jacinaSvjetlosti"]) && isset($_POST["vlaznostZraka"]) && isset($_POST["idDvorana"])){
         $temperatura = $_POST["temperatura"];
         $jacinaSvjetlosti = $_POST["jacinaSvjetlosti"];
         $vlaznostZraka = $_POST["vlaznostZraka"];
-        $dvorana = $_POST["dvorana"];
-        $zgrada = $_POST["zgrada"];
+        $idDvorana = $_POST["idDvorana"];
     }
     else{
 		$odgovor["success"] = 0;
@@ -28,9 +26,6 @@
     $veza = new Baza();
     $veza->spojiDB();
     $datum = date("Y-m-d H:i:s");
-    $idDvorana = $veza->selectDB("select id_dvorana from dvorana, zgrada where zgrada.naziv='$zgrada' and zgrada.id_zgrada=dvorana.id_dvorana and dvorana.naziv='$dvorana'");
-    $idDvorana = mysqli_fetch_array($idDvorana);
-    $idDvorana = $idDvorana["id_dvorana"];
     $rezultat = $veza->updateDB("insert into mjerenje (temperatura, vlaznost_zraka, jacina_svjetlosti, datum, id_dvorana) 
     values ($temperatura, $vlaznostZraka, $jacinaSvjetlosti, '$datum', $idDvorana)");
     $veza->zatvoriDB();
