@@ -1,15 +1,12 @@
-package hr.foi.air.webservice;
+package hr.foi.air.webservice.Data;
 
 import java.util.List;
 
-public class StudentResponse {
-    List<Student> data;
+import hr.foi.air.webservice.Student.Student;
+
+public abstract class DataResponse {
     String message;
     String success;
-
-    public List<Student> getData() {
-        return data;
-    }
 
     public String getMessage() {
         return message;
@@ -17,10 +14,6 @@ public class StudentResponse {
 
     public String getSuccess() {
         return success;
-    }
-
-    public void setData(List<Student> data) {
-        this.data = data;
     }
 
     public void setMessage(String message) {

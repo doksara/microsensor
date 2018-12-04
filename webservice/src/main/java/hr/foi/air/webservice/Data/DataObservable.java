@@ -1,15 +1,15 @@
-package hr.foi.air.webservice;
+package hr.foi.air.webservice.Data;
 
 import java.util.Observable;
 
-public class StudentObservable extends Observable {
-    private static StudentObservable instance = null;
+public class DataObservable extends Observable {
+    private static DataObservable instance = null;
 
-    public static StudentObservable getInstance() {
+    public static DataObservable getInstance() {
 
         if(instance == null) {
 
-            instance = new StudentObservable();
+            instance = new DataObservable();
 
         }
 
