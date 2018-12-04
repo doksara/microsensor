@@ -19,7 +19,7 @@ public class DataManager {
         return instance;
     }
 
-    public void sendData(final NavigationItem module){
-
+    public void sendData(NavigationItem module){
+        module.setData();
     }
 }

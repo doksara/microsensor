@@ -12,8 +12,12 @@
     <string name="textYourSubject">Your subject</string>
     <string name="textCurrentHall">D10</string>
     <string name="textCurrentSubject">AIR</string>
+    <string name="textAverageTemperature">Average temperature: </string>
+    <string name="textAverageBrightness">Average brightness: </string>
+    <string name="textAverageHumidity">Average humidity: </string>
     <string name="headingSubmitAttendance">Submit attendance</string>
     <string name="headingMeasurements">Measurements</string>
+    <string name="headingStatistics">Statistics</string>
 
     <string name="nav_header_title">microsensor</string>
     <string name="nav_header_info">foi@foi.hr</string>
