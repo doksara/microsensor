@@ -7,19 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import hr.foi.air.webservice.Student.StudentObservable;
-import hr.foi.air.webservice.Weather.Weather;
-import hr.foi.air.webservice.Weather.WeatherDataObservable;
-import hr.foi.air.webservice.Weather.WeatherLoader;
+import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Weather.WeatherSender;
-import hr.foi.air.webservice.Weather.WeatherSenderObservable;
 
 public class HomepageActivity extends AppCompatActivity implements Observer {
     @BindView(R.id.userMessage) TextView userMessage;
@@ -28,8 +23,6 @@ public class HomepageActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
-        WeatherSenderObservable.getInstance().addObserver(this);
-        //WeatherDataObservable.getInstance().addObserver(this);
         ButterKnife.bind(this);
 
         // Dohvaćamo ime korisnika koji se logirao
@@ -41,6 +34,7 @@ public class HomepageActivity extends AppCompatActivity implements Observer {
     @OnClick(R.id.button2)
     public void onClick(View view)
     {
+        DataObservable.getInstance().addObserver(this);
         WeatherSender controller = new WeatherSender();
         controller.sendWeather(controller.create(), 2, 20, 55, 25);
         //WeatherLoader controller = new WeatherLoader();
@@ -66,5 +60,6 @@ public class HomepageActivity extends AppCompatActivity implements Observer {
             Toast.makeText(HomepageActivity.this, message, Toast.LENGTH_SHORT).show();
         }
         */
+        DataObservable.getInstance().deleteObserver(this);
     }
 }

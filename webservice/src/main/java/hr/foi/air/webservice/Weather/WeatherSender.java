@@ -1,7 +1,7 @@
 package hr.foi.air.webservice.Weather;
 
 import hr.foi.air.webservice.Data.DataLoader;
-import hr.foi.air.webservice.Student.StudentObservable;
+import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Interface.WebserviceInterface;
 import retrofit2.Call;
 
@@ -19,7 +19,7 @@ public class WeatherSender extends DataLoader {
         {
             WeatherResponse stanjeDataResponse = (WeatherResponse) response.body();
             String message = stanjeDataResponse.getMessage();
-            WeatherSenderObservable.getInstance(). notifyObserverWithResponse(message);
+            DataObservable.getInstance(). notifyObserverWithResponse(message);
         }
         else
         {
