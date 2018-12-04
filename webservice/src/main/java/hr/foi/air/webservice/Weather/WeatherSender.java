@@ -6,9 +6,9 @@ import hr.foi.air.webservice.Interface.WebserviceInterface;
 import retrofit2.Call;
 
 public class WeatherSender extends DataLoader {
-    public void sendWeather(WebserviceInterface webserviceInterface, int temp, int svjetlo, int vlaznost, String zgrada, String dvorana)
+    public void sendWeather(WebserviceInterface webserviceInterface, int idDvorana, int temp, int svjetlo, int vlaznost)
     {
-        Call<WeatherResponse> call = webserviceInterface.sendData(temp, svjetlo, vlaznost, zgrada, dvorana);
+        Call<WeatherResponse> call = webserviceInterface.sendData(idDvorana, temp, svjetlo, vlaznost);
         call.enqueue(this);
     }
 

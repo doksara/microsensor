@@ -28,8 +28,8 @@ public class HomepageActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
-        //WeatherSenderObservable.getInstance().addObserver(this);
-        WeatherDataObservable.getInstance().addObserver(this);
+        WeatherSenderObservable.getInstance().addObserver(this);
+        //WeatherDataObservable.getInstance().addObserver(this);
         ButterKnife.bind(this);
 
         // Dohvaćamo ime korisnika koji se logirao
@@ -41,18 +41,18 @@ public class HomepageActivity extends AppCompatActivity implements Observer {
     @OnClick(R.id.button2)
     public void onClick(View view)
     {
-        //WeatherSender controller = new WeatherSender();
-        //controller.sendWeather(controller.create(), 25, 30, 55, "FOI1", "D10");
-        WeatherLoader controller = new WeatherLoader();
-        controller.loadWeather(controller.create(), "FOI1", "D101");
+        WeatherSender controller = new WeatherSender();
+        controller.sendWeather(controller.create(), 2, 20, 55, 25);
+        //WeatherLoader controller = new WeatherLoader();
+        //controller.loadWeather(controller.create(), "FOI1", "D101");
     }
 
     // U ovoj funkciji pozivati druge funkcije koje rade sa dohvaćenim podacima
     @Override
     public void update(Observable o, Object arg) {
-        //String response = (String) arg;
-        //Toast.makeText(HomepageActivity.this, message, Toast.LENGTH_SHORT).show();
-        List<Object> list = (List<Object>) arg;
+        String response = (String) arg;
+        Toast.makeText(HomepageActivity.this, response, Toast.LENGTH_SHORT).show();
+        /*List<Object> list = (List<Object>) arg;
         String message = (String) list.get(1);
         List<Weather> weatherList = (List<Weather>) list.get(0);
         if(!weatherList.isEmpty())
@@ -65,5 +65,6 @@ public class HomepageActivity extends AppCompatActivity implements Observer {
         else {
             Toast.makeText(HomepageActivity.this, message, Toast.LENGTH_SHORT).show();
         }
+        */
     }
 }

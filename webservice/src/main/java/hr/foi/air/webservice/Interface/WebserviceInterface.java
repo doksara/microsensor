@@ -20,11 +20,10 @@ public interface WebserviceInterface {
     @FormUrlEncoded
     @POST("zapisiMjerenje.php")
     Call<WeatherResponse> sendData(
+            @Field("idDvorana") int idDvorana,
             @Field("temperatura") int temperatura,
             @Field("jacinaSvjetlosti") int jacinaSvjetlosti,
-            @Field("vlaznostZraka") int vlaznostZraka,
-            @Field("zgrada") String zgrada,
-            @Field("dvorana") String dvorana
+            @Field("vlaznostZraka") int vlaznostZraka
     );
 
     @FormUrlEncoded
