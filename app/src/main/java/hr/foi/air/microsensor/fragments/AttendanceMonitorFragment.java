@@ -47,7 +47,7 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
     }
 
     @Override
-    public void setData() {
+    public void setData(String optionalData) {
        /*
         * Na ovom mjestu je potrebno implementirati logiku za postavljanje lokalnih podataka
         * koji su potrebni za prikazivanje prethodne prisutnosti trenutnog korisnika na predavanjima

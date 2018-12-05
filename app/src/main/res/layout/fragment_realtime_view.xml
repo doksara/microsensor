@@ -47,8 +47,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:fontFamily="@font/open_sans_bold"
-                android:textColor="@color/secondary_text_lighter"
-                android:text="@string/currentHall" />
+                android:textColor="@color/secondary_text_lighter" />
 
             <TextView
                 android:id="@+id/mCurrentTemperature"
@@ -58,8 +57,7 @@
                 android:layout_marginBottom="-5dp"
                 android:layout_marginTop="-10dp"
                 android:textSize="80sp"
-                android:fontFamily="@font/open_sans_bold"
-                android:text="@string/currentTemperature" />
+                android:fontFamily="@font/open_sans_bold" />
         </LinearLayout>
 
         <ImageView
@@ -105,9 +103,9 @@
                 android:tint="@color/icons"/>
 
             <TextView
+                android:id="@+id/mCurrentHumidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/currentHumidity"
                 android:fontFamily="@font/open_sans_bold"
                 android:textSize="32sp"
                 android:layout_gravity="center_horizontal"/>
@@ -141,9 +139,9 @@
                 android:tint="@color/icons" />
 
             <TextView
+                android:id="@+id/mCurrentBrightness"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/currentBrightness"
                 android:fontFamily="@font/open_sans_bold"
                 android:textSize="32sp"
                 android:layout_gravity="center_horizontal"/>

@@ -46,7 +46,7 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     }
 
     @Override
-    public void setData() {
+    public void setData(String optionalData) {
         /*
          * Na ovom mjestu je potrebno implementirati logiku za postavljanje lokalnih podataka
          * kao što je npr trenutna ucionica, trenutna temperatura, vlaga zraka i razina svijetlosti

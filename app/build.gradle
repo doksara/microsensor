@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "hr.foi.air.microsensor"
-        minSdkVersion 23
+        minSdkVersion 25
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -37,6 +37,9 @@ dependencies {
 
     // GSON dependencies
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Android Beacon Library dependency
+    implementation 'org.altbeacon:android-beacon-library:2+'
 
     // Other module dependencies
     implementation project(':webservice')

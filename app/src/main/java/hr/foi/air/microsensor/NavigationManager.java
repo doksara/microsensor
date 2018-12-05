@@ -69,13 +69,13 @@ public class NavigationManager {
         }
     }
 
-    public void startMainModule() {
+    public void startMainModule(String currentData) {
         NavigationItem mainModule = navigationItems != null ? navigationItems.get(0) : null;
         if (mainModule != null)
-            startModule(mainModule);
+            startModule(mainModule, currentData);
     }
 
-    private void startModule(NavigationItem module) {
+    private void startModule(NavigationItem module, String currentData) {
         FragmentManager mFragmentManager = activity.getSupportFragmentManager();
         mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         mFragmentManager.beginTransaction()
@@ -83,16 +83,16 @@ public class NavigationManager {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
 
-        DataManager.getInstance().sendData(module);
+        DataManager.getInstance().sendData(module, currentData);
     }
 
-    public void selectNavigationItem(MenuItem menuItem) {
+    public void selectNavigationItem(MenuItem menuItem, String currentData) {
         if (!menuItem.isChecked()) {
             menuItem.setChecked(true);
             drawerLayout.closeDrawer(GravityCompat.START);
 
             NavigationItem selectedItem = navigationItems.get(menuItem.getItemId());
-            startModule(selectedItem);
+            startModule(selectedItem, currentData);
         }
     }
 }
