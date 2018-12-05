@@ -5,10 +5,6 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-<<<<<<< HEAD
-    </style>
-
-=======
         <item name="colorPrimary">@color/primary</item>
         <item name="fontFamily">@font/open_sans</item>
         <item name="android:statusBarColor">@color/black_status_bar</item>
@@ -24,7 +20,6 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
->>>>>>> user_interface
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

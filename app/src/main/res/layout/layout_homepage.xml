@@ -9,18 +9,6 @@
     tools:context=".HomepageActivity">
 
     <android.support.design.widget.AppBarLayout
-<<<<<<< HEAD
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-=======
         app:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +22,6 @@
             android:id="@+id/mToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
->>>>>>> user_interface
 
     </android.support.design.widget.AppBarLayout>
 

@@ -8,8 +8,6 @@
     <string name="btnSubmitAttendance">Submit</string>
     <string name="registerInstruction">Don\'t have an account yet?</string>
     <string name="textPreferences">Preferences</string>
-<<<<<<< HEAD
-=======
     <string name="textYourHall">Your hall</string>
     <string name="textYourSubject">Your subject</string>
     <string name="textCurrentHall">D10</string>
@@ -20,7 +18,6 @@
     <string name="headingSubmitAttendance">Submit attendance</string>
     <string name="headingMeasurements">Measurements</string>
     <string name="headingStatistics">Statistics</string>
->>>>>>> user_interface
 
     <string name="nav_header_title">microsensor</string>
     <string name="nav_header_info">foi@foi.hr</string>
@@ -33,8 +30,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-<<<<<<< HEAD
-=======
     <string name="currentHall">Hall 10</string>
     <string name="currentTemperature">15°</string>
     <string name="currentHumidity">47%</string>
@@ -42,7 +37,11 @@
     <string name="textHumidity">Humidity</string>
     <string name="textBrightness">Brightness</string>
 
->>>>>>> user_interface
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="attendance_submission_module_name">Submit attendance</string>
+    <string name="attendance_monitor_module_name">Previous attendance</string>
+    <string name="attendance_module_name">Attendance</string>
+    <string name="statisticsview_module_name">Statistics view</string>
+    <string name="realtimeview_module_name">Realtime view</string>
 </resources>

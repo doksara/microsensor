@@ -1,15 +1,11 @@
 package hr.foi.air.microsensor;
 
-<<<<<<< HEAD
-import android.content.Intent;
-=======
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.RemoteException;
->>>>>>> user_interface
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -18,39 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import butterknife.ButterKnife;
-import hr.foi.air.core.CurrentActivity;
-
-public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle drawerToggle;
-    Toolbar toolbar;
-    NavigationView navigationView;
-    FragmentManager mFragmentManager;
-=======
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Observable;
-import java.util.Observer;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import hr.foi.air.webservice.Data.DataObservable;
-import hr.foi.air.webservice.Weather.WeatherSender;
-
-public class HomepageActivity extends AppCompatActivity implements Observer {
-    @BindView(R.id.userMessage) TextView userMessage;
->>>>>>> bc4ea8f54aa0d33f7aa339b6fd163a30bbc1ebe8
-=======
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -82,7 +45,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     @BindView(R.id.mToolbar) Toolbar mToolbar;
     ActionBarDrawerToggle drawerToggle;
     FragmentManager mFragmentManager;
->>>>>>> user_interface
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +52,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         setContentView(R.layout.activity_homepage);
         ButterKnife.bind(this);
 
-<<<<<<< HEAD
-=======
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -110,7 +70,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
             }
         }
 
->>>>>>> user_interface
         setCurrentActivity();
         initializeLayout();
         setBackStackChangeListener();
@@ -118,8 +77,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         startMainModule();
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
         switch(requestCode){
@@ -185,26 +142,12 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         mBeaconManager.unbind((BeaconConsumer) this);
     }
 
->>>>>>> user_interface
     private void setCurrentActivity() {
         CurrentActivity.setActivity(this);
     }
 
     private void initializeLayout()
     {
-<<<<<<< HEAD
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerToggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-=======
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -213,26 +156,11 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
->>>>>>> user_interface
     }
 
     private void setBackStackChangeListener()
     {
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-<<<<<<< HEAD
-    }
-
-    private void initializeNavigationManager() {
-        NavigationManager nm = NavigationManager.getInstance();
-        nm.setDrawerDependencies(
-                this,
-                navigationView,
-                drawerLayout,
-                R.id.dynamic_group);
-    }
-
-<<<<<<< HEAD
-=======
     }
 
     private void initializeNavigationManager() {
@@ -244,7 +172,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                 R.id.dynamic_group);
     }
 
->>>>>>> user_interface
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -261,19 +188,11 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                 //do something
                 break;
             default:
-<<<<<<< HEAD
-                NavigationManager.getInstance().selectNavigationItem(menuItem);
-                break;
-        }
-
-        drawerLayout.closeDrawer(GravityCompat.START);
-=======
                 NavigationManager.getInstance().selectNavigationItem(menuItem, this.currentData);
                 break;
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
->>>>>>> user_interface
         return true;
     }
 
@@ -285,42 +204,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     }
 
     public void startMainModule() {
-<<<<<<< HEAD
-        NavigationManager.getInstance().startMainModule();
-=======
-    @OnClick(R.id.button2)
-    public void onClick(View view)
-    {
-        DataObservable.getInstance().addObserver(this);
-        WeatherSender controller = new WeatherSender();
-        controller.sendWeather(controller.create(), 2, 20, 55, 25);
-        //WeatherLoader controller = new WeatherLoader();
-        //controller.loadWeather(controller.create(), "FOI1", "D101");
-    }
-
-    // U ovoj funkciji pozivati druge funkcije koje rade sa dohvaćenim podacima
-    @Override
-    public void update(Observable o, Object arg) {
-        String response = (String) arg;
-        Toast.makeText(HomepageActivity.this, response, Toast.LENGTH_SHORT).show();
-        /*List<Object> list = (List<Object>) arg;
-        String message = (String) list.get(1);
-        List<Weather> weatherList = (List<Weather>) list.get(0);
-        if(!weatherList.isEmpty())
-        {
-            TextView text1 = findViewById(R.id.textView);
-            text1.setText(Integer.toString(weatherList.get(0).getTemperatura()));
-            TextView text2 = findViewById(R.id.textView2);
-            text2.setText(Float.toString(weatherList.get(1).getVlaznost_zraka()));
-        }
-        else {
-            Toast.makeText(HomepageActivity.this, message, Toast.LENGTH_SHORT).show();
-        }
-        */
-        DataObservable.getInstance().deleteObserver(this);
->>>>>>> bc4ea8f54aa0d33f7aa339b6fd163a30bbc1ebe8
-=======
         NavigationManager.getInstance().startMainModule(this.currentData);
->>>>>>> user_interface
     }
 }

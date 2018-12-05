@@ -28,7 +28,7 @@ public class AttendanceFragment extends Fragment implements NavigationItem {
 
     @Override
     public String getName(Context context) {
-        return context.getString(R.string.module_name);
+        return context.getString(R.string.attendance_module_name);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AttendanceFragment extends Fragment implements NavigationItem {
     }
 
     @Override
-    public void setData() {
+    public void setData(String optionalData) {
 
     }
 }
