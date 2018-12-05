@@ -3,9 +3,24 @@
     <string name="hintEmail">Email</string>
     <string name="hintPassword">Password</string>
     <string name="btnLogin">Log In</string>
+    <string name="headingLogin">Account login</string>
     <string name="btnRegister">Register</string>
+    <string name="btnSubmitAttendance">Submit</string>
     <string name="registerInstruction">Don\'t have an account yet?</string>
     <string name="textPreferences">Preferences</string>
+<<<<<<< HEAD
+=======
+    <string name="textYourHall">Your hall</string>
+    <string name="textYourSubject">Your subject</string>
+    <string name="textCurrentHall">D10</string>
+    <string name="textCurrentSubject">AIR</string>
+    <string name="textAverageTemperature">Average temperature: </string>
+    <string name="textAverageBrightness">Average brightness: </string>
+    <string name="textAverageHumidity">Average humidity: </string>
+    <string name="headingSubmitAttendance">Submit attendance</string>
+    <string name="headingMeasurements">Measurements</string>
+    <string name="headingStatistics">Statistics</string>
+>>>>>>> user_interface
 
     <string name="nav_header_title">microsensor</string>
     <string name="nav_header_info">foi@foi.hr</string>
@@ -18,6 +33,16 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+<<<<<<< HEAD
+=======
+    <string name="currentHall">Hall 10</string>
+    <string name="currentTemperature">15°</string>
+    <string name="currentHumidity">47%</string>
+    <string name="currentBrightness">35.6 cd</string>
+    <string name="textHumidity">Humidity</string>
+    <string name="textBrightness">Brightness</string>
+
+>>>>>>> user_interface
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -7,6 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/database/database.iml" filepath="$PROJECT_DIR$/database/database.iml" />
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> user_interface
       <module fileurl="file://$PROJECT_DIR$/microsensor.iml" filepath="$PROJECT_DIR$/microsensor.iml" />
 =======
       <module fileurl="file://$PROJECT_DIR$/maps/maps.iml" filepath="$PROJECT_DIR$/maps/maps.iml" />

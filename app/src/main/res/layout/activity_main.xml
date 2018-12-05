@@ -6,29 +6,37 @@
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
+<<<<<<< HEAD
     android:background="@color/icons"
+=======
+    android:background="@color/black_background_lighter"
+>>>>>>> user_interface
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:padding="30dp">
 
+<<<<<<< HEAD
         <android.support.v7.widget.AppCompatImageView
+=======
+        <ImageView
+>>>>>>> user_interface
             android:layout_width="340dp"
             android:layout_height="170dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/microsensor_logo" />
+            android:src="@drawable/microsensor_logo_white_label"
+            android:contentDescription="@string/app_name"/>
 
-        <EditText
-            android:id="@+id/mInputEmail"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:background="@android:color/transparent"
             android:drawableStart="@drawable/baseline_email_black_18"
             android:drawableLeft="@drawable/baseline_email_black_18"
@@ -81,6 +89,85 @@
             android:textAllCaps="true"
             android:textColor="@color/icons"
             android:textSize="20sp" />
+=======
+            android:fontFamily="@font/open_sans"
+            android:gravity="center_horizontal"
+            android:text="@string/headingLogin"
+            android:textColor="@color/icons"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/layout_border_no_radius"
+            android:paddingStart="22dp"
+            android:paddingEnd="22dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+
+            <EditText
+                android:id="@+id/mInputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_email_24dp"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="@string/hintEmail"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColorHint="@color/icons"
+                android:textColor="@color/icons"/>
+
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/icons" />
+
+            <EditText
+                android:id="@+id/mInputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_lock_24dp"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/hintPassword"
+                android:inputType="textPassword"
+                android:textColor="@color/icons"
+                android:textColorHint="@color/icons"
+                android:maxLines="1" />
+
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/icons" />
+
+            <Button
+                android:id="@+id/mLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/button_border"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/open_sans_bold"
+                android:padding="10dp"
+                android:text="@string/btnLogin"
+                android:textAllCaps="true"
+                android:textColor="@color/icons"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+>>>>>>> user_interface
 
     </LinearLayout>
 

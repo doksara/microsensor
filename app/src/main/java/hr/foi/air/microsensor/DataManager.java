@@ -19,7 +19,12 @@ public class DataManager {
         return instance;
     }
 
+<<<<<<< HEAD
     public void sendData(final NavigationItem module){
 
+=======
+    public void sendData(NavigationItem module, String dataToSend){
+        module.setData(dataToSend);
+>>>>>>> user_interface
     }
 }

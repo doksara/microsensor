@@ -12,7 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.air.core.NavigationItem;
+<<<<<<< HEAD
 import hr.foi.air.microsensor.fragments.AttendanceFragment;
+=======
+import hr.foi.air.microsensor.fragments.AttendanceMonitorFragment;
+import hr.foi.air.microsensor.fragments.AttendanceSubmissionFragment;
+import hr.foi.air.microsensor.fragments.RealtimeViewFragment;
+import hr.foi.air.microsensor.fragments.StatisticsViewFragment;
+>>>>>>> user_interface
 
 
 public class NavigationManager {
@@ -27,8 +34,15 @@ public class NavigationManager {
     private NavigationManager()
     {
         navigationItems = new ArrayList<>();
+<<<<<<< HEAD
         navigationItems.add(new AttendanceFragment());
         // ovdje idu sve opcije u navigaciji (realni, statisticki, prijava prisustva)
+=======
+        navigationItems.add(new RealtimeViewFragment());
+        navigationItems.add(new StatisticsViewFragment());
+        navigationItems.add(new AttendanceMonitorFragment());
+        navigationItems.add(new AttendanceSubmissionFragment());
+>>>>>>> user_interface
     }
 
     public static NavigationManager getInstance()
@@ -64,6 +78,7 @@ public class NavigationManager {
         }
     }
 
+<<<<<<< HEAD
     public void startMainModule() {
         NavigationItem mainModule = navigationItems != null ? navigationItems.get(0) : null;
         if (mainModule != null)
@@ -71,6 +86,15 @@ public class NavigationManager {
     }
 
     private void startModule(NavigationItem module) {
+=======
+    public void startMainModule(String currentData) {
+        NavigationItem mainModule = navigationItems != null ? navigationItems.get(0) : null;
+        if (mainModule != null)
+            startModule(mainModule, currentData);
+    }
+
+    private void startModule(NavigationItem module, String currentData) {
+>>>>>>> user_interface
         FragmentManager mFragmentManager = activity.getSupportFragmentManager();
         mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         mFragmentManager.beginTransaction()
@@ -78,16 +102,27 @@ public class NavigationManager {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
 
+<<<<<<< HEAD
         DataManager.getInstance().sendData(module);
     }
 
     public void selectNavigationItem(MenuItem menuItem) {
+=======
+        DataManager.getInstance().sendData(module, currentData);
+    }
+
+    public void selectNavigationItem(MenuItem menuItem, String currentData) {
+>>>>>>> user_interface
         if (!menuItem.isChecked()) {
             menuItem.setChecked(true);
             drawerLayout.closeDrawer(GravityCompat.START);
 
             NavigationItem selectedItem = navigationItems.get(menuItem.getItemId());
+<<<<<<< HEAD
             startModule(selectedItem);
+=======
+            startModule(selectedItem, currentData);
+>>>>>>> user_interface
         }
     }
 }

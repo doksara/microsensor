@@ -3,7 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+<<<<<<< HEAD
     android:id="@+id/drawer_layout"
+=======
+    android:id="@+id/mDrawerLayout"
+    android:background="@color/black_background_lighter"
+>>>>>>> user_interface
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -13,6 +18,7 @@
         layout="@layout/layout_homepage"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+<<<<<<< HEAD
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -48,3 +54,16 @@
 
 </android.support.constraint.ConstraintLayout>
 >>>>>>> bc4ea8f54aa0d33f7aa339b6fd163a30bbc1ebe8
+=======
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/mNavigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_menu" />
+
+</android.support.v4.widget.DrawerLayout>
+>>>>>>> user_interface
