@@ -23,4 +23,28 @@
         app:headerLayout="@layout/drawer_header"
         app:menu="@menu/drawer_menu" />
 
+<<<<<<< HEAD
 </android.support.v4.widget.DrawerLayout>
+=======
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
+>>>>>>> bc4ea8f54aa0d33f7aa339b6fd163a30bbc1ebe8

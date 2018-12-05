@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +23,23 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     Toolbar toolbar;
     NavigationView navigationView;
     FragmentManager mFragmentManager;
+=======
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Weather.WeatherSender;
+
+public class HomepageActivity extends AppCompatActivity implements Observer {
+    @BindView(R.id.userMessage) TextView userMessage;
+>>>>>>> bc4ea8f54aa0d33f7aa339b6fd163a30bbc1ebe8
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +87,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 R.id.dynamic_group);
     }
 
+<<<<<<< HEAD
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -102,5 +121,37 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
 
     public void startMainModule() {
         NavigationManager.getInstance().startMainModule();
+=======
+    @OnClick(R.id.button2)
+    public void onClick(View view)
+    {
+        DataObservable.getInstance().addObserver(this);
+        WeatherSender controller = new WeatherSender();
+        controller.sendWeather(controller.create(), 2, 20, 55, 25);
+        //WeatherLoader controller = new WeatherLoader();
+        //controller.loadWeather(controller.create(), "FOI1", "D101");
+    }
+
+    // U ovoj funkciji pozivati druge funkcije koje rade sa dohvaćenim podacima
+    @Override
+    public void update(Observable o, Object arg) {
+        String response = (String) arg;
+        Toast.makeText(HomepageActivity.this, response, Toast.LENGTH_SHORT).show();
+        /*List<Object> list = (List<Object>) arg;
+        String message = (String) list.get(1);
+        List<Weather> weatherList = (List<Weather>) list.get(0);
+        if(!weatherList.isEmpty())
+        {
+            TextView text1 = findViewById(R.id.textView);
+            text1.setText(Integer.toString(weatherList.get(0).getTemperatura()));
+            TextView text2 = findViewById(R.id.textView2);
+            text2.setText(Float.toString(weatherList.get(1).getVlaznost_zraka()));
+        }
+        else {
+            Toast.makeText(HomepageActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+        */
+        DataObservable.getInstance().deleteObserver(this);
+>>>>>>> bc4ea8f54aa0d33f7aa339b6fd163a30bbc1ebe8
     }
 }
