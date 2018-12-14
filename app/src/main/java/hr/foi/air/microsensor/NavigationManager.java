@@ -81,7 +81,7 @@ public class NavigationManager {
         mFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, module.getFragment())
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+                .commitNow();
 
         DataManager.getInstance().sendData(module, currentData);
     }
