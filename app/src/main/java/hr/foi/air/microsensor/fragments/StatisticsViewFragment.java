@@ -19,13 +19,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import hr.foi.air.core.NavigationItem;
-import hr.foi.air.microsensor.HomepageActivity;
-import hr.foi.air.microsensor.MainActivity;
-import hr.foi.air.microsensor.Measurement;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.microsensor.adapters.MeasurementRecyclerAdapter;
 import hr.foi.air.webservice.Data.DataObservable;
-import hr.foi.air.webservice.Student.StudentLoader;
 import hr.foi.air.webservice.Weather.Weather;
 import hr.foi.air.webservice.Weather.WeatherLoader;
 import hr.foi.air.webservice.Weather.WeatherResponse;
@@ -33,7 +29,7 @@ import hr.foi.air.webservice.Weather.WeatherResponse;
 
 public class StatisticsViewFragment extends Fragment implements NavigationItem, Observer {
     MeasurementRecyclerAdapter mAdapter;
-    private List<Weather> weathersArrayList;
+    private List<Weather> weatherList;
     private boolean moduleReadyFlag;
     private boolean dataReadyFlag;
 
@@ -41,7 +37,6 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        fillList();
         return inflater.inflate(R.layout.fragment_statistics_view, container, false);
     }
 
@@ -87,7 +82,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
          **/
 
         RecyclerView mRecycler = (RecyclerView) getActivity().findViewById(R.id.mRecycleViewStatistics);
-        mAdapter = new MeasurementRecyclerAdapter(getActivity(), weathersArrayList);
+        mAdapter = new MeasurementRecyclerAdapter(getActivity(), weatherList);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecycler.setLayoutManager(manager);
         mRecycler.setHasFixedSize(true);
@@ -100,35 +95,13 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         }
     }
 
-    public void fillList() {
-        /*weathersArrayList = new ArrayList<>();
-
-        Weather newWeather = new Weather("2018-11-27", 1.00, 23.00, 23.00);
-        weathersArrayList.add(newWeather);
-        newWeather = new Weather("2018-11-27", 1.00, 23.00, 20.00);
-        weathersArrayList.add(newWeather);
-        newWeather = new Weather("2018-11-28", 22.00, 17.00, 4.00);
-        weathersArrayList.add(newWeather);
-        newWeather = new Weather("2018-11-29", 8.00, 20.00, 17.00);
-        weathersArrayList.add(newWeather);
-        newWeather = new Weather("2018-11-30", 13.00, 21.00, 22.00);
-        weathersArrayList.add(newWeather);
-        newWeather = new Weather("2018-12-01", 4.00, 23.00, 11.00);
-        weathersArrayList.add(newWeather);*/
-
-
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         WeatherResponse weatherResponse = (WeatherResponse) arg;
-        /*List<Object> list = (List<Object>) arg;
-        String message = (String) list.get(1);
-        List<Weather> weatherList = (List<Weather>) list.get(0);*/
         if(!weatherResponse.getData().isEmpty())
         {
-            weathersArrayList = new ArrayList<>();
-            weathersArrayList = weatherResponse.getData();
+            weatherList = new ArrayList<>();
+            weatherList = weatherResponse.getData();
             this.dataReadyFlag = true;
             tryToDisplayData();
         }
