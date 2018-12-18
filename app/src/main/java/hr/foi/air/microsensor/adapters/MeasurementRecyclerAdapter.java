@@ -11,14 +11,15 @@ import java.util.List;
 
 import hr.foi.air.microsensor.Measurement;
 import hr.foi.air.microsensor.R;
+import hr.foi.air.webservice.Weather.Weather;
 
 public class MeasurementRecyclerAdapter extends RecyclerView.Adapter<MeasurementViewHolder> {
     private Context context;
-    private List<Measurement> measurements;
+    private List<Weather> weathers;
 
-    public MeasurementRecyclerAdapter(Context context, List<Measurement> measurements) {
+    public MeasurementRecyclerAdapter(Context context, List<Weather> weathers) {
         this.context = context;
-        this.measurements = measurements;
+        this.weathers = weathers;
     }
 
     @NonNull
@@ -30,12 +31,12 @@ public class MeasurementRecyclerAdapter extends RecyclerView.Adapter<Measurement
 
     @Override
     public void onBindViewHolder(@NonNull MeasurementViewHolder measurementViewHolder, int position) {
-        Measurement measurement = measurements.get(position);
-        measurementViewHolder.setDetails(measurement);
+        Weather weather = weathers.get(position);
+        measurementViewHolder.setDetails(weather);
     }
 
     @Override
     public int getItemCount() {
-        return measurements.size();
+        return weathers.size();
     }
 }

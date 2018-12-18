@@ -38,7 +38,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final String TAG = "MainActivity";
     private BeaconManager mBeaconManager;
-    String currentData = "0;0;0;0;0";
+    String currentData = "FOI3;1;22;62;43;2";
 
     @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;
     @BindView(R.id.mNavigationView) NavigationView mNavigationView;

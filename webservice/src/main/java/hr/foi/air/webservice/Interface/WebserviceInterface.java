@@ -1,5 +1,8 @@
 package hr.foi.air.webservice.Interface;
 
+import hr.foi.air.webservice.Attendance.AttendanceResponse;
+import hr.foi.air.webservice.Attendance.LectureResponse;
+import hr.foi.air.webservice.Data.DataResponse;
 import hr.foi.air.webservice.Weather.WeatherResponse;
 import hr.foi.air.webservice.Student.StudentResponse;
 import retrofit2.Call;
@@ -31,5 +34,24 @@ public interface WebserviceInterface {
     Call<WeatherResponse> getData(
             @Field("zgrada") String zgrada,
             @Field("dvorana") String dvorana
+    );
+
+    @FormUrlEncoded
+    @POST("prijaviPrisustvo.php")
+    Call<DataResponse> setAttendance(
+            @Field("idKolegij") int idKolegij,
+            @Field("idKorisnik") int idKorisnik
+    );
+
+    @FormUrlEncoded
+    @POST("dohvatiEvidencijuPrisustva.php")
+    Call<AttendanceResponse> getAttendance(
+            @Field("idKorisnik") int idKorisnik
+    );
+
+    @FormUrlEncoded
+    @POST("dohvatiPredavanje.php")
+    Call<LectureResponse> getLecture(
+            @Field("idDvorana") int idDvorana
     );
 }

@@ -80,19 +80,20 @@
         android:id="@+id/mSubmitAttendance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="55dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="55dp"
+        android:background="@drawable/button_border"
         android:drawableStart="@drawable/ic_done"
         android:drawableTint="@color/icons"
+        android:fontFamily="@font/open_sans_bold"
+        android:onClick="onClick"
         android:paddingStart="25dp"
         android:paddingEnd="35dp"
-        android:fontFamily="@font/open_sans_bold"
-        app:layout_constraintTop_toBottomOf="@+id/layout_subject"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
-        android:background="@drawable/button_border"
+        android:text="@string/btnSubmitAttendance"
         android:textSize="18sp"
-        android:text="@string/btnSubmitAttendance"/>
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_subject" />
 
 </android.support.constraint.ConstraintLayout>

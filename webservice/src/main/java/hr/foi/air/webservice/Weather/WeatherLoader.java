@@ -21,10 +21,10 @@ public class WeatherLoader extends DataLoader {
         if(response.isSuccessful())
         {
             WeatherResponse stanjeDataResponse = (WeatherResponse) response.body();
-            List<Object> list = new ArrayList<>();
+            /*List<Object> list = new ArrayList<>();
             list.add(stanjeDataResponse.getData());
-            list.add(stanjeDataResponse.getMessage());
-            DataObservable.getInstance(). notifyObserverWithResponse(list);
+            list.add(stanjeDataResponse.getMessage());*/
+            DataObservable.getInstance(). notifyObserverWithResponse(stanjeDataResponse);
         }
         else
         {

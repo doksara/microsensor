@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import hr.foi.air.microsensor.Measurement;
 import hr.foi.air.microsensor.R;
+import hr.foi.air.webservice.Weather.Weather;
 
 public class MeasurementViewHolder extends RecyclerView.ViewHolder {
     private TextView mMeasurementDate, mAvgTemperature, mAvgBrightness, mAvgHumidity;
@@ -20,10 +21,10 @@ public class MeasurementViewHolder extends RecyclerView.ViewHolder {
         mAvgHumidity = itemView.findViewById(R.id.mAvgHumidity);
     }
 
-    public void setDetails(Measurement measurement) {
-        mMeasurementDate.setText(String.format(Locale.US, "%s", measurement.getDan()));
-        mAvgTemperature.setText(String.format(Locale.US, "%s", measurement.getTemperatura()));
-        mAvgBrightness.setText(String.format(Locale.US, "%s", measurement.getJacina_svjetlosti()));
-        mAvgHumidity.setText(String.format(Locale.US, "%s", measurement.getVlaznost_zraka()));
+    public void setDetails(Weather weather) {
+        mMeasurementDate.setText(String.format(Locale.US, "%s", weather.getDan()));
+        mAvgTemperature.setText(String.format(Locale.US, "%s", weather.getTemperatura()));
+        mAvgBrightness.setText(String.format(Locale.US, "%s", weather.getJacina_svjetlosti()));
+        mAvgHumidity.setText(String.format(Locale.US, "%s", weather.getVlaznost_zraka()));
     }
 }

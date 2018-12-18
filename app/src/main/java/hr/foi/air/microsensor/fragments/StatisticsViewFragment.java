@@ -11,19 +11,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import hr.foi.air.core.NavigationItem;
+import hr.foi.air.microsensor.HomepageActivity;
+import hr.foi.air.microsensor.MainActivity;
 import hr.foi.air.microsensor.Measurement;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.microsensor.adapters.MeasurementRecyclerAdapter;
+import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Student.StudentLoader;
+import hr.foi.air.webservice.Weather.Weather;
+import hr.foi.air.webservice.Weather.WeatherLoader;
+import hr.foi.air.webservice.Weather.WeatherResponse;
 
 
-public class StatisticsViewFragment extends Fragment implements NavigationItem {
+public class StatisticsViewFragment extends Fragment implements NavigationItem, Observer {
     MeasurementRecyclerAdapter mAdapter;
-    private List<Measurement> measurementArrayList;
+    private List<Weather> weathersArrayList;
     private boolean moduleReadyFlag;
     private boolean dataReadyFlag;
 
@@ -39,13 +49,6 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.moduleReadyFlag = true;
-
-        RecyclerView mRecycler = (RecyclerView) getActivity().findViewById(R.id.mRecycleViewStatistics);
-        mAdapter = new MeasurementRecyclerAdapter(getActivity(), measurementArrayList);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        mRecycler.setLayoutManager(manager);
-        mRecycler.setHasFixedSize(true);
-        mRecycler.setAdapter(mAdapter);
     }
 
     @Override
@@ -72,7 +75,10 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem {
          * znanja programu da su podaci spremni, a nakon toga pokusati prikazati podatke sa metodom
          * tryToDisplayData()
          **/
-        tryToDisplayData();
+        String[] rawData = optionalData.split(";");
+        DataObservable.getInstance().addObserver(this);
+        WeatherLoader controller = new WeatherLoader();
+        controller.loadWeather(controller.create(), rawData[0], rawData[1]);
     }
 
     public void displayStatistics() {
@@ -80,29 +86,55 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem {
          * korisničkom sučelju
          **/
 
-        fillList();
+        RecyclerView mRecycler = (RecyclerView) getActivity().findViewById(R.id.mRecycleViewStatistics);
+        mAdapter = new MeasurementRecyclerAdapter(getActivity(), weathersArrayList);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        mRecycler.setLayoutManager(manager);
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setAdapter(mAdapter);
     }
 
     public void tryToDisplayData() {
-        if (moduleReadyFlag) {
+        if (moduleReadyFlag && dataReadyFlag) {
             displayStatistics();
         }
     }
 
     public void fillList() {
-        measurementArrayList = new ArrayList<>();
+        /*weathersArrayList = new ArrayList<>();
 
-        Measurement newMeasurement = new Measurement("2018-11-27", 1.00, 23.00, 23.00);
-        measurementArrayList.add(newMeasurement);
-        newMeasurement = new Measurement("2018-11-27", 1.00, 23.00, 20.00);
-        measurementArrayList.add(newMeasurement);
-        newMeasurement = new Measurement("2018-11-28", 22.00, 17.00, 4.00);
-        measurementArrayList.add(newMeasurement);
-        newMeasurement = new Measurement("2018-11-29", 8.00, 20.00, 17.00);
-        measurementArrayList.add(newMeasurement);
-        newMeasurement = new Measurement("2018-11-30", 13.00, 21.00, 22.00);
-        measurementArrayList.add(newMeasurement);
-        newMeasurement = new Measurement("2018-12-01", 4.00, 23.00, 11.00);
-        measurementArrayList.add(newMeasurement);
+        Weather newWeather = new Weather("2018-11-27", 1.00, 23.00, 23.00);
+        weathersArrayList.add(newWeather);
+        newWeather = new Weather("2018-11-27", 1.00, 23.00, 20.00);
+        weathersArrayList.add(newWeather);
+        newWeather = new Weather("2018-11-28", 22.00, 17.00, 4.00);
+        weathersArrayList.add(newWeather);
+        newWeather = new Weather("2018-11-29", 8.00, 20.00, 17.00);
+        weathersArrayList.add(newWeather);
+        newWeather = new Weather("2018-11-30", 13.00, 21.00, 22.00);
+        weathersArrayList.add(newWeather);
+        newWeather = new Weather("2018-12-01", 4.00, 23.00, 11.00);
+        weathersArrayList.add(newWeather);*/
+
+
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        WeatherResponse weatherResponse = (WeatherResponse) arg;
+        /*List<Object> list = (List<Object>) arg;
+        String message = (String) list.get(1);
+        List<Weather> weatherList = (List<Weather>) list.get(0);*/
+        if(!weatherResponse.getData().isEmpty())
+        {
+            weathersArrayList = new ArrayList<>();
+            weathersArrayList = weatherResponse.getData();
+            this.dataReadyFlag = true;
+            tryToDisplayData();
+        }
+        else {
+            Toast.makeText(getActivity(), weatherResponse.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        DataObservable.getInstance().deleteObserver(this);
     }
 }
