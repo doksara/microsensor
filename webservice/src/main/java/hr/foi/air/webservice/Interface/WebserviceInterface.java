@@ -38,7 +38,7 @@ public interface WebserviceInterface {
 
     @FormUrlEncoded
     @POST("prijaviPrisustvo.php")
-    Call<DataResponse> setAttendance(
+    Call<AttendanceResponse> setAttendance(
             @Field("idKolegij") int idKolegij,
             @Field("idKorisnik") int idKorisnik
     );

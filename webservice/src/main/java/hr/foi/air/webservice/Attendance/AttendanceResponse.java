@@ -5,6 +5,8 @@ import java.util.List;
 import hr.foi.air.webservice.Data.DataResponse;
 
 public class AttendanceResponse extends DataResponse {
+    //Todo: Klasa trenutno ne odgovara JSON responseu sa web servisa i trebalo bi je u narednim commitovima ispraviti.
+
     List<String> AiR;
     List<String> OS2;
     List<String> SiS;

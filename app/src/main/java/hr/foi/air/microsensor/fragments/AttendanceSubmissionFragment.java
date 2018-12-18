@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
@@ -37,8 +39,8 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     private String currentHall;
     private int kolegij;
     private int korisnik;
-    TextView mCurrentSubject;
-    TextView mCurrentHall;
+    @BindView(R.id.textCurrentSubject) TextView mCurrentSubject;
+    @BindView(R.id.textCurrentHall) TextView mCurrentHall;
 
     @Nullable
     @Override
@@ -46,14 +48,15 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_realtime_view, container, false);
-        mCurrentSubject = (TextView) rootView.findViewById(R.id.textCurrentSubject);
-        mCurrentHall = (TextView) rootView.findViewById(R.id.textCurrentHall);
+        // mCurrentSubject = getActivity().findViewById(R.id.textCurrentSubject);
+        // mCurrentHall = getActivity().findViewById(R.id.textCurrentHall);
         return inflater.inflate(R.layout.fragment_attendance_submission, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
         this.moduleReadyFlag = true;
     }
 
@@ -73,7 +76,7 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     }
 
     @OnClick(R.id.mSubmitAttendance)
-    public void onClick(View view)
+    public void submitAttendance()
     {
         AttendanceObservable.getInstance().addObserver(this);
         AttendanceSender controller = new AttendanceSender();
@@ -82,13 +85,7 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
 
     @Override
     public void setData(String optionalData) {
-        /*
-         * Na ovom mjestu je potrebno implementirati logiku za postavljanje lokalnih podataka
-         * kao što je npr trenutna ucionica, trenutna temperatura, vlaga zraka i razina svijetlosti
-         * HINT: na kraju metode potrebno je staviti zastavicu dataReadyFlag na true kako bi dali do
-         * znanja programu da su podaci spremni, a nakon toga pokusati prikazati podatke sa metodom
-         * tryToDisplayData()
-         **/
+        // ovo trenutno radi preko idDvorane na imena dvorane
         String[] rawData = optionalData.split(";");
         korisnik = Integer.parseInt(rawData[5]);
         DataObservable.getInstance().addObserver(this);
@@ -113,8 +110,8 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     public void update(Observable o, Object arg) {
         if(o instanceof AttendanceObservable)
         {
-            DataResponse dataResponse = (DataResponse) arg;
-            Toast.makeText(getActivity(), dataResponse.getMessage(), Toast.LENGTH_SHORT).show();
+            String message = (String) arg;
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         }
         else
         {

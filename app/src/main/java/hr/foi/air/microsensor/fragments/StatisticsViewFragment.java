@@ -63,13 +63,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
 
     @Override
     public void setData(String optionalData) {
-        /*
-         * Na ovom mjestu je potrebno implementirati logiku za postavljanje lokalnih podataka
-         * prethodno dohvaćenih iz baze podataka (temp i vlaga)
-         * HINT: na kraju metode potrebno je staviti zastavicu dataReadyFlag na true kako bi dali do
-         * znanja programu da su podaci spremni, a nakon toga pokusati prikazati podatke sa metodom
-         * tryToDisplayData()
-         **/
+        // trenutno ovaj dio radi preko imena dvorane a ne idDvorane
         String[] rawData = optionalData.split(";");
         DataObservable.getInstance().addObserver(this);
         WeatherLoader controller = new WeatherLoader();
@@ -98,7 +92,8 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
     @Override
     public void update(Observable o, Object arg) {
         WeatherResponse weatherResponse = (WeatherResponse) arg;
-        if(!weatherResponse.getData().isEmpty())
+
+        if(weatherResponse.getData() != null)
         {
             weatherList = new ArrayList<>();
             weatherList = weatherResponse.getData();

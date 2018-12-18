@@ -1,10 +1,10 @@
 package hr.foi.air.webservice.Weather;
 
 public class Weather {
-    String dan;
-    double temperatura;
-    double jacina_svjetlosti;
-    double vlaznost_zraka;
+    private String dan;
+    private double temperatura;
+    private double jacina_svjetlosti;
+    private double vlaznost_zraka;
 
     public Weather (String dan, double temperatura, double jacina_svjetlosti, double vlaznost_zraka) {
         this.dan = dan;

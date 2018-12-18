@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import hr.foi.air.microsensor.Measurement;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.webservice.Weather.Weather;
 

@@ -9,7 +9,7 @@ import retrofit2.Call;
 public class AttendanceSender extends DataLoader {
     public void sendAttendance(WebserviceInterface webserviceInterface, int kolegij, int korisnik)
     {
-        Call<DataResponse> call = webserviceInterface.setAttendance(kolegij, korisnik);
+        Call<AttendanceResponse> call = webserviceInterface.setAttendance(kolegij, korisnik);
         call.enqueue(this);
     }
 
@@ -18,7 +18,7 @@ public class AttendanceSender extends DataLoader {
     {
         if(response.isSuccessful())
         {
-            DataResponse stanjeDataResponse = (DataResponse) response.body();
+            AttendanceResponse stanjeDataResponse = (AttendanceResponse) response.body();
             String message = stanjeDataResponse.getMessage();
             AttendanceObservable.getInstance(). notifyObserverWithResponse(message);
         }

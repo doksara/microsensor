@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         if(!response.isEmpty())
         {
             Intent i = new Intent(this, HomepageActivity.class);
+            i.putExtra("currentUser", response.get(0).getId_korisnik());
             startActivity(i);
         }
         else {

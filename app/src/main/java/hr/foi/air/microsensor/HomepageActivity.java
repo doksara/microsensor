@@ -3,6 +3,7 @@ package hr.foi.air.microsensor;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.RemoteException;
@@ -38,7 +39,13 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final String TAG = "MainActivity";
     private BeaconManager mBeaconManager;
-    String currentData = "FOI3;1;22;62;43;2";
+    //Todo: Hardkodirane podatke kao currentData treba ispraviti, podaci bi trebali imati format
+    //Todo: (zgrada, idDvorana, temperatura, svjetlost, vlaga, idKorisnika)
+    //Todo: treba napraviti da sve skripte rade sa idDvorane i izmjeniti na potrebnim mjestima u kodu
+    // zasad nema logina te currentUser vraća null
+    // app radi bez podataka sa microbita, a ako dolaze podaci s microbita currentUser vraća null
+    private String currentData = "FOI1;1;22;62;43;2";
+    private String currentUser;
 
     @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;
     @BindView(R.id.mNavigationView) NavigationView mNavigationView;
@@ -70,6 +77,8 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
             }
         }
 
+        Intent i = getIntent();
+        this.currentUser = i.getStringExtra("currentUser");
         setCurrentActivity();
         initializeLayout();
         setBackStackChangeListener();
@@ -131,7 +140,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                 String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away.");
-                this.currentData = url;
+                this.currentData = url + ";" + this.currentUser;
             }
         }
     }

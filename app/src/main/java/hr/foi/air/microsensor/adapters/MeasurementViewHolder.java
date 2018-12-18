@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import hr.foi.air.microsensor.Measurement;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.webservice.Weather.Weather;
 
