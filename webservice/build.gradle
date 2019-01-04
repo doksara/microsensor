@@ -34,7 +34,6 @@ dependencies {
 
     // Other module dependencies
     implementation project(':core')
-    implementation project(':database')
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'

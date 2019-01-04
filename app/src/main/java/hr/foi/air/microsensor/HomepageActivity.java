@@ -44,7 +44,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     //Todo: treba napraviti da sve skripte rade sa idDvorane i izmjeniti na potrebnim mjestima u kodu
     // zasad nema logina te currentUser vraća null
     // app radi bez podataka sa microbita, a ako dolaze podaci s microbita currentUser vraća null
-    private String currentData = "FOI1;1;22;62;43;2";
+    private String currentData = "FOI1;D10;22;62;43;2";
     private String currentUser;
 
     @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;

@@ -14,7 +14,7 @@ import hr.foi.air.microsensor.Subject;
 
 public class SubjectAttendanceViewHolder extends ParentViewHolder {
     @BindView(R.id.mSubjectName) TextView mSubjectName;
-    @BindView(R.id.mSubjectDescription) TextView mSubjectDescription;
+    @BindView(R.id.mSubjectAttendanceCount) TextView mSubjectAttendanceCount;
 
     View mSubjectItemView;
 
@@ -26,5 +26,7 @@ public class SubjectAttendanceViewHolder extends ParentViewHolder {
 
     public void bind(Subject subject){
         mSubjectName.setText(subject.getName());
+        int numberOfAttendances = subject.getAttendanceList().size();
+        mSubjectAttendanceCount.setText(mSubjectItemView.getContext().getResources().getString(R.string.textNumberOfAttendances, numberOfAttendances));
     }
 }

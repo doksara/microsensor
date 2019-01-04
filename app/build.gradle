@@ -30,9 +30,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    // Nearby dependencies
-    implementation 'com.google.android.gms:play-services-nearby:11.6.0'
-    implementation 'com.neovisionaries:nv-bluetooth:1.7'
+    // AnyGraph
+    implementation 'com.github.AnyChart:AnyChart-Android:1.0.8'
 
     // Butterknife dependencies
     implementation 'com.jakewharton:butterknife:9.0.0-rc1'

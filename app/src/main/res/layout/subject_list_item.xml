@@ -4,37 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="0dp"
-    android:layout_marginTop="5dp"
-    android:foreground="?android:selectableItemBackground"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/black_login"
     android:clickable="true"
     android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/mSubjectName"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:textIsSelectable="false"
-            tools:text="Subject name string"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            android:orientation="vertical"
+            android:layout_margin="5dp">
 
-        <TextView
-            android:id="@+id/mSubjectDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:textIsSelectable="false"
-            tools:text="Subject description"
-            android:textAppearance="@style/TextAppearance.Compat.Notification.Info"/>
+            <TextView
+                android:id="@+id/mSubjectName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/icons"
+                android:textIsSelectable="false"
+                tools:text="Subject name string"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+            <TextView
+                android:id="@+id/mSubjectAttendanceCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/icons"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:textIsSelectable="false"
+                tools:text="Subject description"
+                android:textAppearance="@style/TextAppearance.Compat.Notification.Info"/>
+
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_drop_down_circle"
+                android:tint="@color/icons"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginEnd="15dp"/>
+        </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>
 
