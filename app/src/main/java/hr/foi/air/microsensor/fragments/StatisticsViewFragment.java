@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,6 +22,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.microsensor.adapters.MeasurementRecyclerAdapter;
@@ -32,6 +38,9 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
     private List<Weather> weatherList;
     private boolean moduleReadyFlag;
     private boolean dataReadyFlag;
+    FragmentTransaction fragmentTransaction;
+    ListModuleFragment listModule;
+    GraphModuleFragment graphModule;
 
     @Nullable
     @Override
@@ -43,7 +52,12 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        listModule = new ListModuleFragment();
+        graphModule = new GraphModuleFragment();
         this.moduleReadyFlag = true;
+
+        ButterKnife.bind(this, view);
     }
 
     @Override
@@ -70,22 +84,9 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         controller.loadWeather(controller.create(), rawData[0], rawData[1]);
     }
 
-    public void displayStatistics() {
-        /* Na ovom mjestu potrebno je implementirati logiku za prikaz statističkih podataka na
-         * korisničkom sučelju
-         **/
-
-        RecyclerView mRecycler = (RecyclerView) getActivity().findViewById(R.id.mRecycleViewStatistics);
-        mAdapter = new MeasurementRecyclerAdapter(getActivity(), weatherList);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        mRecycler.setLayoutManager(manager);
-        mRecycler.setHasFixedSize(true);
-        mRecycler.setAdapter(mAdapter);
-    }
-
     public void tryToDisplayData() {
         if (moduleReadyFlag && dataReadyFlag) {
-            displayStatistics();
+            switchToListModule();
         }
     }
 
@@ -97,6 +98,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         {
             weatherList = new ArrayList<>();
             weatherList = weatherResponse.getData();
+            listModule.setData(weatherList);
             this.dataReadyFlag = true;
             tryToDisplayData();
         }
@@ -104,5 +106,35 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
             Toast.makeText(getActivity(), weatherResponse.getMessage(), Toast.LENGTH_SHORT).show();
         }
         DataObservable.getInstance().deleteObserver(this);
+    }
+
+    void switchToListModule() {
+        fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.statistics_module_container, listModule, "");
+        fragmentTransaction.commit();
+    }
+
+    void switchToGraphModule() {
+        fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.statistics_module_container, graphModule, "");
+        fragmentTransaction.commit();
+    }
+
+    @OnClick({R.id.mSelectListModule, R.id.mSelectGraphModule})
+    public void onRadioButtonClicked(RadioButton button) {
+        boolean checked = button.isChecked();
+
+        switch (button.getId()) {
+            case R.id.mSelectListModule:
+                if (checked){
+                    switchToListModule();
+                }
+                break;
+            case R.id.mSelectGraphModule:
+                if (checked){
+                    switchToGraphModule();
+                }
+                break;
+        }
     }
 }

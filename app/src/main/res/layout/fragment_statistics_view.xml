@@ -6,16 +6,15 @@
     android:orientation="vertical"
     tools:context=".fragments.StatisticsViewFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecycleViewStatistics"
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/statistics_module_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>
+    </FrameLayout>
 
     <RadioGroup
-        android:checkedButton="@+id/offer"
-        android:id="@+id/customControl"
+        android:checkedButton="@+id/mSelectListModule"
+        android:id="@+id/mSegmentedControl"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginBottom="20dp"
@@ -29,7 +28,7 @@
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
             android:layout_marginStart="1dp"
-            android:id="@+id/search"
+            android:id="@+id/mSelectListModule"
             android:background="@drawable/toggle_widget_background"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -43,7 +42,7 @@
             android:layout_marginEnd="1dp"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
-            android:id="@+id/offer"
+            android:id="@+id/mSelectGraphModule"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
