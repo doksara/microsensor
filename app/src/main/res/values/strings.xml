@@ -19,6 +19,8 @@
     <string name="headingSubmitAttendance">Submit attendance</string>
     <string name="headingMeasurements">Measurements</string>
     <string name="headingStatistics">Statistics</string>
+    <string name="customControlList">List</string>
+    <string name="customControlGraph">Graph</string>
 
     <string name="nav_header_title">microsensor</string>
     <string name="nav_header_info">foi@foi.hr</string>
