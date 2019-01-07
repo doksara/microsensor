@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.StatisticsViewFragment">
 
     <FrameLayout
         android:id="@+id/statistics_module_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </FrameLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <RadioGroup
-        android:checkedButton="@+id/mSelectListModule"
         android:id="@+id/mSegmentedControl"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/green_out_line"
-        android:orientation="horizontal">
+        android:checkedButton="@+id/mSelectListModule"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            android:layout_marginStart="1dp"
             android:id="@+id/mSelectListModule"
-            android:background="@drawable/toggle_widget_background"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
             android:layout_weight="1"
+            android:background="@drawable/toggle_widget_background"
             android:button="@null"
             android:gravity="center"
             android:text="@string/customControlList"
             android:textColor="@color/icons" />
 
         <RadioButton
-            android:layout_marginEnd="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
             android:id="@+id/mSelectGraphModule"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
             android:layout_weight="1"
             android:background="@drawable/toggle_widget_background"
             android:button="@null"
@@ -53,4 +59,4 @@
             android:textColor="@color/icons" />
     </RadioGroup>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

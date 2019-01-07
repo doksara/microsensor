@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".fragments.ListModuleFragment">
+    tools:context=".fragments.StatisticsViewFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecycleViewStatistics"
+        android:id="@+id/mRecyclerViewStatistics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
