@@ -1,10 +1,10 @@
 package hr.foi.air.webservice.Attendance;
 
 public class Lecture {
-    String zgrada;
-    String dvorana;
-    int id_kolegij;
-    String kolegij;
+    private String zgrada;
+    private String dvorana;
+    private int id_kolegij;
+    private String kolegij;
 
     public int getIdKolegij() {
         return id_kolegij;

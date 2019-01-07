@@ -99,6 +99,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
             weatherList = new ArrayList<>();
             weatherList = weatherResponse.getData();
             listModule.setData(weatherList);
+            graphModule.setData(weatherList);
             this.dataReadyFlag = true;
             tryToDisplayData();
         }
