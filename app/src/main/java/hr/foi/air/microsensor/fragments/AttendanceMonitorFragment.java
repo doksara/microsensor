@@ -12,9 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.Attendance;
@@ -22,10 +25,15 @@ import hr.foi.air.microsensor.R;
 import hr.foi.air.microsensor.Subject;
 import hr.foi.air.microsensor.adapters.ExpandableSubjectItem;
 import hr.foi.air.microsensor.adapters.SubjectAttendanceRecyclerAdapter;
+import hr.foi.air.webservice.Attendance.AttendanceLoader;
+import hr.foi.air.webservice.Attendance.AttendanceResponse;
+import hr.foi.air.webservice.Attendance.tempAttendance;
+import hr.foi.air.webservice.Data.DataObservable;
 
 
-public class AttendanceMonitorFragment extends Fragment implements NavigationItem {
+public class AttendanceMonitorFragment extends Fragment implements NavigationItem, Observer {
     SubjectAttendanceRecyclerAdapter mAdapter;
+    List<tempAttendance> tempAttendanceList;
     List<ExpandableSubjectItem> subjectItems;
     List<Subject> subjectList;
     private boolean moduleReadyFlag;
@@ -71,8 +79,27 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
 
     @Override
     public void setData(String optionalData) {
-       dataReadyFlag = true;
-       tryToDisplayData();
+        String[] rawData = optionalData.split(";");
+        DataObservable.getInstance().addObserver(this);
+        AttendanceLoader controller = new AttendanceLoader();
+        controller.getAttendance(controller.create(), Integer.parseInt(rawData[5]));
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        AttendanceResponse attendanceResponse = (AttendanceResponse) arg;
+
+        if(attendanceResponse.getData() != null)
+        {
+            tempAttendanceList = new ArrayList<>();
+            tempAttendanceList = attendanceResponse.getData();
+            this.dataReadyFlag = true;
+            tryToDisplayData();
+        }
+        else {
+            Toast.makeText(getActivity(), attendanceResponse.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        DataObservable.getInstance().deleteObserver(this);
     }
 
     public void displayData(){
@@ -80,7 +107,18 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
 
         List<Attendance> attendanceList = new ArrayList<>();
         List<Subject> subjectList = new ArrayList<>();
-        Attendance newAttendance = new Attendance("1.12.2018");
+        for (tempAttendance temp : tempAttendanceList)
+        {
+            for (String datum : temp.getDatum())
+            {
+                Attendance newAttendance = new Attendance(datum);
+                attendanceList.add(newAttendance);
+            }
+            Subject subject = new Subject(temp.getNaziv(), attendanceList);
+            subjectList.add(subject);
+            attendanceList.clear();
+        }
+        /*Attendance newAttendance = new Attendance("1.12.2018");
         attendanceList.add(newAttendance);
         newAttendance = new Attendance("1.12.2018");
         attendanceList.add(newAttendance);
@@ -104,7 +142,7 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
         Subject AIR = new Subject("Analiza i razvoj programa", attendanceList);
 
         subjectList.add(OS2);
-        subjectList.add(AIR);
+        subjectList.add(AIR);*/
 
         if (subjectList != null){
             for (Subject subject : subjectList)

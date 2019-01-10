@@ -9,7 +9,7 @@ import hr.foi.air.webservice.Interface.WebserviceInterface;
 import retrofit2.Call;
 
 public class AttendanceLoader extends DataLoader {
-    public void loadAttendance(WebserviceInterface webserviceInterface, int korisnik)
+    public void getAttendance(WebserviceInterface webserviceInterface, int korisnik)
     {
         Call<AttendanceResponse> call = webserviceInterface.getAttendance(korisnik);
         call.enqueue(this);
