@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentContainer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,14 +90,13 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
     }
 
     public void displayRealtimeData() {
-        /* Na ovom mjestu potrebno je implementirati logiku za prikaz trenutnih podataka na
-         * korisničkom sučelju
-         **/
         mCurrentTemperature.setText(currentTemperature);
-        Log.d(TAG, currentTemperature);
+        mCurrentTemperature.invalidate();
+
         mCurrentBrightness.setText(currentBrightness);
-        Log.d(TAG, currentBrightness);
+        mCurrentBrightness.invalidate();
+
         mCurrentHumidity.setText(currentHumidity);
-        Log.d(TAG, currentHumidity);
+        mCurrentHumidity.invalidate();
     }
 }

@@ -81,7 +81,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         String[] rawData = optionalData.split(";");
         DataObservable.getInstance().addObserver(this);
         WeatherLoader controller = new WeatherLoader();
-        controller.loadWeather(controller.create(), rawData[0], rawData[1]);
+        controller.loadWeather(controller.create(), rawData[0], rawData[6]);
     }
 
     public void tryToDisplayData() {

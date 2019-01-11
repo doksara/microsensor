@@ -10,7 +10,7 @@ import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 
 import java.util.List;
 
-import hr.foi.air.microsensor.Attendance;
+import hr.foi.air.webservice.Attendance.Attendance;
 import hr.foi.air.microsensor.R;
 
 public class SubjectAttendanceRecyclerAdapter extends ExpandableRecyclerAdapter<ExpandableSubjectItem, Attendance, SubjectAttendanceViewHolder, AttendanceViewHolder> {

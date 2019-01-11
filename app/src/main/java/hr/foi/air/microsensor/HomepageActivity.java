@@ -2,14 +2,15 @@ package hr.foi.air.microsensor;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +21,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -30,22 +33,29 @@ import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
 
 import java.util.Collection;
+import java.util.Observable;
+import java.util.Observer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.foi.air.core.CurrentActivity;
+import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Weather.WeatherSender;
 
-public class HomepageActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
+public class HomepageActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener, Observer {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
+    private static final int REQUEST_ENABLE_BT = 2;
     private static final String TAG = "MainActivity";
     private BeaconManager mBeaconManager;
+    private BluetoothAdapter mBluetoothAdapter;
     //Todo: Hardkodirane podatke kao currentData treba ispraviti, podaci bi trebali imati format
-    //Todo: (zgrada, idDvorana, temperatura, svjetlost, vlaga, idKorisnika)
+    //Todo: (zgrada, idDvorana, temperatura, svjetlost, vlaga, dvorana, idKorisnika)
     //Todo: treba napraviti da sve skripte rade sa idDvorane i izmjeniti na potrebnim mjestima u kodu
     // zasad nema logina te currentUser vraća null
     // app radi bez podataka sa microbita, a ako dolaze podaci s microbita currentUser vraća null
-    private String currentData = "FOI1;D10;22;62;43;2";
+    private String currentData = "FOI2;1;22;62;43;D1";
     private String currentUser;
+    private boolean dataSent = false;
 
     @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;
     @BindView(R.id.mNavigationView) NavigationView mNavigationView;
@@ -59,22 +69,26 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         setContentView(R.layout.activity_homepage);
         ButterKnife.bind(this);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("This app needs location access");
-                builder.setMessage("Please grant location access so this app can detect beacons.");
-                builder.setPositiveButton(android.R.string.ok, null);
-                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        requestPermissions(new String[]{
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                        }, PERMISSION_REQUEST_COARSE_LOCATION);
-                    }
-                });
-                builder.show();
-            }
+        if(this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("This app needs location access");
+            builder.setMessage("Please grant location access so this app can detect beacons.");
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    requestPermissions(new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                    }, PERMISSION_REQUEST_COARSE_LOCATION);
+                }
+            });
+            builder.show();
+        }
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (!mBluetoothAdapter.isEnabled()){
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
         Intent i = getIntent();
@@ -84,10 +98,11 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         setBackStackChangeListener();
         initializeNavigationManager();
         startMainModule();
+        //sendData();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults){
         switch(requestCode){
             case PERMISSION_REQUEST_COARSE_LOCATION:{
                 if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
@@ -107,7 +122,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                     });
                     builder.show();
                 }
-                return;
             }
         }
     }
@@ -119,7 +133,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         // Detect the URL frame:
         mBeaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout(BeaconParser.EDDYSTONE_URL_LAYOUT));
-        mBeaconManager.bind((BeaconConsumer) this);
+        mBeaconManager.bind(this);
     }
 
     public void onBeaconServiceConnect() {
@@ -129,7 +143,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        mBeaconManager.addRangeNotifier((RangeNotifier) this);
+        mBeaconManager.addRangeNotifier(this);
     }
 
     @Override
@@ -140,15 +154,38 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                 String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away.");
-                this.currentData = url + ";" + this.currentUser;
+                //this.currentData = url + ";" + this.currentUser;
+                this.currentData = url + ";3";
+                if (!dataSent){
+                    sendData();
+                }
+                NavigationManager.getInstance().getNavigationItems().get(0).setData(currentData);
             }
         }
+    }
+
+    private void sendData() {
+        String[] rawData = currentData.split(";");
+        DataObservable.getInstance().addObserver(this);
+        WeatherSender controller = new WeatherSender();
+        controller.sendWeather(controller.create(), Integer.parseInt(rawData[1]), Integer.parseInt(rawData[2]), Integer.parseInt(rawData[3]), Integer.parseInt(rawData[4]));
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        String weatherResponse =  (String) arg;
+        if(weatherResponse.equals("Query succeeded!"))
+        {
+            dataSent = true;
+        }
+        Toast.makeText(this, weatherResponse, Toast.LENGTH_SHORT).show();
+        DataObservable.getInstance().deleteObserver(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mBeaconManager.unbind((BeaconConsumer) this);
+        mBeaconManager.unbind(this);
     }
 
     private void setCurrentActivity() {

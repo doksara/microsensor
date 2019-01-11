@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import hr.foi.air.core.NavigationItem;
-import hr.foi.air.microsensor.Attendance;
+import hr.foi.air.webservice.Attendance.Attendance;
 import hr.foi.air.microsensor.R;
-import hr.foi.air.microsensor.Subject;
+import hr.foi.air.webservice.Attendance.Subject;
 import hr.foi.air.microsensor.adapters.ExpandableSubjectItem;
 import hr.foi.air.microsensor.adapters.SubjectAttendanceRecyclerAdapter;
 import hr.foi.air.webservice.Attendance.AttendanceLoader;
@@ -35,7 +34,6 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
     SubjectAttendanceRecyclerAdapter mAdapter;
     List<tempAttendance> tempAttendanceList;
     List<ExpandableSubjectItem> subjectItems;
-    List<Subject> subjectList;
     private boolean moduleReadyFlag;
     private boolean dataReadyFlag;
 
@@ -82,7 +80,7 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
         String[] rawData = optionalData.split(";");
         DataObservable.getInstance().addObserver(this);
         AttendanceLoader controller = new AttendanceLoader();
-        controller.getAttendance(controller.create(), Integer.parseInt(rawData[5]));
+        controller.getAttendance(controller.create(), Integer.parseInt(rawData[6]));
     }
 
     @Override
@@ -105,10 +103,10 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
     public void displayData(){
         subjectItems = new ArrayList<>();
 
-        List<Attendance> attendanceList = new ArrayList<>();
         List<Subject> subjectList = new ArrayList<>();
         for (tempAttendance temp : tempAttendanceList)
         {
+            List<Attendance> attendanceList = new ArrayList<>();
             for (String datum : temp.getDatum())
             {
                 Attendance newAttendance = new Attendance(datum);
@@ -116,46 +114,18 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
             }
             Subject subject = new Subject(temp.getNaziv(), attendanceList);
             subjectList.add(subject);
-            attendanceList.clear();
         }
-        /*Attendance newAttendance = new Attendance("1.12.2018");
-        attendanceList.add(newAttendance);
-        newAttendance = new Attendance("1.12.2018");
-        attendanceList.add(newAttendance);
-        newAttendance = new Attendance("5.12.2018");
-        attendanceList.add(newAttendance);
-        newAttendance = new Attendance("7.12.2018");
-        attendanceList.add(newAttendance);
-        newAttendance = new Attendance("13.12.2018");
-        attendanceList.add(newAttendance);
-        Subject OS2 = new Subject("Operacijski sustavi", attendanceList);
 
-        attendanceList.clear();
-        newAttendance = new Attendance("15.11.2018");
-        attendanceList.add(newAttendance);
-        newAttendance = new Attendance("18.11.2018");
-        attendanceList.add(newAttendance);
-        newAttendance = new Attendance("21.11.2018");
-        attendanceList.add(newAttendance);
-        newAttendance = new Attendance("23.11.2018");
-        attendanceList.add(newAttendance);
-        Subject AIR = new Subject("Analiza i razvoj programa", attendanceList);
+        for (Subject subject : subjectList)
+            subjectItems.add(new ExpandableSubjectItem(subject));
 
-        subjectList.add(OS2);
-        subjectList.add(AIR);*/
-
-        if (subjectList != null){
-            for (Subject subject : subjectList)
-                subjectItems.add(new ExpandableSubjectItem(subject));
-
-            RecyclerView mExpandableRecycler = (RecyclerView) getActivity().findViewById(R.id.mSubjectsRecycler);
-            if (mExpandableRecycler != null) {
-                mAdapter = new SubjectAttendanceRecyclerAdapter(getActivity(), subjectItems);
-                LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-                mExpandableRecycler.setLayoutManager(manager);
-                mExpandableRecycler.setHasFixedSize(true);
-                mExpandableRecycler.setAdapter(mAdapter);
-            }
+        RecyclerView mExpandableRecycler = (RecyclerView) getActivity().findViewById(R.id.mSubjectsRecycler);
+        if (mExpandableRecycler != null) {
+            mAdapter = new SubjectAttendanceRecyclerAdapter(getActivity(), subjectItems);
+            LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+            mExpandableRecycler.setLayoutManager(manager);
+            mExpandableRecycler.setHasFixedSize(true);
+            mExpandableRecycler.setAdapter(mAdapter);
         }
     }
 }

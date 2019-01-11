@@ -8,7 +8,7 @@ import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import hr.foi.air.microsensor.Attendance;
+import hr.foi.air.webservice.Attendance.Attendance;
 import hr.foi.air.microsensor.R;
 
 public class AttendanceViewHolder extends ChildViewHolder {

@@ -2,8 +2,8 @@ package hr.foi.air.microsensor.adapters;
 
 import com.bignerdranch.expandablerecyclerview.model.Parent;
 import java.util.List;
-import hr.foi.air.microsensor.Attendance;
-import hr.foi.air.microsensor.Subject;
+import hr.foi.air.webservice.Attendance.Attendance;
+import hr.foi.air.webservice.Attendance.Subject;
 
 public class ExpandableSubjectItem extends Subject implements Parent<Attendance> {
     private List<Attendance> attendanceList;

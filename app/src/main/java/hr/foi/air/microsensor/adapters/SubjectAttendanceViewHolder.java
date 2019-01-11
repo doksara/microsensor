@@ -2,7 +2,6 @@ package hr.foi.air.microsensor.adapters;
 
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
@@ -10,7 +9,7 @@ import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.foi.air.microsensor.R;
-import hr.foi.air.microsensor.Subject;
+import hr.foi.air.webservice.Attendance.Subject;
 
 public class SubjectAttendanceViewHolder extends ParentViewHolder {
     @BindView(R.id.mSubjectName) TextView mSubjectName;

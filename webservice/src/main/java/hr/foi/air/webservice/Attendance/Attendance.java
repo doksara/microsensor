@@ -1,4 +1,4 @@
-package hr.foi.air.microsensor;
+package hr.foi.air.webservice.Attendance;
 
 public class Attendance {
     private String date;

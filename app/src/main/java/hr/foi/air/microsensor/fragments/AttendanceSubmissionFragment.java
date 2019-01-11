@@ -87,10 +87,10 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     public void setData(String optionalData) {
         // ovo trenutno radi preko idDvorane na imena dvorane
         String[] rawData = optionalData.split(";");
-        korisnik = Integer.parseInt(rawData[5]);
+        korisnik = Integer.parseInt(rawData[6]);
         DataObservable.getInstance().addObserver(this);
         LectureLoader controller = new LectureLoader();
-        controller.loadLecture(controller.create(), Integer.parseInt(rawData[1]));
+        controller.getLecture(controller.create(), Integer.parseInt(rawData[1]));
 
     }
 

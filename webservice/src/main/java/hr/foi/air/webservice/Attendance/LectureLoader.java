@@ -9,7 +9,7 @@ import hr.foi.air.webservice.Interface.WebserviceInterface;
 import retrofit2.Call;
 
 public class LectureLoader extends DataLoader {
-    public void loadLecture(WebserviceInterface webserviceInterface, int dvorana)
+    public void getLecture(WebserviceInterface webserviceInterface, int dvorana)
     {
         Call<LectureResponse> call = webserviceInterface.getLecture(dvorana);
         call.enqueue(this);

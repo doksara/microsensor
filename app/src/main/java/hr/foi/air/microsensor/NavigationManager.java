@@ -36,6 +36,10 @@ public class NavigationManager {
         navigationItems.add(new AttendanceSubmissionFragment());
     }
 
+    public List<NavigationItem> getNavigationItems(){
+        return this.navigationItems;
+    }
+
     public static NavigationManager getInstance()
     {
         if (instance == null)
