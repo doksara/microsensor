@@ -13,6 +13,7 @@
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         android:textSize="24sp"
+        android:textColor="@color/icons"
         android:text="@string/headingSubmitAttendance"/>
 
     <LinearLayout

@@ -81,9 +81,9 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
          * tryToDisplayData()
          **/
         String[] rawData = optionalData.split(";");
-        this.currentTemperature = rawData[2];
-        this.currentBrightness = rawData[3];
-        this.currentHumidity = rawData[4];
+        this.currentTemperature = rawData[1];
+        this.currentBrightness = rawData[2];
+        this.currentHumidity = rawData[3];
         Log.d(TAG, "setData: " + optionalData);
         dataReadyFlag = true;
         tryToDisplayData();

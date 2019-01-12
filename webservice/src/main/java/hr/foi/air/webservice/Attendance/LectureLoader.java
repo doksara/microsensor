@@ -1,8 +1,5 @@
 package hr.foi.air.webservice.Attendance;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hr.foi.air.webservice.Data.DataLoader;
 import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Interface.WebserviceInterface;

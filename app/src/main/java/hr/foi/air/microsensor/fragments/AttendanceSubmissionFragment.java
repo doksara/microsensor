@@ -11,33 +11,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.webservice.Attendance.AttendanceObservable;
-import hr.foi.air.webservice.Attendance.AttendanceResponse;
-import hr.foi.air.webservice.Attendance.AttendanceSender;
 import hr.foi.air.webservice.Attendance.Lecture;
 import hr.foi.air.webservice.Attendance.LectureLoader;
 import hr.foi.air.webservice.Attendance.LectureResponse;
 import hr.foi.air.webservice.Data.DataObservable;
-import hr.foi.air.webservice.Data.DataResponse;
 
 public class AttendanceSubmissionFragment extends Fragment implements NavigationItem, Observer {
-    private boolean moduleReadyFlag;
-    private boolean dataReadyFlag;
-    private String currentSubject;
-    private String currentHall;
+    String currentSubject;
+    String currentHall;
     FragmentTransaction fragmentTransaction;
     FormAttendanceSubmission formAttendanceSubmission;
     MessageAttendanceSubmitted messageAttendanceSubmitted;
@@ -45,7 +36,7 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_attendance_submission, container, false);
     }
 
@@ -58,7 +49,6 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         messageNoLecture = new MessageNoLecture();
 
         ButterKnife.bind(this, view);
-        this.moduleReadyFlag = true;
     }
 
     @Override
@@ -78,13 +68,12 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
 
     @Override
     public void setData(String optionalData) {
-        // ovo trenutno radi preko idDvorane na imena dvorane
         String[] rawData = optionalData.split(";");
         Log.d("MainActivity", optionalData);
-        formAttendanceSubmission.setIdUser(Integer.parseInt(rawData[5]));
+        formAttendanceSubmission.setIdUser(Integer.parseInt(rawData[4]));
         DataObservable.getInstance().addObserver(this);
         LectureLoader controller = new LectureLoader();
-        controller.getLecture(controller.create(), Integer.parseInt(rawData[1]));
+        controller.getLecture(controller.create(), Integer.parseInt(rawData[0]));
 
     }
 
@@ -108,25 +97,25 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
 
             switch (lectureResponse.getMessage())
             {
-                case "Nema predavanja":
+                case "Query failed!":
                     switchFragment(messageNoLecture);
                     break;
-                case "Prisustvo vec prijavljeno":
-                    switchFragment(messageAttendanceSubmitted);
-                    break;
-                default:
-                    List<Lecture> list;
-                    if(!lectureResponse.getData().isEmpty())
+                case "Data arrived!":
                     {
-                        list = lectureResponse.getData();
-                        currentSubject = list.get(0).getKolegij();
-                        currentHall = list.get(0).getDvorana();
-                        formAttendanceSubmission.setData(currentSubject, currentHall);
-                        formAttendanceSubmission.setIdLecture(list.get(0).getIdKolegij());
-                        this.dataReadyFlag = true;
+                        List<Lecture> list;
+                        if(!lectureResponse.getData().isEmpty())
+                        {
+                            list = lectureResponse.getData();
+                            currentSubject = list.get(0).getKolegij();
+                            currentHall = list.get(0).getDvorana();
+                            formAttendanceSubmission.setData(currentSubject, currentHall);
+                            formAttendanceSubmission.setParentFragment(this);
+                            formAttendanceSubmission.setIdLecture(list.get(0).getIdKolegij());
+                        }
+                        switchFragment(formAttendanceSubmission);
                     }
-                    switchFragment(formAttendanceSubmission);
                     break;
+                default: break;
             }
             DataObservable.getInstance().deleteObserver(this);
         }

@@ -32,8 +32,7 @@ public interface WebserviceInterface {
     @FormUrlEncoded
     @POST("dohvatiStatistickePodatke.php")
     Call<WeatherResponse> getData(
-            @Field("zgrada") String zgrada,
-            @Field("dvorana") String dvorana
+            @Field("idDvorana") String idDvorana
     );
 
     @FormUrlEncoded

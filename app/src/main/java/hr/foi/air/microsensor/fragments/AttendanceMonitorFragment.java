@@ -76,8 +76,8 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
         String[] rawData = optionalData.split(";");
         DataObservable.getInstance().addObserver(this);
         AttendanceLoader controller = new AttendanceLoader();
-        controller.getAttendance(controller.create(), Integer.parseInt(rawData[6]));
-    }
+        controller.getAttendance(controller.create(), Integer.parseInt(rawData[4]));
+}
 
     @Override
     public void update(Observable o, Object arg) {

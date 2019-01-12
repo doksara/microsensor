@@ -10,7 +10,6 @@ import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,7 +20,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
@@ -48,12 +46,8 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     private static final String TAG = "MainActivity";
     private BeaconManager mBeaconManager;
     private BluetoothAdapter mBluetoothAdapter;
-    //Todo: Hardkodirane podatke kao currentData treba ispraviti, podaci bi trebali imati format
-    //Todo: (zgrada, idDvorana, temperatura, svjetlost, vlaga, dvorana, idKorisnika)
-    //Todo: treba napraviti da sve skripte rade sa idDvorane i izmjeniti na potrebnim mjestima u kodu
-    // zasad nema logina te currentUser vraća null
-    // app radi bez podataka sa microbita, a ako dolaze podaci s microbita currentUser vraća null
-    private String currentData = "FOI2;1;22;62;43;D1";
+
+    private String currentData = "1;22;62;43";
     private String currentUser = ";3";
     private boolean dataSent = false;
 
@@ -69,6 +63,20 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         setContentView(R.layout.activity_homepage);
         ButterKnife.bind(this);
 
+        checkCoarseLocationPermission();
+        checkBluetoothPermission();
+
+        // setCurrentUser();
+        setCurrentActivity();
+
+        initializeLayout();
+        setBackStackChangeListener();
+        initializeNavigationManager();
+        startMainModule();
+    }
+
+    private void checkCoarseLocationPermission()
+    {
         if(this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("This app needs location access");
@@ -84,21 +92,15 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
             });
             builder.show();
         }
+    }
 
+    private void checkBluetoothPermission()
+    {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (!mBluetoothAdapter.isEnabled()){
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
-
-        //Intent i = getIntent();
-        //this.currentUser = i.getStringExtra("currentUser");
-        setCurrentActivity();
-        initializeLayout();
-        setBackStackChangeListener();
-        initializeNavigationManager();
-        startMainModule();
-        //sendData();
     }
 
     @Override
@@ -168,7 +170,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         String[] rawData = currentData.split(";");
         DataObservable.getInstance().addObserver(this);
         WeatherSender controller = new WeatherSender();
-        controller.sendWeather(controller.create(), Integer.parseInt(rawData[1]), Integer.parseInt(rawData[2]), Integer.parseInt(rawData[3]), Integer.parseInt(rawData[4]));
+        controller.sendWeather(controller.create(), Integer.parseInt(rawData[0]), Integer.parseInt(rawData[1]), Integer.parseInt(rawData[2]), Integer.parseInt(rawData[3]));
     }
 
     @Override
@@ -190,6 +192,12 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
 
     private void setCurrentActivity() {
         CurrentActivity.setActivity(this);
+    }
+
+    private void setCurrentUser()
+    {
+        Intent i = getIntent();
+        this.currentUser = i.getStringExtra("currentUser");
     }
 
     private void initializeLayout()

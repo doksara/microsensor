@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.webservice.Attendance.AttendanceObservable;
@@ -21,16 +24,29 @@ import hr.foi.air.webservice.Attendance.AttendanceSender;
 public class FormAttendanceSubmission extends Fragment implements Observer {
     private int idLecture;
     private int idUser;
-    @BindView(R.id.textCurrentSubject) TextView mCurrentSubject;
-    @BindView(R.id.textCurrentHall) TextView mCurrentHall;
+    AttendanceSubmissionFragment parentFragment;
+    String subjectName;
+    String hallName;
+    TextView mCurrentSubject;
+    TextView mCurrentHall;
+    FragmentTransaction fragmentTransaction;
 
     public FormAttendanceSubmission() {
         // Required empty public constructor
     }
 
+    public void setParentFragment(AttendanceSubmissionFragment f)
+    {
+        this.parentFragment = f;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mCurrentHall = view.findViewById(R.id.textCurrentHall);
+        this.mCurrentSubject = view.findViewById(R.id.textCurrentSubject);
+        ButterKnife.bind(this, view);
+        displayFragment();
     }
 
     @Override
@@ -57,12 +73,25 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
     }
 
     public void setData(String currentSubject, String currentHall){
-        this.mCurrentSubject.setText(currentSubject);
-        this.mCurrentHall.setText(currentHall);
+        this.subjectName = currentSubject;
+        this.hallName = currentHall;
+    }
+
+    public void displayFragment()
+    {
+        this.mCurrentSubject.setText(this.subjectName);
+        this.mCurrentHall.setText(this.hallName);
     }
 
     @Override
     public void update(Observable o, Object arg){
+        String message = (String) arg;
+//        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 
+        if (message.equals("Prisustvo je vec prijavljeno!"))
+        {
+            MessageAttendanceSubmitted messageAttendanceSubmitted = new MessageAttendanceSubmitted();
+            this.parentFragment.switchFragment(messageAttendanceSubmitted);
+        }
     }
 }

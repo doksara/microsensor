@@ -7,14 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,16 +22,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
-import hr.foi.air.microsensor.adapters.MeasurementRecyclerAdapter;
 import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Weather.Weather;
 import hr.foi.air.webservice.Weather.WeatherLoader;
 import hr.foi.air.webservice.Weather.WeatherResponse;
 
-
 public class StatisticsViewFragment extends Fragment implements NavigationItem, Observer {
-    MeasurementRecyclerAdapter mAdapter;
-    private List<Weather> weatherList;
+    List<Weather> weatherList;
     private boolean moduleReadyFlag;
     private boolean dataReadyFlag;
     FragmentTransaction fragmentTransaction;
@@ -44,7 +37,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_statistics_view, container, false);
     }
@@ -81,7 +74,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         String[] rawData = optionalData.split(";");
         DataObservable.getInstance().addObserver(this);
         WeatherLoader controller = new WeatherLoader();
-        controller.loadWeather(controller.create(), rawData[0], rawData[6]);
+        controller.loadWeather(controller.create(), rawData[0]);
     }
 
     public void tryToDisplayData() {
