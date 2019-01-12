@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,25 +38,25 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     private boolean dataReadyFlag;
     private String currentSubject;
     private String currentHall;
-    private int kolegij;
-    private int korisnik;
-    @BindView(R.id.textCurrentSubject) TextView mCurrentSubject;
-    @BindView(R.id.textCurrentHall) TextView mCurrentHall;
+    FragmentTransaction fragmentTransaction;
+    FormAttendanceSubmission formAttendanceSubmission;
+    MessageAttendanceSubmitted messageAttendanceSubmitted;
+    MessageNoLecture messageNoLecture;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_realtime_view, container, false);
-        // mCurrentSubject = getActivity().findViewById(R.id.textCurrentSubject);
-        // mCurrentHall = getActivity().findViewById(R.id.textCurrentHall);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_attendance_submission, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        formAttendanceSubmission = new FormAttendanceSubmission();
+        messageAttendanceSubmitted = new MessageAttendanceSubmitted();
+        messageNoLecture = new MessageNoLecture();
+
         ButterKnife.bind(this, view);
         this.moduleReadyFlag = true;
     }
@@ -75,35 +76,23 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         return context.getResources().getDrawable(R.drawable.ic_assignment_turned_in, context.getTheme());
     }
 
-    @OnClick(R.id.mSubmitAttendance)
-    public void submitAttendance()
-    {
-        AttendanceObservable.getInstance().addObserver(this);
-        AttendanceSender controller = new AttendanceSender();
-        controller.sendAttendance(controller.create(), kolegij, korisnik);
-    }
-
     @Override
     public void setData(String optionalData) {
         // ovo trenutno radi preko idDvorane na imena dvorane
         String[] rawData = optionalData.split(";");
-        korisnik = Integer.parseInt(rawData[6]);
+        Log.d("MainActivity", optionalData);
+        formAttendanceSubmission.setIdUser(Integer.parseInt(rawData[5]));
         DataObservable.getInstance().addObserver(this);
         LectureLoader controller = new LectureLoader();
         controller.getLecture(controller.create(), Integer.parseInt(rawData[1]));
 
     }
 
-    private void tryToDisplayData(){
-        if (moduleReadyFlag && dataReadyFlag){
-            displayData();
-        }
-    }
-
-    public void displayData()
+    public void switchFragment(Fragment f)
     {
-        mCurrentSubject.setText(currentSubject);
-        mCurrentHall.setText(currentHall);
+        fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.attendance_submission_fragment_container, f, "");
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -116,18 +105,28 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         else
         {
             LectureResponse lectureResponse = (LectureResponse) arg;
-            List<Lecture> list;
-            if(!lectureResponse.getData().isEmpty())
+
+            switch (lectureResponse.getMessage())
             {
-                list = lectureResponse.getData();
-                currentSubject = list.get(0).getKolegij();
-                currentHall = list.get(0).getDvorana();
-                kolegij = list.get(0).getIdKolegij();
-                this.dataReadyFlag = true;
-                tryToDisplayData();
-            }
-            else {
-                Toast.makeText(getActivity(), lectureResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                case "Nema predavanja":
+                    switchFragment(messageNoLecture);
+                    break;
+                case "Prisustvo vec prijavljeno":
+                    switchFragment(messageAttendanceSubmitted);
+                    break;
+                default:
+                    List<Lecture> list;
+                    if(!lectureResponse.getData().isEmpty())
+                    {
+                        list = lectureResponse.getData();
+                        currentSubject = list.get(0).getKolegij();
+                        currentHall = list.get(0).getDvorana();
+                        formAttendanceSubmission.setData(currentSubject, currentHall);
+                        formAttendanceSubmission.setIdLecture(list.get(0).getIdKolegij());
+                        this.dataReadyFlag = true;
+                    }
+                    switchFragment(formAttendanceSubmission);
+                    break;
             }
             DataObservable.getInstance().deleteObserver(this);
         }

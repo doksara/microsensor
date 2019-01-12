@@ -41,7 +41,6 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        fillList();
         return inflater.inflate(R.layout.fragment_attendance_monitor, container, false);
     }
 
@@ -70,9 +69,6 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
         if (moduleReadyFlag && dataReadyFlag){
             displayData();
         }
-    }
-
-    public void fillList(){
     }
 
     @Override

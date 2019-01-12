@@ -13,6 +13,7 @@
     <string name="textCurrentHall">D10</string>
     <string name="textCurrentSubject">AIR</string>
     <string name="messageNoLecture">There are no current lectures in this hall.</string>
+    <string name="messageAttendanceSubmitted">You have submitted attendance for this lecture.</string>
     <string name="textNumberOfAttendances"># of attendances: %1$d</string>
     <string name="textAverageTemperature">Average temperature: </string>
     <string name="textAverageBrightness">Average brightness: </string>

@@ -54,7 +54,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     // zasad nema logina te currentUser vraća null
     // app radi bez podataka sa microbita, a ako dolaze podaci s microbita currentUser vraća null
     private String currentData = "FOI2;1;22;62;43;D1";
-    private String currentUser;
+    private String currentUser = ";3";
     private boolean dataSent = false;
 
     @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;
@@ -91,8 +91,8 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
-        Intent i = getIntent();
-        this.currentUser = i.getStringExtra("currentUser");
+        //Intent i = getIntent();
+        //this.currentUser = i.getStringExtra("currentUser");
         setCurrentActivity();
         initializeLayout();
         setBackStackChangeListener();
@@ -155,7 +155,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away.");
                 //this.currentData = url + ";" + this.currentUser;
-                this.currentData = url + ";3";
+                this.currentData = url + this.currentUser;
                 if (!dataSent){
                     sendData();
                 }
