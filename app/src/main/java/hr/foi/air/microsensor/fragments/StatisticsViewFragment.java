@@ -129,6 +129,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
                     switchToGraphModule();
                 }
                 break;
+            default: break;
         }
     }
 }

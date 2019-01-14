@@ -45,10 +45,10 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     private static final int REQUEST_ENABLE_BT = 2;
     private static final String TAG = "MainActivity";
     private BeaconManager mBeaconManager;
-    private BluetoothAdapter mBluetoothAdapter;
+    BluetoothAdapter mBluetoothAdapter;
 
     private String currentData = "1;22;62;43";
-    private String currentUser = ";3";
+    private String currentUser = "3";
     private boolean dataSent = false;
 
     @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;
@@ -66,7 +66,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         checkCoarseLocationPermission();
         checkBluetoothPermission();
 
-        // setCurrentUser();
+        setCurrentUser();
         setCurrentActivity();
 
         initializeLayout();
@@ -104,7 +104,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
         switch(requestCode){
             case PERMISSION_REQUEST_COARSE_LOCATION:{
                 if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
@@ -125,6 +125,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                     builder.show();
                 }
             }
+            default: break;
         }
     }
 
@@ -144,6 +145,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
             mBeaconManager.startRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
             e.printStackTrace();
+            Log.d("MainActivity", e.getMessage());
         }
         mBeaconManager.addRangeNotifier(this);
     }
@@ -156,8 +158,8 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                 String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away.");
-                //this.currentData = url + ";" + this.currentUser;
-                this.currentData = url + this.currentUser;
+
+                this.currentData = url + ";" + this.currentUser;
                 if (!dataSent){
                     sendData();
                 }

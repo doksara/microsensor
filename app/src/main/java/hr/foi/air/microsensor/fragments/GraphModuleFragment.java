@@ -30,6 +30,8 @@ import hr.foi.air.webservice.Weather.Weather;
 public class GraphModuleFragment extends Fragment {
     AnyChartView lineChart;
     private List<Weather> weatherList;
+    private final String textColor = "#FFFFFF";
+    private final String position = "right";
 
     public GraphModuleFragment() {
         // Required empty public constructor
@@ -68,13 +70,13 @@ public class GraphModuleFragment extends Fragment {
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
 
         cartesian.title("Measurements by date");
-        cartesian.title().fontColor("#FFFFFF");
+        cartesian.title().fontColor(textColor);
 
         cartesian.yAxis(0).title("°C / RH / lm");
-        cartesian.yAxis(0).title().fontColor("#FFFFFF");
-        cartesian.yAxis(0).labels().fontColor("#FFFFFF");
+        cartesian.yAxis(0).title().fontColor(textColor);
+        cartesian.yAxis(0).labels().fontColor(textColor);
         cartesian.xAxis(0).labels().padding(0,0,0,0);
-        cartesian.xAxis(0).labels().fontColor("#FFFFFF");
+        cartesian.xAxis(0).labels().fontColor(textColor);
 
         List<DataEntry> seriesData = new ArrayList<>();
         if (weatherList != null){
@@ -100,7 +102,7 @@ public class GraphModuleFragment extends Fragment {
                 .type(MarkerType.CIRCLE)
                 .size(1d);
         temperatureSeries.tooltip()
-                .position("right")
+                .position(position)
                 .anchor(Anchor.LEFT_CENTER)
                 .offsetX(5d)
                 .offsetY(5d);
@@ -112,7 +114,7 @@ public class GraphModuleFragment extends Fragment {
                 .type(MarkerType.CIRCLE)
                 .size(1d);
         humiditySeries.tooltip()
-                .position("right")
+                .position(position)
                 .anchor(Anchor.LEFT_CENTER)
                 .offsetX(5d)
                 .offsetY(5d);
@@ -124,13 +126,13 @@ public class GraphModuleFragment extends Fragment {
                 .type(MarkerType.CIRCLE)
                 .size(1d);
         lightLevelSeries.tooltip()
-                .position("right")
+                .position(position)
                 .anchor(Anchor.LEFT_CENTER)
                 .offsetX(5d)
                 .offsetY(5d);
 
         cartesian.legend().enabled(true);
-        cartesian.legend().fontColor("#FFFFFF");
+        cartesian.legend().fontColor(textColor);
         cartesian.legend().fontSize(13d);
         cartesian.legend().padding(0d, 0d, 10d, 0d);
 

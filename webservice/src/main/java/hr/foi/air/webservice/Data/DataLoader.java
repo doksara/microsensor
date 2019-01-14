@@ -1,5 +1,7 @@
 package hr.foi.air.webservice.Data;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -43,5 +45,6 @@ public abstract class DataLoader implements retrofit2.Callback {
     public void onFailure(Call call, Throwable t)
     {
         t.printStackTrace();
+        Log.d("MainActivity", t.getMessage());
     }
 }

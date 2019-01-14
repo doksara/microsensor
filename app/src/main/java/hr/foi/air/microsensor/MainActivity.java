@@ -3,6 +3,7 @@ package hr.foi.air.microsensor;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         if(!response.isEmpty())
         {
             Intent i = new Intent(this, HomepageActivity.class);
-            i.putExtra("currentUser", response.get(0).getId_korisnik());
+            i.putExtra("currentUser", String.valueOf(response.get(0).getId_korisnik()));
             startActivity(i);
         }
         else {
