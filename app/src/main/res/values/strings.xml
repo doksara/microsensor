@@ -26,7 +26,7 @@
 
     <string name="nav_header_title">microsensor</string>
     <string name="nav_header_info">foi@foi.hr</string>
-    <string name="menu_about">About app</string>
+    <string name="menu_logout">Logout</string>
     <string name="additional">Additional</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -49,4 +49,5 @@
     <string name="attendance_module_name">Attendance</string>
     <string name="statisticsview_module_name">Statistics view</string>
     <string name="realtimeview_module_name">Realtime view</string>
+    <string name="logout_module_name">Logout</string>
 </resources>

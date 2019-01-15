@@ -238,10 +238,11 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         // Handle navigation view menuItem clicks here.
+
         switch(menuItem.getItemId())
         {
-            case R.id.menu_about:
-                //do something
+            case R.id.mLogout:
+                logoutUser();
                 break;
             default:
                 NavigationManager.getInstance().selectNavigationItem(menuItem, this.currentData);
@@ -261,5 +262,13 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
 
     public void startMainModule() {
         NavigationManager.getInstance().startMainModule(this.currentData);
+    }
+
+    public void logoutUser() {
+        Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();
     }
 }
