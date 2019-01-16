@@ -6,18 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentContainer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
-import butterknife.BindView;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
-
 
 public class RealtimeViewFragment extends Fragment implements NavigationItem {
     private static String TAG = "MainActivity";
@@ -35,12 +31,12 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_realtime_view, container, false);
-        mCurrentTemperature = (TextView) rootView.findViewById(R.id.mCurrentTemperature);
-        mCurrentBrightness = (TextView) rootView.findViewById(R.id.mCurrentBrightness);
-        mCurrentHumidity = (TextView) rootView.findViewById(R.id.mCurrentHumidity);
+        mCurrentTemperature = rootView.findViewById(R.id.mCurrentTemperature);
+        mCurrentBrightness = rootView.findViewById(R.id.mCurrentBrightness);
+        mCurrentHumidity = rootView.findViewById(R.id.mCurrentHumidity);
         return rootView;
     }
 
@@ -90,13 +86,13 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
     }
 
     public void displayRealtimeData() {
-        mCurrentTemperature.setText(currentTemperature);
+        mCurrentTemperature.setText(getString(R.string.currentTemperature, currentTemperature));
         mCurrentTemperature.invalidate();
 
-        mCurrentBrightness.setText(currentBrightness);
+        mCurrentBrightness.setText(getString(R.string.currentBrightness, currentBrightness));
         mCurrentBrightness.invalidate();
 
-        mCurrentHumidity.setText(currentHumidity);
+        mCurrentHumidity.setText(getString(R.string.currentHumidity, currentHumidity));
         mCurrentHumidity.invalidate();
     }
 }

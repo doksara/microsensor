@@ -68,6 +68,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
 
         setCurrentUser();
         setCurrentActivity();
+        this.currentData = this.currentData + ";" + this.currentUser;
 
         initializeLayout();
         setBackStackChangeListener();
@@ -265,10 +266,26 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     }
 
     public void logoutUser() {
-        Intent i = new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
-        finish();
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        finish();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 }

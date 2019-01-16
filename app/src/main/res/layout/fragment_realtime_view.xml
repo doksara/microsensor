@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:text="@string/headingMeasurements"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"/>
 
@@ -48,7 +49,7 @@
                 android:textSize="25sp"
                 android:fontFamily="@font/open_sans_bold"
                 android:textColor="@color/secondary_text_lighter"
-                android:text="@string/currentHall"/>
+                android:text="@string/placeholderHall"/>
 
             <TextView
                 android:id="@+id/mCurrentTemperature"
@@ -57,7 +58,7 @@
                 android:includeFontPadding="false"
                 android:layout_marginBottom="-5dp"
                 android:layout_marginTop="-10dp"
-                android:text="@string/currentTemperature"
+                android:text="@string/placeholderTemperature"
                 android:textSize="80sp"
                 android:fontFamily="@font/open_sans_bold" />
         </LinearLayout>
@@ -71,7 +72,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:src="@drawable/temperature_icon"
-            android:contentDescription="@string/currentTemperature"
+            android:contentDescription="@string/placeholderTemperature"
             android:tint="@color/icons"/>
     </LinearLayout>
 
@@ -109,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="@string/currentHumidity"
+                android:text="@string/placeholderHumidity"
                 android:textSize="32sp"
                 android:layout_gravity="center_horizontal"/>
 
@@ -146,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="@string/currentBrightness"
+                android:text="@string/placeholderBrightness"
                 android:textSize="32sp"
                 android:layout_gravity="center_horizontal"/>
 

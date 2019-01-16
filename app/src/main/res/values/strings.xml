@@ -35,15 +35,16 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="currentHall">Hall 10</string>
-    <string name="currentTemperature">15°</string>
-    <string name="currentHumidity">47%</string>
-    <string name="currentBrightness">35.6 cd</string>
+    <string name="placeholderHall">Hall 10</string>
+    <string name="placeholderTemperature">15°</string>
+    <string name="placeholderHumidity">47%</string>
+    <string name="placeholderBrightness">35.6 cd</string>
+    <string name="currentTemperature">%1$s°</string>
+    <string name="currentHumidity">%1$s%%</string>
+    <string name="currentBrightness">%1$s cd</string>
     <string name="textHumidity">Humidity</string>
     <string name="textBrightness">Brightness</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="attendance_submission_module_name">Submit attendance</string>
     <string name="attendance_monitor_module_name">Previous attendance</string>
     <string name="attendance_module_name">Attendance</string>

@@ -75,6 +75,7 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
     @Override
     public void setData(String optionalData) {
         String[] rawData = optionalData.split(";");
+        Log.d("MainActivity", String.valueOf(rawData.length));
         DataObservable.getInstance().addObserver(this);
         AttendanceLoader controller = new AttendanceLoader();
         controller.getAttendance(controller.create(), Integer.parseInt(rawData[4]));
