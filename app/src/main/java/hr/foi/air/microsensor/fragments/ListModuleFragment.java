@@ -14,12 +14,12 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import hr.foi.air.microsensor.R;
+import hr.foi.air.microsensor.StatisticsViewModule;
 import hr.foi.air.microsensor.adapters.MeasurementRecyclerAdapter;
 import hr.foi.air.webservice.Weather.Weather;
 
-public class ListModuleFragment extends Fragment {
+public class ListModuleFragment extends Fragment implements StatisticsViewModule {
     private MeasurementRecyclerAdapter mAdapter;
-    private LinearLayoutManager manager;
     private List<Weather> weatherList;
     private RecyclerView mRecycler;
 
@@ -39,7 +39,7 @@ public class ListModuleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mRecycler = (RecyclerView) view.findViewById(R.id.mRecyclerViewStatistics);
-        displayListModule();
+        displayModule();
 
         ButterKnife.bind(this, view);
     }
@@ -48,7 +48,16 @@ public class ListModuleFragment extends Fragment {
         this.weatherList = weatherList;
     }
 
-    public void displayListModule() {
+    @Override
+    public Fragment getFragment(){
+        return this;
+    }
+
+    public String getModuleID(){
+        return "mSelectListModule";
+    }
+
+    public void displayModule() {
         if (mRecycler != null){
             mAdapter = new MeasurementRecyclerAdapter(getActivity(), weatherList);
             LinearLayoutManager manager = new LinearLayoutManager(getActivity());

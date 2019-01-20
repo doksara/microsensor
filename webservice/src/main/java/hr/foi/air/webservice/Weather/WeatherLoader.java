@@ -1,7 +1,6 @@
 package hr.foi.air.webservice.Weather;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
 
 import hr.foi.air.webservice.Data.DataLoader;
 import hr.foi.air.webservice.Data.DataObservable;
@@ -21,14 +20,11 @@ public class WeatherLoader extends DataLoader {
         if(response.isSuccessful())
         {
             WeatherResponse stanjeDataResponse = (WeatherResponse) response.body();
-            /*List<Object> list = new ArrayList<>();
-            list.add(stanjeDataResponse.getData());
-            list.add(stanjeDataResponse.getMessage());*/
             DataObservable.getInstance(). notifyObserverWithResponse(stanjeDataResponse);
         }
         else
         {
-            System.out.println(response.errorBody());
+            Log.d("MainActivity", response.errorBody().toString());
         }
     }
 }

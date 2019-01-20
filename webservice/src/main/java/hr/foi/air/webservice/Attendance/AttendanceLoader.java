@@ -1,5 +1,7 @@
 package hr.foi.air.webservice.Attendance;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class AttendanceLoader extends DataLoader {
         }
         else
         {
-            System.out.println(response.errorBody());
+            Log.d("MainActivity", response.errorBody().toString());
         }
     }
 }

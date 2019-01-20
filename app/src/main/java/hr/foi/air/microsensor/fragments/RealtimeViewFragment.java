@@ -69,13 +69,6 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
 
     @Override
     public void setData(String optionalData) {
-        /*
-         * Na ovom mjestu je potrebno implementirati logiku za postavljanje lokalnih podataka
-         * kao što je npr trenutna ucionica, trenutna temperatura, vlaga zraka i razina svijetlosti
-         * HINT: na kraju metode potrebno je staviti zastavicu dataReadyFlag na true kako bi dali do
-         * znanja programu da su podaci spremni, a nakon toga pokusati prikazati podatke sa metodom
-         * tryToDisplayData()
-         **/
         String[] rawData = optionalData.split(";");
         this.currentTemperature = rawData[1];
         this.currentBrightness = rawData[2];
@@ -86,13 +79,16 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
     }
 
     public void displayRealtimeData() {
-        mCurrentTemperature.setText(getString(R.string.currentTemperature, currentTemperature));
-        mCurrentTemperature.invalidate();
+        if (getActivity() != null)
+        {
+            mCurrentTemperature.setText(getString(R.string.currentTemperature, currentTemperature));
+            mCurrentTemperature.invalidate();
 
-        mCurrentBrightness.setText(getString(R.string.currentBrightness, currentBrightness));
-        mCurrentBrightness.invalidate();
+            mCurrentBrightness.setText(getString(R.string.currentBrightness, currentBrightness));
+            mCurrentBrightness.invalidate();
 
-        mCurrentHumidity.setText(getString(R.string.currentHumidity, currentHumidity));
-        mCurrentHumidity.invalidate();
+            mCurrentHumidity.setText(getString(R.string.currentHumidity, currentHumidity));
+            mCurrentHumidity.invalidate();
+        }
     }
 }

@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
+import hr.foi.air.microsensor.StatisticsViewModule;
 import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Weather.Weather;
 import hr.foi.air.webservice.Weather.WeatherLoader;
@@ -32,8 +33,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
     private boolean moduleReadyFlag;
     private boolean dataReadyFlag;
     FragmentTransaction fragmentTransaction;
-    ListModuleFragment listModule;
-    GraphModuleFragment graphModule;
+    List<StatisticsViewModule> moduleContainer;
 
     @Nullable
     @Override
@@ -46,8 +46,9 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listModule = new ListModuleFragment();
-        graphModule = new GraphModuleFragment();
+        moduleContainer = new ArrayList<>();
+        moduleContainer.add(new ListModuleFragment());
+        moduleContainer.add(new GraphModuleFragment());
         this.moduleReadyFlag = true;
 
         ButterKnife.bind(this, view);
@@ -70,7 +71,6 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
 
     @Override
     public void setData(String optionalData) {
-        // trenutno ovaj dio radi preko imena dvorane a ne idDvorane
         String[] rawData = optionalData.split(";");
         DataObservable.getInstance().addObserver(this);
         WeatherLoader controller = new WeatherLoader();
@@ -79,7 +79,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
 
     public void tryToDisplayData() {
         if (moduleReadyFlag && dataReadyFlag) {
-            switchToListModule();
+            switchModule(moduleContainer.get(0));
         }
     }
 
@@ -91,8 +91,9 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         {
             weatherList = new ArrayList<>();
             weatherList = weatherResponse.getData();
-            listModule.setData(weatherList);
-            graphModule.setData(weatherList);
+            for (StatisticsViewModule m : moduleContainer){
+                m.setData(weatherList);
+            }
             this.dataReadyFlag = true;
             tryToDisplayData();
         }
@@ -102,34 +103,23 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         DataObservable.getInstance().deleteObserver(this);
     }
 
-    void switchToListModule() {
+    void switchModule(StatisticsViewModule module) {
         fragmentTransaction = getChildFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.statistics_module_container, listModule, "");
-        fragmentTransaction.commit();
-    }
-
-    void switchToGraphModule() {
-        fragmentTransaction = getChildFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.statistics_module_container, graphModule, "");
+        fragmentTransaction.replace(R.id.statistics_module_container, module.getFragment(), "");
         fragmentTransaction.commit();
     }
 
     @OnClick({R.id.mSelectListModule, R.id.mSelectGraphModule})
     public void onRadioButtonClicked(RadioButton button) {
         boolean checked = button.isChecked();
+        String moduleName = getActivity().getResources().getResourceEntryName(button.getId());
 
-        switch (button.getId()) {
-            case R.id.mSelectListModule:
+        for (StatisticsViewModule m : moduleContainer){
+            if (m.getModuleID().equals(moduleName)){
                 if (checked){
-                    switchToListModule();
+                    switchModule(m);
                 }
-                break;
-            case R.id.mSelectGraphModule:
-                if (checked){
-                    switchToGraphModule();
-                }
-                break;
-            default: break;
+            }
         }
     }
 }

@@ -25,13 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.air.microsensor.R;
+import hr.foi.air.microsensor.StatisticsViewModule;
 import hr.foi.air.webservice.Weather.Weather;
 
-public class GraphModuleFragment extends Fragment {
+public class GraphModuleFragment extends Fragment implements StatisticsViewModule {
     AnyChartView lineChart;
     private List<Weather> weatherList;
-    private final String textColor = "#FFFFFF";
-    private final String position = "right";
+    private final static String textColor = "#FFFFFF";
+    private final static String position = "right";
 
     public GraphModuleFragment() {
         // Required empty public constructor
@@ -48,14 +49,23 @@ public class GraphModuleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.lineChart = view.findViewById(R.id.mLineChart);
-        displayGraph(lineChart);
+        displayModule();
     }
 
     public void setData(List<Weather> weatherList){
         this.weatherList = weatherList;
     }
 
-    public void displayGraph(AnyChartView lineChart){
+    @Override
+    public Fragment getFragment(){
+        return this;
+    }
+
+    public String getModuleID(){
+        return "mSelectGraphModule";
+    }
+
+    public void displayModule(){
         Cartesian cartesian = AnyChart.line();
         cartesian.background().fill("#455A64");
         cartesian.animation(true);
@@ -136,8 +146,8 @@ public class GraphModuleFragment extends Fragment {
         cartesian.legend().fontSize(13d);
         cartesian.legend().padding(0d, 0d, 10d, 0d);
 
-        lineChart.setBackgroundColor("#455A64");
-        lineChart.setChart(cartesian);
+        this.lineChart.setBackgroundColor("#455A64");
+        this.lineChart.setChart(cartesian);
     }
 
     private class CustomDataEntry extends ValueDataEntry {

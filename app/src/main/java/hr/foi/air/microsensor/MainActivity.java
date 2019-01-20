@@ -3,7 +3,6 @@ package hr.foi.air.microsensor;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
         controller.loadStudent(controller.create(), email, lozinka);
     }
 
-    // U ovoj funkciji pozivati druge funkcije koje rade sa dohvaćenim podacima
     @Override
     public void update(Observable o, Object arg) {
         List<Student> response = (List<Student>) arg;

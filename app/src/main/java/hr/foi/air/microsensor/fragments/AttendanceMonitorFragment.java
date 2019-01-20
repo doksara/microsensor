@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +74,6 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
     @Override
     public void setData(String optionalData) {
         String[] rawData = optionalData.split(";");
-        Log.d("MainActivity", String.valueOf(rawData.length));
         DataObservable.getInstance().addObserver(this);
         AttendanceLoader controller = new AttendanceLoader();
         controller.getAttendance(controller.create(), Integer.parseInt(rawData[4]));

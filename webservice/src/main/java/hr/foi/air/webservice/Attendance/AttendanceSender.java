@@ -1,5 +1,7 @@
 package hr.foi.air.webservice.Attendance;
 
+import android.util.Log;
+
 import hr.foi.air.webservice.Data.DataLoader;
 import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Data.DataResponse;
@@ -24,7 +26,7 @@ public class AttendanceSender extends DataLoader {
         }
         else
         {
-            System.out.println(response.errorBody());
+            Log.d("MainActivity", response.errorBody().toString());
         }
     }
 }

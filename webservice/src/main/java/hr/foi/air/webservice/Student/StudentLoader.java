@@ -1,5 +1,7 @@
 package hr.foi.air.webservice.Student;
 
+import android.util.Log;
+
 import java.util.List;
 
 import hr.foi.air.webservice.Data.DataLoader;
@@ -26,7 +28,7 @@ public class StudentLoader extends DataLoader {
         }
         else
         {
-            System.out.println(response.errorBody());
+            Log.d("MainActivity", response.errorBody().toString());
         }
     }
 }

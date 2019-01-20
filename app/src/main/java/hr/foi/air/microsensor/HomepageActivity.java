@@ -68,7 +68,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
 
         setCurrentUser();
         setCurrentActivity();
-        this.currentData = this.currentData + ";" + this.currentUser;
 
         initializeLayout();
         setBackStackChangeListener();
@@ -120,11 +119,12 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
                     builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
-
+                            // No need to override this method
                         }
                     });
                     builder.show();
                 }
+                break;
             }
             default: break;
         }
@@ -146,7 +146,6 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
             mBeaconManager.startRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
             e.printStackTrace();
-            Log.d("MainActivity", e.getMessage());
         }
         mBeaconManager.addRangeNotifier(this);
     }
@@ -201,6 +200,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
     {
         Intent i = getIntent();
         this.currentUser = i.getStringExtra("currentUser");
+        this.currentData = this.currentData + ";" + this.currentUser;
     }
 
     private void initializeLayout()
@@ -280,6 +280,7 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
 
                     case DialogInterface.BUTTON_NEGATIVE:
                         break;
+                    default: break;
                 }
             }
         };
