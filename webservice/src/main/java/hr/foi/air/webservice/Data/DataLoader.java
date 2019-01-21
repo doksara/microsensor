@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class DataLoader implements retrofit2.Callback {
     //Promijeniti URL webservisa
-    static final String BASE_URL = "http://airmicrosensor.000webhostapp.com/";
+    static final String BASE_URL = "http://35.204.146.190/";
 
     public WebserviceInterface create()
     {
