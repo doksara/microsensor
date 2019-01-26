@@ -1,10 +1,13 @@
 package hr.foi.air.microsensor;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -21,6 +24,7 @@ import hr.foi.air.webservice.Student.StudentLoader;
 public class MainActivity extends AppCompatActivity implements Observer {
     @BindView(R.id.mInputEmail) EditText inputEmail;
     @BindView(R.id.mInputPassword) EditText inputPassword;
+    private Dialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +36,15 @@ public class MainActivity extends AppCompatActivity implements Observer {
     @OnClick(R.id.mLogin)
     public void onClick(View view)
     {
+        this.progressBar = Utils.LoadingSpinner(this);
+        progressBar.show();
         DataObservable.getInstance().addObserver(this);
         String email = inputEmail.getText().toString();
         String lozinka = inputPassword.getText().toString();
         StudentLoader controller = new StudentLoader();
         controller.loadStudent(controller.create(), email, lozinka);
     }
+
 
     @Override
     public void update(Observable o, Object arg) {
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         {
             Intent i = new Intent(this, HomepageActivity.class);
             i.putExtra("currentUser", String.valueOf(response.get(0).getId_korisnik()));
+            this.progressBar.dismiss();
             startActivity(i);
         }
         else {

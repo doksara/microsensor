@@ -37,18 +37,19 @@ import java.util.Observer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.foi.air.core.CurrentActivity;
+import hr.foi.air.microsensor.fragments.RealtimeViewFragment;
 import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Weather.WeatherSender;
 
-public class HomepageActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener, Observer {
+public class HomepageActivity extends AppCompatActivity implements RealtimeViewFragment.OnStateChanged, BeaconConsumer, RangeNotifier, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener, Observer {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final int REQUEST_ENABLE_BT = 2;
     private static final String TAG = "MainActivity";
     private BeaconManager mBeaconManager;
     BluetoothAdapter mBluetoothAdapter;
 
-    private String currentData = "1;22;62;43";
-    private String currentUser = "3";
+    private String currentData = "-1;0;0;0";
+    private String currentUser = "0";
     private boolean dataSent = false;
 
     @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;
@@ -252,6 +253,11 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onStateChanged() {
+        this.currentData = "-1;0;0;0;" + this.currentUser;
     }
 
     @Override

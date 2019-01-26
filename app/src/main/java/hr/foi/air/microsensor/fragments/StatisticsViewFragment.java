@@ -30,8 +30,8 @@ import hr.foi.air.webservice.Weather.WeatherResponse;
 
 public class StatisticsViewFragment extends Fragment implements NavigationItem, Observer {
     List<Weather> weatherList;
-    private boolean moduleReadyFlag;
-    private boolean dataReadyFlag;
+    private boolean moduleReadyFlag = false;
+    private boolean dataReadyFlag = false;
     FragmentTransaction fragmentTransaction;
     List<StatisticsViewModule> moduleContainer;
 

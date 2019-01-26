@@ -25,6 +25,7 @@ import hr.foi.air.webservice.Attendance.Lecture;
 import hr.foi.air.webservice.Attendance.LectureLoader;
 import hr.foi.air.webservice.Attendance.LectureResponse;
 import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Weather.WeatherResponse;
 
 public class AttendanceSubmissionFragment extends Fragment implements NavigationItem, Observer {
     String currentSubject;
@@ -33,6 +34,8 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     FormAttendanceSubmission formAttendanceSubmission;
     MessageAttendanceSubmitted messageAttendanceSubmitted;
     MessageNoLecture messageNoLecture;
+
+    private boolean moduleReadyFlag = false;
 
     @Nullable
     @Override
@@ -49,6 +52,7 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         messageNoLecture = new MessageNoLecture();
 
         ButterKnife.bind(this, view);
+        moduleReadyFlag = true;
     }
 
     @Override
@@ -74,14 +78,16 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         DataObservable.getInstance().addObserver(this);
         LectureLoader controller = new LectureLoader();
         controller.getLecture(controller.create(), Integer.parseInt(rawData[0]));
-
     }
 
     public void switchFragment(Fragment f)
     {
-        fragmentTransaction = getChildFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.attendance_submission_fragment_container, f, "");
-        fragmentTransaction.commit();
+        if (isAdded())
+        {
+            fragmentTransaction = getChildFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.attendance_submission_fragment_container, f, "");
+            fragmentTransaction.commitAllowingStateLoss();
+        }
     }
 
     @Override
