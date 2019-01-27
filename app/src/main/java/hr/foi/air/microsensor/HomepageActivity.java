@@ -315,4 +315,10 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
     }
+
+    @Override
+    public void onStop(){
+        beaconStateNotifier.cancel();
+        super.onStop();
+    }
 }

@@ -3,11 +3,12 @@ package hr.foi.air.webservice.Attendance;
 public class Lecture {
     private String zgrada;
     private String dvorana;
-    private int id_kolegij;
+    private int id_raspored;
     private String kolegij;
+    private String tip;
 
-    public int getIdKolegij() {
-        return id_kolegij;
+    public int getIdRaspored() {
+        return id_raspored;
     }
 
     public String getDvorana() {
@@ -22,12 +23,14 @@ public class Lecture {
         return zgrada;
     }
 
+    public String getTip() { return tip; }
+
     public void setDvorana(String dvorana) {
         this.dvorana = dvorana;
     }
 
-    public void setIdKolegij(int idKolegij) {
-        this.id_kolegij = idKolegij;
+    public void setIdRaspored(int idKolegij) {
+        this.id_raspored = idKolegij;
     }
 
     public void setKolegij(String kolegij) {
@@ -37,4 +40,6 @@ public class Lecture {
     public void setZgrada(String zgrada) {
         this.zgrada = zgrada;
     }
+
+    public void setTip(String tip) { this.tip = tip; }
 }

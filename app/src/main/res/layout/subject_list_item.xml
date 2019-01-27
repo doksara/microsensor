@@ -31,7 +31,27 @@
                 android:textColor="@color/icons"
                 android:textIsSelectable="false"
                 tools:text="Subject name string"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <LinearLayout
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/mSubjectTypeIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+
+                <TextView
+                    android:id="@+id/mSubjectType"
+                    android:layout_marginStart="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text_lighter"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/mSubjectAttendanceCount"

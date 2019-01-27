@@ -10,11 +10,16 @@
     <string name="textPreferences">Preferences</string>
     <string name="textYourHall">Your hall</string>
     <string name="textYourSubject">Your subject</string>
+    <string name="textLectureType">Lecture type</string>
     <string name="textCurrentHall">D10</string>
     <string name="textCurrentSubject">AIR</string>
+    <string name="textPredavanje">Predavanja</string>
+    <string name="textSeminari">Seminarska nastava</string>
+    <string name="textLaboratorijskeVjezbe">Laboratorijske vjezbe</string>
     <string name="messageNoNearbyBeacons">No nearby Beacons detected. Make sure your Android device is close enough to the Beacon.</string>
     <string name="messageHintBluetooth">Note: Make sure your Bluetooth service is enabled.</string>
     <string name="messageNoLecture">There are no current lectures in this hall.</string>
+    <string name="messageStudentNotInSubject">You are not attending this subject. Are you sure you are in the right hall?</string>
     <string name="messageAttendanceSubmitted">You have submitted attendance for this lecture.</string>
     <string name="textNumberOfAttendances"># of attendances: %1$d</string>
     <string name="textAverageTemperature">Average temperature: </string>

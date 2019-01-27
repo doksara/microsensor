@@ -75,6 +75,35 @@
             android:textSize="24sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layout_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:elevation="6dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layout_border"
+        app:layout_constraintTop_toBottomOf="@+id/layout_subject"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondary_text_lighter"
+            android:text="@string/textLectureType"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/textSubjectType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/icons"
+            android:textAllCaps="true"
+            android:textSize="24sp" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/mSubmitAttendance"
         android:layout_width="match_parent"
@@ -92,7 +121,7 @@
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_subject" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_type" />
 
 </android.support.constraint.ConstraintLayout>
 

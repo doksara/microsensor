@@ -29,12 +29,15 @@ import hr.foi.air.webservice.Data.DataObservable;
 public class AttendanceSubmissionFragment extends Fragment implements NavigationItem, Observer {
     String currentSubject;
     String currentHall;
+    String subjectType;
     FragmentTransaction fragmentTransaction;
     FormAttendanceSubmission formAttendanceSubmission;
     MessageAttendanceSubmitted messageAttendanceSubmitted;
+    MessageStudentNotInSubject messageStudentNotInSubject;
     MessageNoLecture messageNoLecture;
     private boolean beaconActiveState = false;
     private boolean attendanceSubmitted = false;
+    private boolean userAttendsSubjectStatus = true;
     private boolean moduleReadyFlag = false;
     private boolean dataReadyFlag = false;
 
@@ -50,6 +53,7 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
 
         formAttendanceSubmission = new FormAttendanceSubmission();
         messageAttendanceSubmitted = new MessageAttendanceSubmitted();
+        messageStudentNotInSubject = new MessageStudentNotInSubject();
         messageNoLecture = new MessageNoLecture();
         this.moduleReadyFlag = true;
 
@@ -60,8 +64,11 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     public void setBeaconState(boolean state){
         this.beaconActiveState = state;
         if (moduleReadyFlag){
-            if (state && dataReadyFlag && !attendanceSubmitted){
+            if (state && dataReadyFlag && !attendanceSubmitted && userAttendsSubjectStatus){
                 switchFragment(formAttendanceSubmission);
+            }
+            else if (state && dataReadyFlag && !userAttendsSubjectStatus) {
+                switchFragment(messageStudentNotInSubject);
             }
             else if (state && attendanceSubmitted){
                 switchFragment(messageAttendanceSubmitted);
@@ -103,13 +110,15 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         {
             fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.attendance_submission_fragment_container, f, "");
-            fragmentTransaction.commit();
+            fragmentTransaction.commitAllowingStateLoss();
         }
     }
 
     public void setAttendanceStatus(boolean status){
         this.attendanceSubmitted = status;
     }
+
+    public void setUserAttendsSubjectStatus(boolean status) { this.userAttendsSubjectStatus = status;}
 
     @Override
     public void update(Observable o, Object arg) {
@@ -135,9 +144,10 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
                             list = lectureResponse.getData();
                             currentSubject = list.get(0).getKolegij();
                             currentHall = list.get(0).getDvorana();
-                            formAttendanceSubmission.setData(currentSubject, currentHall);
+                            subjectType = list.get(0).getTip();
+                            formAttendanceSubmission.setData(currentSubject, currentHall, subjectType);
                             formAttendanceSubmission.setParentFragment(this);
-                            formAttendanceSubmission.setIdLecture(list.get(0).getIdKolegij());
+                            formAttendanceSubmission.setIdSchedule(list.get(0).getIdRaspored());
                             this.dataReadyFlag = true;
                         }
                         if (!attendanceSubmitted){
