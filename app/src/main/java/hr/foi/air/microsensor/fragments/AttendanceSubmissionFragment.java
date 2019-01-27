@@ -25,7 +25,6 @@ import hr.foi.air.webservice.Attendance.Lecture;
 import hr.foi.air.webservice.Attendance.LectureLoader;
 import hr.foi.air.webservice.Attendance.LectureResponse;
 import hr.foi.air.webservice.Data.DataObservable;
-import hr.foi.air.webservice.Weather.WeatherResponse;
 
 public class AttendanceSubmissionFragment extends Fragment implements NavigationItem, Observer {
     String currentSubject;
@@ -34,8 +33,10 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     FormAttendanceSubmission formAttendanceSubmission;
     MessageAttendanceSubmitted messageAttendanceSubmitted;
     MessageNoLecture messageNoLecture;
-
+    private boolean beaconActiveState = false;
+    private boolean attendanceSubmitted = false;
     private boolean moduleReadyFlag = false;
+    private boolean dataReadyFlag = false;
 
     @Nullable
     @Override
@@ -50,9 +51,25 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         formAttendanceSubmission = new FormAttendanceSubmission();
         messageAttendanceSubmitted = new MessageAttendanceSubmitted();
         messageNoLecture = new MessageNoLecture();
+        this.moduleReadyFlag = true;
 
         ButterKnife.bind(this, view);
-        moduleReadyFlag = true;
+    }
+
+    @Override
+    public void setBeaconState(boolean state){
+        this.beaconActiveState = state;
+        if (moduleReadyFlag){
+            if (state && dataReadyFlag && !attendanceSubmitted){
+                switchFragment(formAttendanceSubmission);
+            }
+            else if (state && attendanceSubmitted){
+                switchFragment(messageAttendanceSubmitted);
+            }
+            else {
+                switchFragment(messageNoLecture);
+            }
+        }
     }
 
     @Override
@@ -86,8 +103,12 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         {
             fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.attendance_submission_fragment_container, f, "");
-            fragmentTransaction.commitAllowingStateLoss();
+            fragmentTransaction.commit();
         }
+    }
+
+    public void setAttendanceStatus(boolean status){
+        this.attendanceSubmitted = status;
     }
 
     @Override
@@ -117,8 +138,13 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
                             formAttendanceSubmission.setData(currentSubject, currentHall);
                             formAttendanceSubmission.setParentFragment(this);
                             formAttendanceSubmission.setIdLecture(list.get(0).getIdKolegij());
+                            this.dataReadyFlag = true;
                         }
-                        switchFragment(formAttendanceSubmission);
+                        if (!attendanceSubmitted){
+                            switchFragment(formAttendanceSubmission);
+                        } else {
+                            switchFragment(messageAttendanceSubmitted);
+                        }
                     }
                     break;
                 default: break;

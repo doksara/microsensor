@@ -33,24 +33,29 @@ import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.foi.air.core.CurrentActivity;
+import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.fragments.RealtimeViewFragment;
 import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Weather.WeatherSender;
 
-public class HomepageActivity extends AppCompatActivity implements RealtimeViewFragment.OnStateChanged, BeaconConsumer, RangeNotifier, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener, Observer {
+public class HomepageActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener, Observer {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final int REQUEST_ENABLE_BT = 2;
     private static final String TAG = "MainActivity";
     private BeaconManager mBeaconManager;
     BluetoothAdapter mBluetoothAdapter;
+    Timer beaconStateNotifier;
 
     private String currentData = "-1;0;0;0";
     private String currentUser = "0";
     private boolean dataSent = false;
+    private boolean activeState = false;
 
     @BindView(R.id.mDrawerLayout) DrawerLayout mDrawerLayout;
     @BindView(R.id.mNavigationView) NavigationView mNavigationView;
@@ -74,7 +79,26 @@ public class HomepageActivity extends AppCompatActivity implements RealtimeViewF
         setBackStackChangeListener();
         initializeNavigationManager();
         startMainModule();
+        startBeaconStateNotifier();
     }
+
+    public void startBeaconStateNotifier(){
+        beaconStateNotifier = new Timer();
+        beaconStateNotifier.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                notifyStateChanges();
+            }
+        },0,2000);
+    }
+
+    public void notifyStateChanges(){
+        for (NavigationItem item : NavigationManager.getInstance().getNavigationItems()){
+            item.setBeaconState(this.activeState);
+        }
+        this.activeState = false;
+    }
+
 
     private void checkCoarseLocationPermission()
     {
@@ -161,6 +185,7 @@ public class HomepageActivity extends AppCompatActivity implements RealtimeViewF
                         " approximately " + beacon.getDistance() + " meters away.");
 
                 this.currentData = url + ";" + this.currentUser;
+                this.activeState = true;
                 if (!dataSent){
                     sendData();
                 }
@@ -253,11 +278,6 @@ public class HomepageActivity extends AppCompatActivity implements RealtimeViewF
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onStateChanged() {
-        this.currentData = "-1;0;0;0;" + this.currentUser;
     }
 
     @Override

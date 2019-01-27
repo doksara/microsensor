@@ -36,6 +36,7 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
     List<ExpandableSubjectItem> subjectItems;
     private boolean moduleReadyFlag;
     private boolean dataReadyFlag;
+    private boolean beaconActiveState = false;
 
     @Nullable
     @Override
@@ -48,6 +49,11 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.moduleReadyFlag = true;
+    }
+
+    @Override
+    public void setBeaconState(boolean state){
+        this.beaconActiveState = state;
     }
 
     @Override

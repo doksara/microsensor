@@ -86,11 +86,11 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
     @Override
     public void update(Observable o, Object arg){
         String message = (String) arg;
-//        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 
         if (message.equals("Prisustvo je vec prijavljeno!"))
         {
             MessageAttendanceSubmitted messageAttendanceSubmitted = new MessageAttendanceSubmitted();
+            this.parentFragment.setAttendanceStatus(true);
             this.parentFragment.switchFragment(messageAttendanceSubmitted);
         }
     }

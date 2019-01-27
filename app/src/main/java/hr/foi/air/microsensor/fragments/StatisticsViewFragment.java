@@ -32,6 +32,7 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
     List<Weather> weatherList;
     private boolean moduleReadyFlag = false;
     private boolean dataReadyFlag = false;
+    private boolean beaconActiveState = false;
     FragmentTransaction fragmentTransaction;
     List<StatisticsViewModule> moduleContainer;
 
@@ -52,6 +53,11 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         this.moduleReadyFlag = true;
 
         ButterKnife.bind(this, view);
+    }
+
+    @Override
+    public void setBeaconState(boolean state){
+        this.beaconActiveState = state;
     }
 
     @Override

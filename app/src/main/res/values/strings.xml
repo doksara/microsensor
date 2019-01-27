@@ -13,7 +13,7 @@
     <string name="textCurrentHall">D10</string>
     <string name="textCurrentSubject">AIR</string>
     <string name="messageNoNearbyBeacons">No nearby Beacons detected. Make sure your Android device is close enough to the Beacon.</string>
-    <string name="messageHintBluetooth">Note: Make sure your Bluetooth service is turned ON.</string>
+    <string name="messageHintBluetooth">Note: Make sure your Bluetooth service is enabled.</string>
     <string name="messageNoLecture">There are no current lectures in this hall.</string>
     <string name="messageAttendanceSubmitted">You have submitted attendance for this lecture.</string>
     <string name="textNumberOfAttendances"># of attendances: %1$d</string>

@@ -11,21 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
 
 public class RealtimeViewFragment extends Fragment implements NavigationItem {
-    private boolean activeState = false;
-    private boolean lastActiveState = false;
-    Timer timer;
     NearbyBeaconFound beaconFoundScreen;
     NearbyBeaconNotFound beaconNotFoundScreen;
     FragmentTransaction fragmentTransaction;
-    OnStateChanged dataPasser;
-
+    private boolean beaconActiveState = false;
     private boolean moduleReadyFlag;
 
     @Nullable
@@ -42,31 +35,20 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
         beaconFoundScreen = new NearbyBeaconFound();
         beaconNotFoundScreen = new NearbyBeaconNotFound();
 
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                listenStateChanges();
-            }
-        },0,2000);
-
         this.moduleReadyFlag = true;
     }
 
-    public void listenStateChanges(){
-        if (this.activeState){
-            switchScreen(beaconFoundScreen);
-        } else {
-            switchScreen(beaconNotFoundScreen);
+    @Override
+    public void setBeaconState(boolean state){
+        this.beaconActiveState = state;
+        if (moduleReadyFlag){
+            if (state){
+                switchScreen(beaconFoundScreen);
+            }
+            else {
+                switchScreen(beaconNotFoundScreen);
+            }
         }
-
-        this.lastActiveState = this.activeState;
-        resetData();
-        this.activeState = false;
-    }
-
-    public void resetData() {
-        dataPasser.onStateChanged();
     }
 
     @Override
@@ -85,16 +67,17 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
     }
 
     public void switchScreen(Fragment f) {
-        fragmentTransaction = getChildFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.realtime_container, f, "");
-        fragmentTransaction.commit();
+        if (isAdded()){
+            fragmentTransaction = getChildFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.realtime_container, f, "");
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
     public void setData(String optionalData) {
-        if (this.moduleReadyFlag && !optionalData.equals("-1;0;0;0;0"))
+        if (moduleReadyFlag)
         {
-            this.activeState = true;
             beaconFoundScreen.setData(optionalData);
         }
     }
@@ -102,17 +85,5 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        dataPasser = (OnStateChanged) context;
-    }
-
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        timer.cancel();
-    }
-
-    public interface OnStateChanged {
-        public void onStateChanged();
     }
 }
