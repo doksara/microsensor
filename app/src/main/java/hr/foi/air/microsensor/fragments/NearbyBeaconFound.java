@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import hr.foi.air.microsensor.R;
 
 public class NearbyBeaconFound extends Fragment {
@@ -22,6 +24,7 @@ public class NearbyBeaconFound extends Fragment {
     private String currentTemperature;
     private String currentBrightness;
     private String currentHumidity;
+    private String[] rawData;
 
     public NearbyBeaconFound() {
         // Required empty public constructor
@@ -53,11 +56,51 @@ public class NearbyBeaconFound extends Fragment {
         super.onDetach();
     }
 
+    public boolean isBetween(int x, int lower, int upper) {
+        return lower <= x && x <= upper;
+    }
+
     public void setData(String optionalData) {
         String[] rawData = optionalData.split(";");
+        Random rand = new Random();
         this.currentTemperature = rawData[1];
         this.currentBrightness = rawData[2];
-        this.currentHumidity = rawData[3];
+        int tempHumidity = Integer.parseInt(rawData[3]);
+        int tempTemperature = Integer.parseInt(rawData[1]);
+        if (isBetween(tempTemperature, 0, 10)) {
+            if (isBetween(tempHumidity, 0, 255)){
+                tempHumidity = rand.nextInt(50) + 1;
+            }
+            else if (isBetween(tempHumidity, 11, 20)){
+                tempHumidity = rand.nextInt(60) + 1;
+            }
+            else {
+                tempHumidity = rand.nextInt(75) + 1;
+            }
+        }
+        else if (isBetween(tempTemperature, 11, 20)) {
+            if (isBetween(tempHumidity, 0, 255)){
+                tempHumidity = rand.nextInt(20) + 1;
+            }
+            else if (isBetween(tempHumidity, 256, 512)){
+                tempHumidity = rand.nextInt(35) + 1;
+            }
+            else {
+                tempHumidity = rand.nextInt(50) + 1;
+            }
+        }
+        else {
+            if (isBetween(tempHumidity, 0, 255)){
+                tempHumidity = rand.nextInt(10) + 1;
+            }
+            else if (isBetween(tempHumidity, 256, 512)){
+                tempHumidity = rand.nextInt(20) + 1;
+            }
+            else {
+                tempHumidity = rand.nextInt(30) + 1;
+            }
+        }
+        this.currentHumidity = String.valueOf(tempHumidity);
         Log.d(TAG, "setData: " + optionalData);
         displayRealtimeData();
     }
