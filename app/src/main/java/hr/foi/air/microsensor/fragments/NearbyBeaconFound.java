@@ -26,6 +26,9 @@ public class NearbyBeaconFound extends Fragment {
     private String currentHumidity;
     private String[] rawData;
 
+    /**
+     * Empty public constructor.
+     */
     public NearbyBeaconFound() {
         // Required empty public constructor
     }
@@ -56,10 +59,21 @@ public class NearbyBeaconFound extends Fragment {
         super.onDetach();
     }
 
+    /**
+     * Checks whether the certain number is between lower number and upper number.
+     * @param x Number to be checked
+     * @param lower Lower number
+     * @param upper Upper number
+     * @return True if x is between lower number and upper number, false if not.
+     */
     public boolean isBetween(int x, int lower, int upper) {
         return lower <= x && x <= upper;
     }
 
+    /**
+     * Sets the data from the Beacon on the fragment.
+     * @param optionalData Data from EddystoneURL as {@link String}
+     */
     public void setData(String optionalData) {
         String[] rawData = optionalData.split(";");
         Random rand = new Random();
@@ -105,6 +119,9 @@ public class NearbyBeaconFound extends Fragment {
         displayRealtimeData();
     }
 
+    /**
+     * Displays the realtime data on screen.
+     */
     public void displayRealtimeData() {
         if (getActivity() != null)
         {

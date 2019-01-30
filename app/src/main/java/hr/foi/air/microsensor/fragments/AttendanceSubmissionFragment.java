@@ -60,6 +60,9 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         ButterKnife.bind(this, view);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setBeaconState(boolean state){
         this.beaconActiveState = state;
@@ -79,21 +82,33 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Fragment getFragment() {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName(Context context) {
         return context.getString(R.string.attendance_submission_module_name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Drawable getIcon(Context context) {
         return context.getResources().getDrawable(R.drawable.ic_assignment_turned_in, context.getTheme());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setData(String optionalData) {
         String[] rawData = optionalData.split(";");
@@ -104,6 +119,10 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         controller.getLecture(controller.create(), Integer.parseInt(rawData[0]));
     }
 
+    /**
+     * Switches between the {@link FormAttendanceSubmission}, {@link MessageAttendanceSubmitted} and {@link MessageStudentNotInSubject} fragment inside the View.
+     * @param f The {@link Fragment} to be switched.
+     */
     public void switchFragment(Fragment f)
     {
         if (isAdded())
@@ -114,12 +133,25 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         }
     }
 
+    /**
+     * Sets the status of the attendance - true for submitted, false for not submitted.
+     * @param status Status of the attendance as {@link boolean}
+     */
     public void setAttendanceStatus(boolean status){
         this.attendanceSubmitted = status;
     }
 
+    /**
+     * Sets the status of the student in {@link hr.foi.air.webservice.Attendance.Subject} - true for attending, false for not attending.
+     * @param status Status of the student in subject as {@link boolean}
+     */
     public void setUserAttendsSubjectStatus(boolean status) { this.userAttendsSubjectStatus = status;}
 
+    /**
+     * On received HTTP response, updates the fragment with data.
+     * @param o Observer that is subscribed to subject.
+     * @param arg Object that needs to be casted to {@link LectureResponse}
+     */
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof AttendanceObservable)

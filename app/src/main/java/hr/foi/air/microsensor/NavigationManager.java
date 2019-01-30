@@ -27,6 +27,9 @@ public class NavigationManager {
     private DrawerLayout drawerLayout;
     private int dynamicGroupId;
 
+    /**
+     * Private Singleton constructor. On construct, adds all the modules in the {@link List&lt;NavigationItem&gt;}.
+     */
     private NavigationManager()
     {
         navigationItems = new ArrayList<>();
@@ -36,10 +39,18 @@ public class NavigationManager {
         navigationItems.add(new AttendanceSubmissionFragment());
     }
 
+    /**
+     * Returns the items as {@link List&lt;NavigationItem&gt;} from Singleton instance.
+     * @return List of all modules.
+     */
     public List<NavigationItem> getNavigationItems(){
         return this.navigationItems;
     }
 
+    /**
+     * Returns the Singleton instance.
+     * @return instance of {@link NavigationManager}
+     */
     public static NavigationManager getInstance()
     {
         if (instance == null)
@@ -48,6 +59,13 @@ public class NavigationManager {
         return instance;
     }
 
+    /**
+     * Sets the drawer dependencies on the Navigation panel.
+     * @param activity Current activity
+     * @param navigationView Selected NavigationView
+     * @param drawerLayout Selected DrawerLayout
+     * @param dynamicGroupId ID of Dynamic group
+     */
     public void setDrawerDependencies(
             AppCompatActivity activity,
             NavigationView navigationView,
@@ -62,6 +80,9 @@ public class NavigationManager {
         setupDrawer();
     }
 
+    /**
+     * Sets up the drawer in HomepageActivity.
+     */
     private void setupDrawer()
     {
         for (int i = 0; i < navigationItems.size(); i++) {
@@ -73,12 +94,21 @@ public class NavigationManager {
         }
     }
 
+    /**
+     * Starts the Main module (first module in the {@link List&lt;NavigationItem&gt;})
+     * @param currentData Data passed to the module on start.
+     */
     public void startMainModule(String currentData) {
         NavigationItem mainModule = navigationItems != null ? navigationItems.get(0) : null;
         if (mainModule != null)
             startModule(mainModule, currentData);
     }
 
+    /**
+     * Starts the selected module.
+     * @param module Module to be started
+     * @param currentData Data passed to the module on start.
+     */
     private void startModule(NavigationItem module, String currentData) {
         FragmentManager mFragmentManager = activity.getSupportFragmentManager();
         mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -90,6 +120,11 @@ public class NavigationManager {
         DataManager.getInstance().sendData(module, currentData);
     }
 
+    /**
+     * Opens the selected navigation item and refreshes UI.
+     * @param menuItem ID of the selected menu item
+     * @param currentData Data to be passed to the module
+     */
     public void selectNavigationItem(MenuItem menuItem, String currentData) {
         if (!menuItem.isChecked()) {
             menuItem.setChecked(true);

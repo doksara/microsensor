@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.microsensor.StatisticsViewModule;
+import hr.foi.air.webservice.Attendance.AttendanceResponse;
 import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Weather.Weather;
 import hr.foi.air.webservice.Weather.WeatherLoader;
@@ -55,26 +56,41 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         ButterKnife.bind(this, view);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setBeaconState(boolean state){
         this.beaconActiveState = state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Fragment getFragment() {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName(Context context) {
         return context.getString(R.string.statisticsview_module_name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Drawable getIcon(Context context) {
         return context.getResources().getDrawable(R.drawable.ic_insert_chart, context.getTheme());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setData(String optionalData) {
         String[] rawData = optionalData.split(";");
@@ -83,12 +99,20 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         controller.loadWeather(controller.create(), rawData[0]);
     }
 
+    /**
+     * Tries to display the fragment if module and data are ready.
+     */
     public void tryToDisplayData() {
         if (moduleReadyFlag && dataReadyFlag) {
             switchModule(moduleContainer.get(0));
         }
     }
 
+    /**
+     * On received HTTP response, updates the fragment with data.
+     * @param o Observer that is subscribed to subject.
+     * @param arg Object that needs to be casted to {@link WeatherResponse}
+     */
     @Override
     public void update(Observable o, Object arg) {
         WeatherResponse weatherResponse = (WeatherResponse) arg;
@@ -109,6 +133,10 @@ public class StatisticsViewFragment extends Fragment implements NavigationItem, 
         DataObservable.getInstance().deleteObserver(this);
     }
 
+    /**
+     * Switches between the {@link ListModuleFragment} and {@link GraphModuleFragment} modules inside the Fragment.
+     * @param module The {@link StatisticsViewModule} to be switched.
+     */
     void switchModule(StatisticsViewModule module) {
         fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.statistics_module_container, module.getFragment(), "");

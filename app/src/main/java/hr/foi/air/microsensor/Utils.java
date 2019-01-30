@@ -8,6 +8,11 @@ import android.view.Window;
 
 public class Utils {
 
+    /**
+     * Creates a dialog box as loading spinner without border and background.
+     * @param mContext The {@link Context} of the {@link android.app.Activity} in which the dialog will be created
+     * @return The {@link} Dialog as loading spinner
+     */
     public static Dialog LoadingSpinner(Context mContext){
         Dialog pd = new Dialog(mContext, android.R.style.Theme_Black);
         View view = LayoutInflater.from(mContext).inflate(R.layout.progress_spinner, null);

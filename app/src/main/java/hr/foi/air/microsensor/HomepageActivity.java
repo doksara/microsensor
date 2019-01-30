@@ -42,6 +42,7 @@ import hr.foi.air.core.CurrentActivity;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.fragments.RealtimeViewFragment;
 import hr.foi.air.webservice.Data.DataObservable;
+import hr.foi.air.webservice.Weather.WeatherResponse;
 import hr.foi.air.webservice.Weather.WeatherSender;
 
 public class HomepageActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener, Observer {
@@ -82,6 +83,9 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         startBeaconStateNotifier();
     }
 
+    /**
+     * Starts the timer which executes {@param notifyStateChanges} every 2 seconds.
+     */
     public void startBeaconStateNotifier(){
         beaconStateNotifier = new Timer();
         beaconStateNotifier.scheduleAtFixedRate(new TimerTask() {
@@ -92,6 +96,9 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         },0,2000);
     }
 
+    /**
+     * Resets the Beacon state every 2 seconds to false (inactive) and notifies other fragments.
+     */
     public void notifyStateChanges(){
         for (NavigationItem item : NavigationManager.getInstance().getNavigationItems()){
             item.setBeaconState(this.activeState);
@@ -99,7 +106,9 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         this.activeState = false;
     }
 
-
+    /**
+     * Checks whether the user allows coarse location usage.
+     */
     private void checkCoarseLocationPermission()
     {
         if(this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
@@ -119,6 +128,9 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         }
     }
 
+    /**
+     * Checks whether the user allows Bluetooth service.
+     */
     private void checkBluetoothPermission()
     {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -175,6 +187,11 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         mBeaconManager.addRangeNotifier(this);
     }
 
+    /**
+     * If beacon is in region, it will check whether it matches Eddystone UUID, parse the data from URL and send it to {@link RealtimeViewFragment}.
+     * @param beacons List of beacons.
+     * @param region List of all beacons in region.
+     */
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
         for (Beacon beacon: beacons) {
@@ -201,6 +218,11 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         controller.sendWeather(controller.create(), Integer.parseInt(rawData[0]), Integer.parseInt(rawData[1]), Integer.parseInt(rawData[2]), Integer.parseInt(rawData[3]));
     }
 
+    /**
+     * If data from Beacon is successfully sent to the server, it will show message and set the flag to true.
+     * @param o Observer that is subscribed to subject.
+     * @param arg Object that needs to be casted to {@link WeatherResponse}
+     */
     @Override
     public void update(Observable o, Object arg) {
         String weatherResponse =  (String) arg;
@@ -218,10 +240,16 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         mBeaconManager.unbind(this);
     }
 
+    /**
+     * Sets the current activity.
+     */
     private void setCurrentActivity() {
         CurrentActivity.setActivity(this);
     }
 
+    /**
+     * Sets the current user, receives data from Intent.
+     */
     private void setCurrentUser()
     {
         Intent i = getIntent();
@@ -229,6 +257,9 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         this.currentData = this.currentData + ";" + this.currentUser;
     }
 
+    /**
+     * Initializes the layout with actionbar, drawer and navigation view.
+     */
     private void initializeLayout()
     {
         setSupportActionBar(mToolbar);
@@ -241,11 +272,17 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         mNavigationView.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * Sets the backstack change listener on the support fragment manager.
+     */
     private void setBackStackChangeListener()
     {
         getSupportFragmentManager().addOnBackStackChangedListener(this);
     }
 
+    /**
+     * Initializes {@link NavigationManager}.
+     */
     private void initializeNavigationManager() {
         NavigationManager nm = NavigationManager.getInstance();
         nm.setDrawerDependencies(
@@ -287,10 +324,16 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         drawerToggle.syncState();
     }
 
+    /**
+     * Starts the main module (first module).
+     */
     public void startMainModule() {
         NavigationManager.getInstance().startMainModule(this.currentData);
     }
 
+    /**
+     * Logs off the current user and cleans all memory in backstack.
+     */
     public void logoutUser() {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override

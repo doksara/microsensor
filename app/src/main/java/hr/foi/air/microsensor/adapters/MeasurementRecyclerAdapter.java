@@ -16,6 +16,11 @@ public class MeasurementRecyclerAdapter extends RecyclerView.Adapter<Measurement
     private Context context;
     private List<Weather> weathers;
 
+    /**
+     * Default constructor.
+     * @param context The {@link Context} of the View instancing this class
+     * @param weathers The {@link List<Weather>} with all items for recycling
+     */
     public MeasurementRecyclerAdapter(Context context, List<Weather> weathers) {
         this.context = context;
         this.weathers = weathers;
@@ -28,12 +33,21 @@ public class MeasurementRecyclerAdapter extends RecyclerView.Adapter<Measurement
         return new MeasurementViewHolder(measurementView);
     }
 
+    /**
+     * Sets the details for each item according to its position.
+     * @param measurementViewHolder The {@link MeasurementViewHolder} that holds the view of item.
+     * @param position The position of each item in list.
+     */
     @Override
     public void onBindViewHolder(@NonNull MeasurementViewHolder measurementViewHolder, int position) {
         Weather weather = weathers.get(position);
-        measurementViewHolder.setDetails(weather);
+        measurementViewHolder.bind(weather);
     }
 
+    /**
+     * Returns the number of items in the list.
+     * @return Size of {@link List<Weather>}.
+     */
     @Override
     public int getItemCount() {
         return weathers.size();

@@ -18,6 +18,11 @@ public class AttendanceViewHolder extends ChildViewHolder {
     View mAttendanceItemView;
     SubjectAttendanceRecyclerAdapter mAdapter;
 
+    /**
+     * Default constructor.
+     * @param itemView The {@link View} being hosted in this ViewHolder
+     * @param adapter The {@link SubjectAttendanceRecyclerAdapter} responsible for recycling views
+     */
     public AttendanceViewHolder(@NonNull View itemView, SubjectAttendanceRecyclerAdapter adapter) {
         super(itemView);
         mAttendanceItemView = itemView;
@@ -25,6 +30,10 @@ public class AttendanceViewHolder extends ChildViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
+    /**
+     * Binds the {@link View} with data provided in {@link Attendance}.
+     * @param attendance Instance of {@link Attendance} which the view will be bind with
+     */
     public void bind(Attendance attendance){
         mAttendance = attendance;
         mAttendanceDate.setText(attendance.getDate());

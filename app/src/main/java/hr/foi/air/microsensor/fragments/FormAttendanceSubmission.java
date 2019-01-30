@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -34,10 +32,17 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
     TextView mSubjectType;
     FragmentTransaction fragmentTransaction;
 
+    /**
+     * Default empty constructor.
+     */
     public FormAttendanceSubmission() {
         // Required empty public constructor
     }
 
+    /**
+     * Sets the parent fragment.
+     * @param f Parent fragment as {@link AttendanceSubmissionFragment}
+     */
     public void setParentFragment(AttendanceSubmissionFragment f)
     {
         this.parentFragment = f;
@@ -68,14 +73,28 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         controller.sendAttendance(controller.create(), this.idSchedule, this.idUser);
     }
 
+    /**
+     * Sets the ID of the schedule related to lecture.
+     * @param idSchedule ID of the Schedule as {@link int}
+     */
     public void setIdSchedule(int idSchedule){
         this.idSchedule = idSchedule;
     }
 
+    /**
+     * Sets the ID of the current logged user.
+     * @param idUser ID of the current user as {@link int}
+     */
     public void setIdUser(int idUser){
         this.idUser = idUser;
     }
 
+    /**
+     * Sets the data for the fragment.
+     * @param currentSubject Name of the current subject being performed as {@link String}
+     * @param currentHall ID of the current hall in which the subject is being performed as {@link String}
+     * @param subjectType Type of the current subject (pass 'L' for Laboratorijske vjezbe, 'P' for Predavanje and 'S' for Seminar)
+     */
     public void setData(String currentSubject, String currentHall, String subjectType){
         this.subjectName = currentSubject;
         this.hallName = currentHall;
@@ -87,6 +106,9 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         }
     }
 
+    /**
+     * Displays the current fragment with its data.
+     */
     public void displayFragment()
     {
         this.mCurrentSubject.setText(this.subjectName);
@@ -94,6 +116,11 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         this.mSubjectType.setText(this.subjectType);
     }
 
+    /**
+     * On received HTTP response, updates the fragment depending on response message.
+     * @param o Observer that is subscribed to subject
+     * @param arg Object that needs to be casted to {@link String} to see the message from response
+     */
     @Override
     public void update(Observable o, Object arg){
         String message = (String) arg;

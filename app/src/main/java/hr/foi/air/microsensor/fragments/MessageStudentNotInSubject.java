@@ -12,6 +12,10 @@ import hr.foi.air.microsensor.R;
 
 
 public class MessageStudentNotInSubject extends Fragment {
+
+    /**
+     * Empty public constructor.
+     */
     public MessageStudentNotInSubject() {
         // Required empty public constructor
     }

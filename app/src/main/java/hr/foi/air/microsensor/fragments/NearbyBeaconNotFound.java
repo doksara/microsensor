@@ -12,6 +12,9 @@ import hr.foi.air.microsensor.R;
 
 public class NearbyBeaconNotFound extends Fragment {
 
+    /**
+     * Empty public constructor.
+     */
     public NearbyBeaconNotFound() {
         // Required empty public constructor
     }

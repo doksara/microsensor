@@ -1,7 +1,5 @@
 package hr.foi.air.microsensor.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +13,9 @@ import hr.foi.air.microsensor.R;
 
 public class MessageAttendanceSubmitted extends Fragment {
 
+    /**
+     * Empty public constructor.
+     */
     public MessageAttendanceSubmitted() {
         // Required empty public constructor
     }

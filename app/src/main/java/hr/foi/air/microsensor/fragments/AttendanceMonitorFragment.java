@@ -51,32 +51,50 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
         this.moduleReadyFlag = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setBeaconState(boolean state){
         this.beaconActiveState = state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Fragment getFragment() {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName(Context context) {
         return context.getString(R.string.attendance_monitor_module_name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Drawable getIcon(Context context) {
         return context.getResources().getDrawable(R.drawable.ic_event_note, context.getTheme());
     }
 
+    /**
+     * Tries to display the fragment if module and data are ready.
+     */
     private void tryToDisplayData(){
         if (moduleReadyFlag && dataReadyFlag){
             displayData();
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setData(String optionalData) {
         String[] rawData = optionalData.split(";");
@@ -85,6 +103,11 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
         controller.getAttendance(controller.create(), Integer.parseInt(rawData[4]));
 }
 
+    /**
+     * On received HTTP response, updates the fragment with data.
+     * @param o Observer that is subscribed to subject.
+     * @param arg Object that needs to be casted to {@link AttendanceResponse}
+     */
     @Override
     public void update(Observable o, Object arg) {
         AttendanceResponse attendanceResponse = (AttendanceResponse) arg;
@@ -102,6 +125,9 @@ public class AttendanceMonitorFragment extends Fragment implements NavigationIte
         DataObservable.getInstance().deleteObserver(this);
     }
 
+    /**
+     * Displays the data on the fragment.
+     */
     public void displayData(){
         subjectItems = new ArrayList<>();
 

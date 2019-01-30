@@ -38,6 +38,9 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
         this.moduleReadyFlag = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setBeaconState(boolean state){
         this.beaconActiveState = state;
@@ -51,21 +54,34 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Fragment getFragment() {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName(Context context) {
         return context.getString(R.string.realtimeview_module_name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Drawable getIcon(Context context) {
         return context.getResources().getDrawable(R.drawable.ic_import_export, context.getTheme());
     }
 
+    /**
+     * Switches between the {@link NearbyBeaconFound} and {@link NearbyBeaconNotFound} fragment inside the View.
+     * @param f The {@link Fragment} to be switched.
+     */
     public void switchScreen(Fragment f) {
         if (isAdded()){
             fragmentTransaction = getChildFragmentManager().beginTransaction();
@@ -74,6 +90,9 @@ public class RealtimeViewFragment extends Fragment implements NavigationItem {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setData(String optionalData) {
         if (moduleReadyFlag)

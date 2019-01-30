@@ -20,6 +20,7 @@ import butterknife.OnClick;
 import hr.foi.air.webservice.Student.Student;
 import hr.foi.air.webservice.Data.DataObservable;
 import hr.foi.air.webservice.Student.StudentLoader;
+import hr.foi.air.webservice.Weather.WeatherResponse;
 
 public class MainActivity extends AppCompatActivity implements Observer {
     @BindView(R.id.mInputEmail) EditText inputEmail;
@@ -45,7 +46,12 @@ public class MainActivity extends AppCompatActivity implements Observer {
         controller.loadStudent(controller.create(), email, lozinka);
     }
 
-
+    /**
+     * On received HTTP response, updates the fragment with data.
+     * If login is successful it will return data associated with account. If not, will return error message.
+     * @param o Observer that is subscribed to subject
+     * @param arg Object that needs to be casted to {@link List&lt;Student&gt;}
+     */
     @Override
     public void update(Observable o, Object arg) {
         List<Student> response = (List<Student>) arg;

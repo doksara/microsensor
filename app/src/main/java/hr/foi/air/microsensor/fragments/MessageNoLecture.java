@@ -12,6 +12,9 @@ import hr.foi.air.microsensor.R;
 
 public class MessageNoLecture extends Fragment {
 
+    /**
+     * Empty public constructor.
+     */
     public MessageNoLecture() {
         // Required empty public constructor
     }

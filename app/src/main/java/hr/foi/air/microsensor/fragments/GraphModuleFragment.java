@@ -34,6 +34,9 @@ public class GraphModuleFragment extends Fragment implements StatisticsViewModul
     private final static String textColor = "#FFFFFF";
     private final static String position = "right";
 
+    /**
+     * Empty public constructor.
+     */
     public GraphModuleFragment() {
         // Required empty public constructor
     }
@@ -52,19 +55,34 @@ public class GraphModuleFragment extends Fragment implements StatisticsViewModul
         displayModule();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setData(List<Weather> weatherList){
         this.weatherList = weatherList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Fragment getFragment(){
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getModuleID(){
         return "mSelectGraphModule";
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void displayModule(){
         Cartesian cartesian = AnyChart.line();
         cartesian.background().fill("#455A64");

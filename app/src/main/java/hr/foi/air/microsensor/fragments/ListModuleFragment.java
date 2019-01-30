@@ -23,6 +23,9 @@ public class ListModuleFragment extends Fragment implements StatisticsViewModule
     private List<Weather> weatherList;
     private RecyclerView mRecycler;
 
+    /**
+     * Empty public constructor.
+     */
     public ListModuleFragment() {
         // Required empty public constructor
     }
@@ -44,19 +47,34 @@ public class ListModuleFragment extends Fragment implements StatisticsViewModule
         ButterKnife.bind(this, view);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setData(List<Weather> weatherList){
         this.weatherList = weatherList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Fragment getFragment(){
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getModuleID(){
         return "mSelectListModule";
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void displayModule() {
         if (mRecycler != null){
             mAdapter = new MeasurementRecyclerAdapter(getActivity(), weatherList);

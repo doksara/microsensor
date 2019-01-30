@@ -21,12 +21,20 @@ public class SubjectAttendanceViewHolder extends ParentViewHolder {
 
     View mSubjectItemView;
 
+    /**
+     * Default constructor.
+     * @param itemView The {@link View} being hosted in this ViewHolder
+     */
     public SubjectAttendanceViewHolder(@NonNull View itemView) {
         super(itemView);
         mSubjectItemView = itemView;
         ButterKnife.bind(this, itemView);
     }
 
+    /**
+     * Binds the {@link View} with data provided in {@link Subject}.
+     * @param subject Instance of {@link Subject} which the view will be bind with
+     */
     public void bind(Subject subject){
         String[] splitName = subject.getName().split("-");
         switch (splitName[1])

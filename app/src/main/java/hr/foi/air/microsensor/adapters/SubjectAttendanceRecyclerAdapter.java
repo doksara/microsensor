@@ -16,16 +16,27 @@ import hr.foi.air.microsensor.R;
 public class SubjectAttendanceRecyclerAdapter extends ExpandableRecyclerAdapter<ExpandableSubjectItem, Attendance, SubjectAttendanceViewHolder, AttendanceViewHolder> {
     private LayoutInflater mInflater;
 
+    /**
+     * Default constructor.
+     * @param context The {@link Context} of the View instancing this class
+     * @param parentList The {@link List<ExpandableSubjectItem>} with all items for recycling
+     */
     public SubjectAttendanceRecyclerAdapter(Context context, @NonNull List<ExpandableSubjectItem> parentList) {
         super(parentList);
         mInflater = LayoutInflater.from(context);
     }
 
+    /**
+     *
+     * @param parentViewGroup
+     * @param viewType
+     * @return The instance of {@link SubjectAttendanceViewHolder} holding the view
+     */
     @NonNull
     @Override
     public SubjectAttendanceViewHolder onCreateParentViewHolder(@NonNull ViewGroup parentViewGroup, int viewType) {
-        View storeView = mInflater.inflate(R.layout.subject_list_item, parentViewGroup, false);
-        return new SubjectAttendanceViewHolder(storeView);
+        View subjectView = mInflater.inflate(R.layout.subject_list_item, parentViewGroup, false);
+        return new SubjectAttendanceViewHolder(subjectView);
     }
 
     @NonNull
