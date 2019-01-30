@@ -211,6 +211,9 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         }
     }
 
+    /**
+     * Sends the HTTP request to Web service with the data from measurements.
+     */
     private void sendData() {
         String[] rawData = currentData.split(";");
         DataObservable.getInstance().addObserver(this);

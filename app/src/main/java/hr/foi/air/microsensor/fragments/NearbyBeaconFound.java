@@ -25,6 +25,7 @@ public class NearbyBeaconFound extends Fragment {
     private String currentBrightness;
     private String currentHumidity;
     private String[] rawData;
+    Random rand = new Random();
 
     /**
      * Empty public constructor.
@@ -76,7 +77,6 @@ public class NearbyBeaconFound extends Fragment {
      */
     public void setData(String optionalData) {
         String[] rawData = optionalData.split(";");
-        Random rand = new Random();
         this.currentTemperature = rawData[1];
         this.currentBrightness = rawData[2];
         int tempHumidity = Integer.parseInt(rawData[3]);
