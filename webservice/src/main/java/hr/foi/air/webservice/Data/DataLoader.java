@@ -17,6 +17,10 @@ public abstract class DataLoader implements retrofit2.Callback {
     //Promijeniti URL webservisa
     static final String BASE_URL = "http://35.204.146.190/";
 
+    /**
+     * Creates a interface for communication with the server OkHttpClient to set connection parameters and Retrofit to handle converstion from JSON format.
+     * @return Instance of Webservice interface class
+     */
     public WebserviceInterface create()
     {
         Gson gson = new GsonBuilder()
@@ -41,6 +45,11 @@ public abstract class DataLoader implements retrofit2.Callback {
         return webserviceInterface;
     }
 
+    /**
+     * Logs error in the case of a failed HTTP request.
+     * @param call
+     * @param t Throwable of the HTTP request as {@link Throwable}
+     */
     @Override
     public void onFailure(Call call, Throwable t)
     {
