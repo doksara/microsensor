@@ -11,15 +11,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hr.foi.air.core.NavigationItem;
 import hr.foi.air.microsensor.R;
+import hr.foi.air.microsensor.StatisticsViewModule;
+import hr.foi.air.microsensor.SubmitAttendanceModule;
 import hr.foi.air.webservice.Attendance.AttendanceObservable;
 import hr.foi.air.webservice.Attendance.Lecture;
 import hr.foi.air.webservice.Attendance.LectureLoader;
@@ -40,6 +45,7 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
     private boolean userAttendsSubjectStatus = true;
     private boolean moduleReadyFlag = false;
     private boolean dataReadyFlag = false;
+
 
     @Nullable
     @Override
@@ -119,6 +125,13 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
         controller.getLecture(controller.create(), Integer.parseInt(rawData[0]));
     }
 
+    void switchModule(SubmitAttendanceModule module) {
+        fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.attendance_submission_fragment_container, module.getFragment(), "");
+        fragmentTransaction.commit();
+    }
+
+
     /**
      * Switches between the {@link FormAttendanceSubmission}, {@link MessageAttendanceSubmitted} and {@link MessageStudentNotInSubject} fragment inside the View.
      * @param f The {@link Fragment} to be switched.
@@ -194,5 +207,6 @@ public class AttendanceSubmissionFragment extends Fragment implements Navigation
             DataObservable.getInstance().deleteObserver(this);
         }
     }
+
 }
 

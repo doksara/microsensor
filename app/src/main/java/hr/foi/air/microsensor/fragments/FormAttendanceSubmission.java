@@ -9,14 +9,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.microsensor.R;
+import hr.foi.air.microsensor.StatisticsViewModule;
+import hr.foi.air.microsensor.SubmitAttendanceModule;
 import hr.foi.air.webservice.Attendance.AttendanceObservable;
 import hr.foi.air.webservice.Attendance.AttendanceSender;
 
@@ -31,6 +36,8 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
     TextView mCurrentHall;
     TextView mSubjectType;
     FragmentTransaction fragmentTransaction;
+    List<SubmitAttendanceModule> moduleContainer;
+
 
     /**
      * Default empty constructor.
@@ -56,6 +63,10 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         this.mSubjectType = view.findViewById(R.id.textSubjectType);
         ButterKnife.bind(this, view);
         displayFragment();
+
+        moduleContainer = new ArrayList<>();
+        moduleContainer.add(new CodeModuleFragment());
+
     }
 
     @Override
@@ -106,6 +117,13 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         }
     }
 
+    void switchModule(SubmitAttendanceModule module) {
+        fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.submit_module_container, module.getFragment(), "");
+        fragmentTransaction.commit();
+    }
+
+
     /**
      * Displays the current fragment with its data.
      */
@@ -142,6 +160,19 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
                 break;
             }
             default: break;
+        }
+    }
+    @OnClick({R.id.mSelectCodeModule, R.id.mSelectQrModule, R.id.mSelectPinModule})
+    public void onRadioButtonClicked(RadioButton button) {
+        boolean checked = button.isChecked();
+        String moduleName = getActivity().getResources().getResourceEntryName(button.getId());
+
+        for (SubmitAttendanceModule m : moduleContainer){
+            if (m.getModuleID().equals(moduleName)){
+                if (checked){
+                    switchModule(m);
+                }
+            }
         }
     }
 }

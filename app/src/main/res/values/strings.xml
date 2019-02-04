@@ -62,4 +62,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="customControlPIN">PIN</string>
+    <string name="customControlCode">Code</string>
+    <string name="customControlQR">QR</string>
 </resources>
