@@ -6,15 +6,14 @@
     android:layout_width="match_parent"
     tools:context=".fragments.FormAttendanceSubmission">
 
-    <TextView
-        android:id="@+id/headingSubmitAttendance"
+    <FrameLayout
+        android:id="@+id/attendance_module_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        android:textSize="24sp"
-        android:textColor="@color/icons"
-        android:text="@string/headingSubmitAttendance"/>
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <LinearLayout
         android:id="@+id/layout_hall"
@@ -25,7 +24,7 @@
         android:padding="8dp"
         android:elevation="6dp"
         android:background="@drawable/layout_border"
-        app:layout_constraintTop_toBottomOf="@+id/headingSubmitAttendance"
+        app:layout_constraintTop_toBottomOf="@+id/attendance_module_container"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent">
 
@@ -122,6 +121,74 @@
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_type" />
+
+    <FrameLayout
+        android:id="@+id/attendance_submission_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <RadioGroup
+        android:id="@+id/mRadioSegmentedControl"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/green_out_line"
+        android:checkedButton="@+id/mQRModule"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mSubmitAttendance">
+
+        <RadioButton
+            android:id="@+id/mQRModule"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/toggle_widget_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/customControlQR"
+            android:textColor="@color/icons" />
+
+        <RadioButton
+            android:id="@+id/mCodeModule"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/toggle_widget_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/customControlCode"
+            android:textColor="@color/icons" />
+
+        <RadioButton
+            android:id="@+id/mPinModule"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/toggle_widget_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/customControlPin"
+            android:textColor="@color/icons" />
+    </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>
 

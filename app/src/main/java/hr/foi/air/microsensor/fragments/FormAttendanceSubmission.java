@@ -9,13 +9,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hr.foi.air.microsensor.AttendanceModule;
 import hr.foi.air.microsensor.R;
 import hr.foi.air.webservice.Attendance.AttendanceObservable;
 import hr.foi.air.webservice.Attendance.AttendanceSender;
@@ -23,6 +28,8 @@ import hr.foi.air.webservice.Attendance.AttendanceSender;
 public class FormAttendanceSubmission extends Fragment implements Observer {
     private int idSchedule;
     private int idUser;
+    public String pin = "";
+    private boolean moduleReadyFlag = false;
     AttendanceSubmissionFragment parentFragment;
     String subjectName;
     String hallName;
@@ -31,12 +38,17 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
     TextView mCurrentHall;
     TextView mSubjectType;
     FragmentTransaction fragmentTransaction;
+    List<AttendanceModule> moduleContainer;
 
     /**
      * Default empty constructor.
      */
     public FormAttendanceSubmission() {
         // Required empty public constructor
+    }
+
+    public void setPin(String p){
+        this.pin = p;
     }
 
     /**
@@ -54,6 +66,10 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         this.mCurrentHall = view.findViewById(R.id.textCurrentHall);
         this.mCurrentSubject = view.findViewById(R.id.textCurrentSubject);
         this.mSubjectType = view.findViewById(R.id.textSubjectType);
+        moduleContainer = new ArrayList<>();
+        moduleContainer.add(new CodeModuleFragment());
+        moduleContainer.get(0).setData(idUser, idSchedule, this);
+        moduleReadyFlag = true;
         ButterKnife.bind(this, view);
         displayFragment();
     }
@@ -68,6 +84,7 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
     @OnClick(R.id.mSubmitAttendance)
     public void submitAttendance()
     {
+        Toast.makeText(getContext(),this.pin, Toast.LENGTH_SHORT).show();
         AttendanceObservable.getInstance().addObserver(this);
         AttendanceSender controller = new AttendanceSender();
         controller.sendAttendance(controller.create(), this.idSchedule, this.idUser);
@@ -114,6 +131,27 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         this.mCurrentSubject.setText(this.subjectName);
         this.mCurrentHall.setText(this.hallName);
         this.mSubjectType.setText(this.subjectType);
+    }
+
+
+    void switchModule(AttendanceModule module) {
+        fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.attendance_module_container, module.getFragment(), "");
+        fragmentTransaction.commit();
+    }
+
+    @OnClick({R.id.mQRModule, R.id.mCodeModule, R.id.mPinModule})
+    public void onRadioButtonClicked(RadioButton button) {
+        boolean checked = button.isChecked();
+        String moduleName = getActivity().getResources().getResourceEntryName(button.getId());
+
+        for (AttendanceModule m : moduleContainer){
+            if (m.getModuleID().equals(moduleName)){
+                if (checked){
+                    switchModule(m);
+                }
+            }
+        }
     }
 
     /**
