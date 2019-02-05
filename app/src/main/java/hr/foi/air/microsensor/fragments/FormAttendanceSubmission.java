@@ -68,6 +68,7 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         this.mSubjectType = view.findViewById(R.id.textSubjectType);
         moduleContainer = new ArrayList<>();
         moduleContainer.add(new CodeModuleFragment());
+        moduleContainer.add(new QRCodeModuleFragment());
         moduleContainer.get(0).setData(idUser, idSchedule, this);
         moduleReadyFlag = true;
         ButterKnife.bind(this, view);
