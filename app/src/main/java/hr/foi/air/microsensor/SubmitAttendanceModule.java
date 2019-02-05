@@ -4,13 +4,6 @@ import android.support.v4.app.Fragment;
 
 public interface SubmitAttendanceModule {
 
-
-
-    /**
-     * Displays the current module in parent fragment.
-     */
-    public void displayModule();
-
     /**
      * Gets the current fragment.
      * @return Current fragment as {@link Fragment}

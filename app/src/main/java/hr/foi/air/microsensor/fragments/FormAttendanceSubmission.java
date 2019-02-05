@@ -28,6 +28,7 @@ import hr.foi.air.webservice.Attendance.AttendanceSender;
 public class FormAttendanceSubmission extends Fragment implements Observer {
     private int idSchedule;
     private int idUser;
+    public String kod = "";
     AttendanceSubmissionFragment parentFragment;
     String subjectName;
     String hallName;
@@ -100,6 +101,11 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         this.idUser = idUser;
     }
 
+    public void setKod(String k)
+    {
+        this.kod = k;
+    }
+
     /**
      * Sets the data for the fragment.
      * @param currentSubject Name of the current subject being performed as {@link String}
@@ -109,6 +115,7 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
     public void setData(String currentSubject, String currentHall, String subjectType){
         this.subjectName = currentSubject;
         this.hallName = currentHall;
+
         switch (subjectType)
         {
             case "S": this.subjectType = "Seminarska nastava"; break;

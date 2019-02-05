@@ -22,7 +22,6 @@ import hr.foi.air.microsensor.SubmitAttendanceModule;
 public class CodeModuleFragment extends Fragment implements SubmitAttendanceModule {
 
     private EditText unosKoda;
-    private SubmitAttendanceModule submitAttendanceModule;
 
     /**
      * Empty public constructor.
@@ -45,13 +44,8 @@ public class CodeModuleFragment extends Fragment implements SubmitAttendanceModu
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.unosKoda = view.findViewById(R.id.unosKoda);
-        displayModule();
     }
 
-    @Override
-    public void displayModule() {
-
-    }
 
     @Override
     public Fragment getFragment() {
@@ -59,7 +53,6 @@ public class CodeModuleFragment extends Fragment implements SubmitAttendanceModu
     }
 
     @Override
-    public String getModuleID() {
-        return "mSelectCodeModule";
-    }
+    public String getModuleID() { return "mSelectCodeModule";}
+
 }
