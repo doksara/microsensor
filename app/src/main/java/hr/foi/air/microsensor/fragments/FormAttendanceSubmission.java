@@ -69,7 +69,10 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         moduleContainer = new ArrayList<>();
         moduleContainer.add(new CodeModuleFragment());
         moduleContainer.add(new QRCodeModuleFragment());
+        moduleContainer.add(new PinAttendanceFragment());
         moduleContainer.get(0).setData(idUser, idSchedule, this);
+        moduleContainer.get(1).setData(idUser, idSchedule, this);
+        moduleContainer.get(2).setData(idUser, idSchedule, this);
         moduleReadyFlag = true;
         ButterKnife.bind(this, view);
         displayFragment();

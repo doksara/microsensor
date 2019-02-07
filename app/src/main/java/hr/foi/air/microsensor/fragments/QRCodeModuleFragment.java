@@ -25,6 +25,7 @@ public class QRCodeModuleFragment extends Fragment implements AttendanceModule {
 
     Button btnScan;
     TextView tv_qr_readTxt;
+    FormAttendanceSubmission form;
 
     public QRCodeModuleFragment() {
         // Required empty public constructor
@@ -71,6 +72,7 @@ public class QRCodeModuleFragment extends Fragment implements AttendanceModule {
 
             } else {
                Log.d("MainActivity", "Scanned: " + result.getContents());
+               form.setPin(result.getContents());
                 Toast.makeText(getActivity(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 this.tv_qr_readTxt.setText(result.getContents());
             }
@@ -81,7 +83,7 @@ public class QRCodeModuleFragment extends Fragment implements AttendanceModule {
 
     @Override
     public void setData(Integer idUser, Integer idSchedule, FormAttendanceSubmission f) {
-
+        form = f;
     }
 
     @Override
