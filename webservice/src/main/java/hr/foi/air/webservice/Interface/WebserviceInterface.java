@@ -65,7 +65,8 @@ public interface WebserviceInterface {
     @POST("prijaviPrisustvo.php")
     Call<AttendanceResponse> setAttendance(
             @Field("idRaspored") int idRaspored,
-            @Field("idKorisnik") int idKorisnik
+            @Field("idKorisnik") int idKorisnik,
+            @Field("pin") String pin
     );
 
     /**

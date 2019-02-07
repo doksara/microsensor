@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +46,18 @@ public class CodeModuleFragment extends Fragment implements AttendanceModule {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        EditText unosKoda = (EditText) view.findViewById(R.id.unosKoda);
-        String pin = unosKoda.getText().toString();
-        form.setPin(pin);
+        final EditText unosKoda = (EditText) view.findViewById(R.id.unosKoda);
+        unosKoda.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+
+                form.setPin(unosKoda.getText().toString());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
         ButterKnife.bind(this, view);
     }
 

@@ -15,9 +15,9 @@ public class AttendanceSender extends DataLoader {
      * @param kolegij class ID passed to the HTTP call
      * @param korisnik ID of the user passed to the HTTP call
      */
-    public void sendAttendance(WebserviceInterface webserviceInterface, int kolegij, int korisnik)
+    public void sendAttendance(WebserviceInterface webserviceInterface, int kolegij, int korisnik, String pin)
     {
-        Call<AttendanceResponse> call = webserviceInterface.setAttendance(kolegij, korisnik);
+        Call<AttendanceResponse> call = webserviceInterface.setAttendance(kolegij, korisnik, pin);
         call.enqueue(this);
     }
 

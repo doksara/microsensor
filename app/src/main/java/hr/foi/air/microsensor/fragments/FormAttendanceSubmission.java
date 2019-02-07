@@ -88,10 +88,9 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
     @OnClick(R.id.mSubmitAttendance)
     public void submitAttendance()
     {
-        Toast.makeText(getContext(),this.pin, Toast.LENGTH_SHORT).show();
         AttendanceObservable.getInstance().addObserver(this);
         AttendanceSender controller = new AttendanceSender();
-        controller.sendAttendance(controller.create(), this.idSchedule, this.idUser);
+        controller.sendAttendance(controller.create(), this.idSchedule, this.idUser, this.pin);
     }
 
     /**
@@ -181,6 +180,12 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
                 MessageStudentNotInSubject messageStudentNotInSubject = new MessageStudentNotInSubject();
                 this.parentFragment.setUserAttendsSubjectStatus(false);
                 this.parentFragment.switchFragment(messageStudentNotInSubject);
+                break;
+            }
+            case "Pogresan PIN!":
+            {
+                Toast.makeText(getContext(), "Pogrešan PIN!", Toast.LENGTH_SHORT).show();
+                this.parentFragment.setUserAttendsSubjectStatus(false);
                 break;
             }
             default: break;
