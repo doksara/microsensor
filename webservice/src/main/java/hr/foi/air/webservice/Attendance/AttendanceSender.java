@@ -14,6 +14,7 @@ public class AttendanceSender extends DataLoader {
      * @param webserviceInterface Webservice interface used to make a HTTP call
      * @param kolegij class ID passed to the HTTP call
      * @param korisnik ID of the user passed to the HTTP call
+     * @param pin PIN of the schedule passed to the HTTP call
      */
     public void sendAttendance(WebserviceInterface webserviceInterface, int kolegij, int korisnik, String pin)
     {

@@ -47,6 +47,10 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         // Required empty public constructor
     }
 
+    /**
+     * Sets pin for this fragment.
+     * @param p pin from user input.
+     */
     public void setPin(String p){
         this.pin = p;
     }
@@ -70,9 +74,9 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
         moduleContainer.add(new CodeModuleFragment());
         moduleContainer.add(new QRCodeModuleFragment());
         moduleContainer.add(new PinAttendanceFragment());
-        moduleContainer.get(0).setData(idUser, idSchedule, this);
-        moduleContainer.get(1).setData(idUser, idSchedule, this);
-        moduleContainer.get(2).setData(idUser, idSchedule, this);
+        moduleContainer.get(0).setData(this);
+        moduleContainer.get(1).setData(this);
+        moduleContainer.get(2).setData(this);
         moduleReadyFlag = true;
         ButterKnife.bind(this, view);
         displayFragment();

@@ -80,7 +80,9 @@ public class HomepageActivity extends AppCompatActivity implements BeaconConsume
         setBackStackChangeListener();
         initializeNavigationManager();
         startMainModule();
+
         startBeaconStateNotifier();
+
     }
 
     /**

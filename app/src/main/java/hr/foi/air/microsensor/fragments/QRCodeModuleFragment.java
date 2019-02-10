@@ -81,14 +81,23 @@ public class QRCodeModuleFragment extends Fragment implements AttendanceModule {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setData(Integer idUser, Integer idSchedule, FormAttendanceSubmission f) {
+    public void setData(FormAttendanceSubmission f) {
         form = f;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Fragment getFragment() { return this; }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getModuleID() { return "mQRModule"; }
 }

@@ -59,6 +59,7 @@ public interface WebserviceInterface {
      * POST call towards the server script "prijaviPrisustvo.php".
      * @param idRaspored ID of the schedule
      * @param idKorisnik ID of the current user
+     * @param pin PIN of the schedule
      * @return Retrofit response as {@link AttendanceResponse}
      */
     @FormUrlEncoded

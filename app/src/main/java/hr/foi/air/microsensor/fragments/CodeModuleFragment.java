@@ -61,17 +61,25 @@ public class CodeModuleFragment extends Fragment implements AttendanceModule {
         ButterKnife.bind(this, view);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setData(Integer idUser, Integer idSchedule, FormAttendanceSubmission f) {
+    public void setData(FormAttendanceSubmission f) {
         form = f;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Fragment getFragment() {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getModuleID() { return "mCodeModule";}
 

@@ -14,11 +14,8 @@ import butterknife.ButterKnife;
 import hr.foi.air.microsensor.AttendanceModule;
 
 public class PinAttendanceFragment extends Fragment implements AttendanceModule {
-    Pinview pinview;
-    FormAttendanceSubmission form;
-    public PinAttendanceFragment() {
-        // Required empty public constructor
-    }
+    private Pinview pinview;
+    private FormAttendanceSubmission form;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +43,7 @@ public class PinAttendanceFragment extends Fragment implements AttendanceModule 
      * {@inheritDoc}
      */
     @Override
-    public void setData(Integer idUser, Integer idSchedule, FormAttendanceSubmission f){
+    public void setData(FormAttendanceSubmission f){
         form = f;
     }
 
