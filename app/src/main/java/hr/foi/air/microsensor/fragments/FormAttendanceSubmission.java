@@ -189,7 +189,6 @@ public class FormAttendanceSubmission extends Fragment implements Observer {
             case "Pogresan PIN!":
             {
                 Toast.makeText(getContext(), "Pogrešan PIN!", Toast.LENGTH_SHORT).show();
-                this.parentFragment.setUserAttendsSubjectStatus(false);
                 break;
             }
             default: break;
